@@ -3,6 +3,7 @@ const Product = require('../models/Product');
 const isAdmin = require('../middleware/isAdmin');
 const mongoose = require('mongoose');
 const { getAllCategoryIds } = require('../utils/categoryHelper');
+const Fuse = require('fuse.js');
 const router = express.Router();
 
 // ============================================
@@ -71,14 +72,7 @@ router.get('/', async (req, res) => {
       }
     }
 
-    // Text search
-    if (q) {
-      filter.$or = [
-        { name: { $regex: q, $options: 'i' } },
-        { description: { $regex: q, $options: 'i' } },
-        { tags: { $regex: q, $options: 'i' } }
-      ];
-    }
+    const baseFilter = { ...filter };
 
     // Region filter
     if (region) {
@@ -113,16 +107,64 @@ router.get('/', async (req, res) => {
     const skip = (Number(page) - 1) * Number(limit);
     const limitNum = Math.min(Number(limit), 100);
 
-    // Execute query
-    const [products, total] = await Promise.all([
-      Product.find(filter)
-        .populate('category', 'name slug')
-        .sort(sort)
-        .skip(skip)
-        .limit(limitNum)
-        .lean(),
-      Product.countDocuments(filter)
-    ]);
+    let products = [];
+    let total = 0;
+
+    if (q) {
+      const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const nameRegex = new RegExp(escaped, 'i');
+      const regexFilter = { ...baseFilter, name: nameRegex };
+
+      // Primary: strict name match (partial)
+      const [regexProducts, regexTotal] = await Promise.all([
+        Product.find(regexFilter)
+          .populate('category', 'name slug')
+          .sort(sort)
+          .skip(skip)
+          .limit(limitNum)
+          .lean(),
+        Product.countDocuments(regexFilter)
+      ]);
+
+      if (regexTotal > 0) {
+        products = regexProducts;
+        total = regexTotal;
+      } else {
+        // Fallback: fuzzy search for typos
+        const candidateLimit = Math.min(Math.max(limitNum * 15, 200), 600);
+        const candidates = await Product.find(baseFilter)
+          .populate('category', 'name slug')
+          .limit(candidateLimit)
+          .lean();
+
+        const fuse = new Fuse(candidates, {
+          keys: ['name'],
+          threshold: 0.35,
+          ignoreLocation: true,
+          minMatchCharLength: 2
+        });
+
+        const results = fuse.search(q);
+        total = results.length;
+        products = results
+          .slice(skip, skip + limitNum)
+          .map((result) => result.item);
+      }
+    } else {
+      // Execute query (non-search)
+      const [list, count] = await Promise.all([
+        Product.find(filter)
+          .populate('category', 'name slug')
+          .sort(sort)
+          .skip(skip)
+          .limit(limitNum)
+          .lean(),
+        Product.countDocuments(filter)
+      ]);
+
+      products = list;
+      total = count;
+    }
 
     console.log('📦 Products found:', products.length);
     console.log('📊 Total count:', total);

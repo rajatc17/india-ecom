@@ -6,8 +6,8 @@ const ImageCarousel = ({ images = [], productName }) => {
 
   if (!images || images.length === 0) {
     return (
-      <div className="aspect-square bg-gray-200 rounded-2xl flex items-center justify-center">
-        <span className="text-gray-400">No image available</span>
+      <div className="aspect-square bg-amber-50 rounded-3xl flex items-center justify-center border border-amber-200">
+        <span className="text-amber-900/60">No image available</span>
       </div>
     );
   }
@@ -25,25 +25,32 @@ const ImageCarousel = ({ images = [], productName }) => {
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="relative aspect-square bg-white rounded-2xl shadow-xl overflow-hidden group border border-gray-200">
+      <div className="relative aspect-square bg-white rounded-3xl shadow-lg overflow-hidden group border border-amber-200">
         <img
           src={currentImage.url}
           alt={currentImage.alt || productName}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+
+        <button
+          type="button"
+          className="absolute left-4 top-4 text-xs px-3 py-1 rounded-full bg-white/90 border border-amber-200 text-amber-900/80 shadow-sm"
+        >
+          Virtual Try-On (Soon)
+        </button>
         
         {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
             <button
               onClick={handlePrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-md transition opacity-0 group-hover:opacity-100"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-md transition opacity-0 group-hover:opacity-100"
             >
               <ChevronRight size={24} />
             </button>
@@ -51,7 +58,7 @@ const ImageCarousel = ({ images = [], productName }) => {
         )}
 
         {/* Image Counter */}
-        <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
+        <div className="absolute bottom-4 right-4 bg-amber-900/70 text-white px-3 py-1 rounded-full text-xs">
           {currentIndex + 1} / {images.length}
         </div>
       </div>
@@ -65,8 +72,8 @@ const ImageCarousel = ({ images = [], productName }) => {
               onClick={() => setCurrentIndex(index)}
               className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition ${
                 index === currentIndex
-                  ? 'border-indigo-600 shadow-lg scale-110'
-                  : 'border-gray-200 hover:border-gray-400'
+                  ? 'border-amber-400 shadow-md scale-105'
+                  : 'border-amber-100 hover:border-amber-300'
               }`}
             >
               <img

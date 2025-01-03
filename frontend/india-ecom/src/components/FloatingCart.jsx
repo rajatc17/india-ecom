@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router';
-import { removeFromCart } from '../store/cart/cartSlice';
+import { removeFromCart, selectCartItemsNewestFirst } from '../store/cart/cartSlice';
 import { MdDeleteOutline } from "react-icons/md";
 
 const FloatingCart = () => {
-  const { items } = useSelector((state) => state.cart);
+  const items = useSelector(selectCartItemsNewestFirst);
   const dispatch = useDispatch();
 
   const total = items?.reduce((acc, item) => acc + (item.subtotal || (item.price * item.quantity)), 0) || 0;
@@ -23,7 +23,7 @@ const FloatingCart = () => {
   }
 
   return (
-    <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-[150] overflow-hidden">
+    <div className="absolute top-full right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-[150] overflow-hidden">
       <div className="max-h-96 overflow-y-auto">
         {items.map((item) => (
           <div key={item._id || item.product._id || item.product} className="flex items-center gap-3 p-3 border-b border-gray-50 hover:bg-gray-50 transition-colors">

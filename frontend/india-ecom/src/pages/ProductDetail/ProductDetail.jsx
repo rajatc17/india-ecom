@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductBySlug } from '../../store/product/productSlice';
 import Loader from '../../components/common/Loader';
 import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
-import { ShoppingCart, Heart, Star, MapPin, Award, Package, Truck } from 'lucide-react';
+import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck } from 'lucide-react';
 import { addToCart } from '../../store/cart/cartSlice';
 
 const ProductDetail = () => {
@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const { currentProduct, loading, error } = useSelector((state) => state.products);
   const {cart , cartLoading, cartError} = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState('details');
 
   useEffect(() => {
     dispatch(fetchProductBySlug(slug));
@@ -25,6 +26,10 @@ const ProductDetail = () => {
   const { name, description, price, images, category, region, giTag, stock, rating, reviews } = currentProduct;
   const primaryImage = images?.find((img) => img.isPrimary) || images?.[0];
   const inStock = stock > 0;
+  const shortDescription = description
+    ? description.split('. ').slice(0, 2).join('. ') + (description.includes('.') ? '.' : '')
+    : '';
+  const reviewList = Array.isArray(reviews) ? reviews : [];
 
   const handleAddToCart = () => {
     if(!inStock) return;
@@ -36,76 +41,86 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    <div className="min-h-screen shilpika-bg shilpika-body text-gray-900">
+      <div className="max-w-7xl 2xl:max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-14">
+        {/* Breadcrumbs */}
+        <nav className="mb-6 text-xs sm:text-sm text-amber-900/70 flex flex-wrap items-center gap-2">
+          <span className="hover:text-amber-900 transition">Home</span>
+          <span>›</span>
+          <span className="hover:text-amber-900 transition">{category?.name || 'Category'}</span>
+          <span>›</span>
+          <span className="text-amber-950/90">{name}</span>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-10 lg:gap-16">
           {/* Left: Image Carousel */}
           <div className="lg:sticky lg:top-8 h-fit">
             <ImageCarousel images={images} productName={name} />
           </div>
 
           {/* Right: Product Details */}
-          <div className="space-y-6">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span>Home</span>
-              <span>/</span>
-              <span>{category?.name}</span>
-              <span>/</span>
-              <span className="text-gray-900">{name}</span>
-            </div>
-
+          <div className="space-y-7">
             {/* Product Title */}
             <div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">{name}</h1>
-              {giTag && (
-                <div className="flex items-center gap-2 text-amber-600">
-                  <Award size={20} />
-                  <span className="font-medium">Geographical Indication Tag</span>
-                </div>
-              )}
+              <h1 className="shilpika-heading text-2xl sm:text-3xl lg:text-4xl text-emerald-900 leading-tight">
+                {name}
+              </h1>
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+                {giTag && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-amber-800">
+                    <Award size={16} />
+                    GI Tag Certified
+                  </span>
+                )}
+                {region && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-800">
+                    <MapPin size={16} />
+                    {region}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Rating */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    size={20}
-                    className={i < Math.floor(rating?.average || 0) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+                    size={18}
+                    className={i < Math.floor(rating?.average || 0) ? 'fill-amber-400 text-amber-400' : 'text-amber-100'}
                   />
                 ))}
               </div>
-              <span className="text-gray-600">
-                {rating?.average?.toFixed(1)} ({rating?.count} reviews)
-              </span>
+              <button className="text-sm text-amber-900/80 hover:text-amber-900 transition">
+                {rating?.average?.toFixed(1) || '0.0'} ({rating?.count || 0} reviews)
+              </button>
             </div>
 
             {/* Price */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-              <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-indigo-600">₹{price.toLocaleString('en-IN')}</span>
-                <span className="text-lg text-gray-500 line-through">₹{(price * 1.3).toLocaleString('en-IN')}</span>
-                <span className="text-green-600 font-semibold">23% OFF</span>
+            <div className="rounded-2xl border border-amber-200 bg-white/80 p-5 shadow-sm">
+              <div className="flex flex-wrap items-baseline gap-3">
+                <span className="text-3xl sm:text-4xl font-semibold text-emerald-900">₹{price.toLocaleString('en-IN')}</span>
+                <span className="text-sm text-amber-700 line-through">₹{(price * 1.3).toLocaleString('en-IN')}</span>
+                <span className="text-xs font-semibold text-white bg-[#C5663E] px-2.5 py-1 rounded-full">30% OFF</span>
               </div>
-              <p className="text-sm text-gray-500 mt-2">Inclusive of all taxes</p>
+              <p className="text-xs text-amber-900/70 mt-2">Inclusive of all taxes</p>
             </div>
 
-            {/* Region & Origin */}
-            {region && (
-              <div className="flex items-center gap-2 text-gray-700 bg-blue-50 rounded-lg p-4">
-                <MapPin size={20} className="text-blue-600" />
-                <span className="font-medium">Origin: {region}</span>
-              </div>
+            {/* Short Description */}
+            {shortDescription && (
+              <p className="text-sm sm:text-base text-amber-950/80 leading-relaxed">
+                {shortDescription}
+              </p>
             )}
 
             {/* Stock Status */}
-            <div className="flex items-center gap-2">
-              <Package size={20} className={inStock ? 'text-green-600' : 'text-red-600'} />
-              <span className={`font-semibold ${inStock ? 'text-green-600' : 'text-red-600'}`}>
-                {inStock ? `${stock} units available` : 'Out of Stock'}
+            <div className="flex items-center gap-2 text-sm">
+              <Package size={18} className={inStock ? 'text-emerald-600' : 'text-red-600'} />
+              <span className={`font-medium ${inStock ? 'text-emerald-700' : 'text-red-600'}`}>
+                {inStock ? 'In stock' : 'Out of stock'}
               </span>
+              {inStock && <span className="text-amber-900/70">({stock} available)</span>}
             </div>
 
             {/* Quantity Selector */}
@@ -131,61 +146,164 @@ const ProductDetail = () => {
             )} */}
 
             {/* Action Buttons */}
-            <div className="flex gap-4">
+            <div className="space-y-3">
               <button
                 disabled={!inStock}
-                className="flex-1 cursor-pointer bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                className="w-full cursor-pointer bg-[#C5663E] text-white py-3 rounded-xl text-sm font-semibold hover:bg-[#B35835] transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 onClick={handleAddToCart}
               >
-                <ShoppingCart size={20} />
-                Add to Cart
+                <ShoppingCart size={18} />
+                ADD TO CART
               </button>
-              <button className="p-4 border-2 border-gray-300 rounded-xl hover:border-red-500 hover:text-red-500 transition">
-                <Heart size={24} />
+              <button
+                type="button"
+                className="w-full border border-emerald-900/40 text-emerald-900 py-3 rounded-xl text-sm font-semibold hover:bg-emerald-900 hover:text-white transition"
+              >
+                BUY NOW
+              </button>
+              <button className="flex items-center gap-2 text-sm text-amber-900/80 hover:text-amber-900 transition">
+                <Heart size={18} />
+                Add to Wishlist
               </button>
             </div>
 
-            {/* Delivery Info */}
-            <div className="bg-green-50 rounded-xl p-4 flex items-start gap-3">
-              <Truck size={24} className="text-green-600 flex-shrink-0 mt-1" />
-              <div>
-                <p className="font-semibold text-green-900">Free Delivery</p>
-                <p className="text-sm text-green-700">Delivery in 3-5 business days across India</p>
+            {/* Trust Signals */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-amber-950/80">
+              <div className="flex items-center gap-2 rounded-xl border border-amber-200/70 bg-white/70 px-3 py-2">
+                <Hand size={16} className="text-amber-700" />
+                Handcrafted by Artisans
               </div>
-            </div>
-
-            {/* Description */}
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Description</h2>
-              <p className="text-gray-700 leading-relaxed whitespace-pre-line">{description}</p>
-            </div>
-
-            {/* Product Highlights */}
-            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Highlights</h2>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-600 font-bold">✓</span>
-                  <span className="text-gray-700">100% Authentic Indian Product</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-600 font-bold">✓</span>
-                  <span className="text-gray-700">Sourced directly from {region || 'local artisans'}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-600 font-bold">✓</span>
-                  <span className="text-gray-700">Quality assured and certified</span>
-                </li>
-                {giTag && (
-                  <li className="flex items-start gap-3">
-                    <span className="text-indigo-600 font-bold">✓</span>
-                    <span className="text-gray-700">Protected under GI Tag certification</span>
-                  </li>
-                )}
-              </ul>
+              <div className="flex items-center gap-2 rounded-xl border border-amber-200/70 bg-white/70 px-3 py-2">
+                <BadgeCheck size={16} className="text-emerald-700" />
+                Authentic Quality
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-amber-200/70 bg-white/70 px-3 py-2">
+                <Truck size={16} className="text-[#C5663E]" />
+                Free Shipping India
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Story Section */}
+        <section className="mt-14 lg:mt-20 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+          <div className="rounded-3xl overflow-hidden border border-amber-200 shadow-sm bg-white">
+            {primaryImage?.url ? (
+              <img
+                src={primaryImage.url}
+                alt={primaryImage.alt || name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="aspect-[4/3] bg-amber-50" />
+            )}
+          </div>
+          <div className="space-y-4">
+            <h2 className="shilpika-heading text-2xl sm:text-3xl text-emerald-900">The Story Behind the Weave</h2>
+            <p className="text-sm sm:text-base text-amber-950/80 leading-relaxed">
+              Rooted in {region || 'Indian'} craftsmanship, this piece celebrates timeless artistry and patient handwork. Every detail is composed to honor tradition while feeling modern and wearable.
+            </p>
+            <p className="text-sm sm:text-base text-amber-950/80 leading-relaxed">
+              From loom to wardrobe, each creation reflects heritage, technique, and the hands that shaped it.
+            </p>
+          </div>
+        </section>
+
+        {/* Tabs */}
+        <section className="mt-14 lg:mt-20">
+          <div className="flex flex-wrap gap-3">
+            {[
+              { id: 'details', label: 'Product Details' },
+              { id: 'care', label: 'Care Instructions' },
+              { id: 'shipping', label: 'Shipping & Returns' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-full text-sm border transition ${
+                  activeTab === tab.id
+                    ? 'bg-emerald-900 text-white border-emerald-900'
+                    : 'bg-white/80 text-emerald-900 border-emerald-900/20 hover:border-emerald-900/40'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-amber-200 bg-white/90 p-8 shadow-sm">
+            {activeTab === 'details' && (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-amber-950/80">
+                <li><span className="font-medium">Category:</span> {category?.name || 'N/A'}</li>
+                <li><span className="font-medium">Region:</span> {region || 'N/A'}</li>
+                <li><span className="font-medium">GI Tag:</span> {giTag ? 'Yes' : 'No'}</li>
+                <li><span className="font-medium">Availability:</span> {inStock ? 'In stock' : 'Out of stock'}</li>
+                <li><span className="font-medium">Price:</span> ₹{price.toLocaleString('en-IN')}</li>
+                <li><span className="font-medium">Images:</span> {images?.length || 0}</li>
+              </ul>
+            )}
+
+            {activeTab === 'care' && (
+              <ul className="space-y-2 text-sm text-amber-950/80">
+                <li>• Dry clean only to preserve texture and sheen.</li>
+                <li>• Store in a muslin cloth away from direct sunlight.</li>
+                <li>• Iron on low heat or use steam at a safe distance.</li>
+              </ul>
+            )}
+
+            {activeTab === 'shipping' && (
+              <ul className="space-y-2 text-sm text-amber-950/80">
+                <li>• Dispatches within 24 hours.</li>
+                <li>• Free shipping across India.</li>
+                <li>• Easy 7-day returns on unused items.</li>
+              </ul>
+            )}
+          </div>
+        </section>
+
+        {/* Curated Section */}
+        <section className="mt-14 lg:mt-20">
+          <h2 className="shilpika-heading text-2xl sm:text-3xl text-emerald-900">Curated Just For You</h2>
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-white/80 p-8 text-sm text-amber-950/70">
+            Recommendations tailored to this piece will appear here soon.
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <section className="mt-14 lg:mt-20">
+          <h2 className="shilpika-heading text-2xl sm:text-3xl text-emerald-900">Loved By Our Community</h2>
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-white/90 p-8 shadow-sm">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="text-3xl font-semibold text-emerald-900">{rating?.average?.toFixed(1) || '0.0'}</div>
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className={i < Math.floor(rating?.average || 0) ? 'fill-amber-400 text-amber-400' : 'text-amber-100'}
+                  />
+                ))}
+              </div>
+              <div className="text-sm text-amber-950/70">Based on {rating?.count || 0} reviews</div>
+            </div>
+
+            <div className="mt-4 space-y-4">
+              {reviewList.length === 0 ? (
+                <p className="text-sm text-amber-950/70">No reviews yet. Be the first to share your experience.</p>
+              ) : (
+                reviewList.slice(0, 3).map((review, index) => (
+                  <div key={review._id || index} className="border-t border-amber-100 pt-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-emerald-900">{review?.user?.name || 'Customer'}</span>
+                      <span className="text-xs text-amber-950/60">{review?.createdAt ? new Date(review.createdAt).toLocaleDateString() : ''}</span>
+                    </div>
+                    <p className="mt-2 text-sm text-amber-950/80">{review?.comment || review?.text || 'Lovely craftsmanship and quality.'}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

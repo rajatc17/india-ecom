@@ -1,6 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;500;700&display=swap");
 @import "tailwindcss";
 
 * {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
+}
+
+:root {
+  --shilpika-heading: "Cinzel Decorative", "Cinzel", serif;
+  --shilpika-body: "Lato", "Montserrat", sans-serif;
+}
+
+.shilpika-heading {
+  font-family: var(--shilpika-heading);
+  letter-spacing: 0.01em;
+}
+
+.shilpika-body {
+  font-family: var(--shilpika-body);
+}
+
+.shilpika-bg {
+  background-color: #f8f3ea;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(160, 120, 60, 0.08) 1px, transparent 0),
+    radial-gradient(circle at 20px 20px, rgba(160, 120, 60, 0.06) 1px, transparent 0);
+  background-size: 28px 28px, 36px 36px;
 }

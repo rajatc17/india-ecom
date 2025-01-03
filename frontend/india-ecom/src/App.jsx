@@ -12,13 +12,14 @@ import { setToken } from "./api/client";
 import { fetchCurrentUser } from "./store/auth/authSlice";
 import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
-//import Category from "./pages/Category/Category";
+import Category from "./pages/Category/Category";
 
 //const Login = lazy(()=>import('./pages/Login/Login'))
-const Category = lazy(()=>import('./pages/Category/Category'))
+//const Category = lazy(()=>import('./pages/Category/Category'))
 const Account = lazy(()=>import('./pages/Account/Account'))
 const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
+const Search = lazy(()=>import('./pages/Search/Search'))
 
 const Root = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,14 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={() => <div>Loading...</div>}>
             <Cart />
+          </Suspense>
+        )
+      },
+      {
+        path: '/search',
+        element: (
+          <Suspense fallback={() => <div>Loading...</div>}>
+            <Search />
           </Suspense>
         )
       }

@@ -25,7 +25,9 @@ export const fetchCategoryTree = createAsyncThunk(
         try {
 
             const query = new URLSearchParams(params).toString();
-            const req = await fetch(`http://localhost:5000/api/categories/tree`)
+                        const req = await fetch(
+                            `http://localhost:5000/api/categories/tree${query ? `?${query}` : ''}`
+                        )
 
             const data = await req.json();
 
@@ -71,7 +73,7 @@ const categorySlice = createSlice({
         builder
             .addCase(fetchCategories.pending , (state) => {
                 state.loading = true;
-                state.error - null
+                state.error = null
             })
             .addCase(fetchCategories.fulfilled , (state, action) => {
                 state.loading = false;
@@ -83,7 +85,7 @@ const categorySlice = createSlice({
             })
             .addCase(fetchCategoryTree.pending , (state) => {
                 state.loading = true;
-                state.error - null
+                state.error = null
             })
             .addCase(fetchCategoryTree.fulfilled , (state, action) => {
                 state.loading = false;
@@ -95,7 +97,7 @@ const categorySlice = createSlice({
             })
             .addCase(fetchCategorySlug.pending , (state) => {
                 state.loading = true;
-                state.error - null
+                state.error = null
             })
             .addCase(fetchCategorySlug.fulfilled , (state, action) => {
                 state.loading = false;

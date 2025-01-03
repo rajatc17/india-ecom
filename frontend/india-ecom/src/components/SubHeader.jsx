@@ -45,7 +45,7 @@ const SubHeader = () => {
   const hideTimer = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchCategoryTree());
+    dispatch(fetchCategoryTree({ onlyWithProducts: true }));
   }, [dispatch]);
 
 

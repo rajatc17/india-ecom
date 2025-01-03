@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../api/client';
 
+export const selectCartItemsNewestFirst = (state) =>
+  [...(state?.cart?.items || [])].reverse();
+
 // Helper to get local cart
 const getLocalCart = () => {
   try {

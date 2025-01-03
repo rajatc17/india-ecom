@@ -1,5 +1,5 @@
 import logoNew from '../assets/logoNew.png';
-import { useState  } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom'
 import { IoSearch } from "react-icons/io5";
 import { FaUserLarge } from "react-icons/fa6";
@@ -10,9 +10,17 @@ import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { openLoginModal } from '../store/modal/modalSlice';
 import FloatingCart from './FloatingCart';
+import { api } from '../api/client';
 
 const Header = () => {
-  const [searchText, setSearchText] = useState()
+  const [searchText, setSearchText] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState(null);
+  const [productMatches, setProductMatches] = useState([]);
+  const [categoryMatches, setCategoryMatches] = useState([]);
+  const [categoryCache, setCategoryCache] = useState(null);
+  const blurTimeoutRef = useRef(null);
   const [isCartHovered, setIsCartHovered] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -28,6 +36,72 @@ const Header = () => {
     dispatch(openLoginModal());
   }
 
+  const flattenCategories = (nodes = []) => {
+    const result = [];
+    nodes.forEach((node) => {
+      result.push(node);
+      if (Array.isArray(node.children) && node.children.length > 0) {
+        result.push(...flattenCategories(node.children));
+      }
+    });
+    return result;
+  };
+
+  useEffect(() => {
+    const query = searchText.trim();
+    if (query.length < 2) {
+      setProductMatches([]);
+      setCategoryMatches([]);
+      setSearchLoading(false);
+      setSearchError(null);
+      return;
+    }
+
+    let isActive = true;
+    const controller = new AbortController();
+
+    const timer = setTimeout(async () => {
+      setSearchLoading(true);
+      setSearchError(null);
+      try {
+        const productsPromise = api(
+          `/api/products?${new URLSearchParams({ q: query, limit: 6, sort: "-createdAt" }).toString()}`,
+          { signal: controller.signal }
+        );
+
+        let categories = categoryCache;
+        if (!categories) {
+          const tree = await api('/api/categories/tree?onlyWithProducts=true', { signal: controller.signal });
+          categories = flattenCategories(tree || []);
+          if (isActive) setCategoryCache(categories);
+        }
+
+        const [productsResponse] = await Promise.all([productsPromise]);
+
+        if (!isActive) return;
+
+        const filteredCategories = (categories || []).filter((cat) =>
+          (cat?.name || '').toLowerCase().includes(query.toLowerCase())
+        );
+
+        setProductMatches(productsResponse?.products || []);
+        setCategoryMatches(filteredCategories);
+        setSearchLoading(false);
+      } catch (error) {
+        if (!isActive) return;
+        if (error?.name === 'AbortError') return;
+        setSearchLoading(false);
+        setSearchError(error?.message || 'Failed to search');
+      }
+    }, 300);
+
+    return () => {
+      isActive = false;
+      controller.abort();
+      clearTimeout(timer);
+    };
+  }, [searchText, categoryCache]);
+
   return (
     <>
     <header className="relative bg-white px-1 py-2 z-50">
@@ -36,7 +110,16 @@ const Header = () => {
         <nav className="grid grid-cols-3 items-center gap-4 py-2">
           
           <div className="flex justify-start">
-            <div className='flex items-center gap-0.5 border border-gray-400 focus-within:border-black hover:border-amber-400 px-3 py-2 rounded-3xl transition-colors w-full max-w-xs'>
+            <div className="relative w-full max-w-xs">
+            <form
+              className='flex items-center gap-0.5 border border-gray-400 focus-within:border-black hover:border-amber-400 px-3 py-2 rounded-3xl transition-colors w-full'
+              onSubmit={(e) => {
+                e.preventDefault();
+                const query = searchText.trim();
+                if (!query) return;
+                navigate(`/search?q=${encodeURIComponent(query)}`);
+              }}
+            >
               <IoSearch className='text-zinc-950 flex-shrink-0' size={18} />
               <input 
                 className='w-full rounded-2xl px-2 focus:outline-none bg-transparent' 
@@ -44,7 +127,82 @@ const Header = () => {
                 placeholder='Search' 
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
+                onFocus={() => {
+                  if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
+                  setIsSearchOpen(true);
+                }}
+                onBlur={() => {
+                  blurTimeoutRef.current = setTimeout(() => setIsSearchOpen(false), 150);
+                }}
+                aria-label="Search products"
               />
+            </form>
+
+            {isSearchOpen && searchText.trim().length >= 2 && (
+              <div className="absolute left-0 right-0 mt-2 rounded-xl border border-amber-200 bg-white shadow-lg z-50 overflow-hidden">
+                {searchLoading && (
+                  <div className="px-4 py-3 text-sm text-gray-500">Searching…</div>
+                )}
+
+                {!searchLoading && searchError && (
+                  <div className="px-4 py-3 text-sm text-red-600">{searchError}</div>
+                )}
+
+                {!searchLoading && !searchError && categoryMatches.length > 0 && (
+                  <div className="px-4 pt-3">
+                    <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Categories</div>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {categoryMatches.slice(0, 6).map((cat) => (
+                        <button
+                          key={cat._id || cat.slug}
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            navigate(`/category/${cat.slug}`);
+                          }}
+                          className="text-xs px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition"
+                        >
+                          {cat.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {!searchLoading && !searchError && productMatches.length > 0 && (
+                  <div className="px-4 pb-3 pt-3">
+                    <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Products</div>
+                    <div className="mt-2 space-y-2">
+                      {productMatches.slice(0, 6).map((product) => (
+                        <button
+                          key={product._id}
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            navigate(`/product/${product.slug}`);
+                          }}
+                          className="w-full flex items-center gap-3 rounded-lg border border-transparent hover:border-amber-200 hover:bg-amber-50 p-2 text-left transition"
+                        >
+                          <img
+                            src={product?.images?.[0]?.url}
+                            alt={product?.name}
+                            className="w-10 h-10 rounded-md object-cover bg-gray-100"
+                          />
+                          <div className="min-w-0">
+                            <div className="text-sm font-medium text-gray-900 truncate">{product?.name}</div>
+                            <div className="text-xs text-gray-500">₹{Number(product?.price || 0).toLocaleString('en-IN')}</div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {!searchLoading && !searchError && categoryMatches.length === 0 && productMatches.length === 0 && (
+                  <div className="px-4 py-3 text-sm text-gray-500">No matches found.</div>
+                )}
+              </div>
+            )}
             </div>
           </div>
           
@@ -88,7 +246,7 @@ const Header = () => {
                 >
                   <PiHandbagBold size={24}/>
                 </button>
-                {<FloatingCart />}
+                {isCartHovered && <FloatingCart />}
               </li>
             </ul>
           </div>

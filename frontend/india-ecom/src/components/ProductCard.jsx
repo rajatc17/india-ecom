@@ -1,6 +1,11 @@
 import React from 'react'
 
 const ProductCard = ({product}) => {
+  const primaryImageUrl =
+    product?.images?.find((img) => img?.isPrimary === true)?.url ||
+    product?.images?.[0]?.url ||
+    '';
+
   return (
     <div className='bg-white aspect-[5/6] basis-1/4 h-auto w-full flex-col shadow-xs overflow-hidden rounded-lg hover:shadow-md transition-shadow cursor-pointer'>
         <div className='relative h-[60%]'>
@@ -13,8 +18,12 @@ const ProductCard = ({product}) => {
               </div> :
               null
             }
-            <img className='w-full max-h-full object-cover' 
-            src={ product.images.find((img) => img.isPrimary === true).url } />
+            <img
+              className='w-full max-h-full object-cover'
+              src={primaryImageUrl}
+              alt={product?.name || 'Product'}
+              loading='lazy'
+            />
         </div>
         <div className='px-4 md:text-sm lg:text-base my-1'>
           <p className='font-semibold'>{product.name}</p>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCart, removeFromCart, updateCartItem } from '../../store/cart/cartSlice';
+import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
 
 const getProductId = (item) => item?.product?._id || item?.product;
 
@@ -25,9 +25,10 @@ const getMaxStock = (item) =>
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { items, totalItems, subtotal, total, loading, error } = useSelector(
+  const { totalItems, subtotal, total, loading, error } = useSelector(
     (state) => state.cart
   );
+  const items = useSelector(selectCartItemsNewestFirst);
 
   useEffect(() => {
     dispatch(fetchCart());
