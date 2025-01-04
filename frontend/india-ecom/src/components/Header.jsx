@@ -5,8 +5,6 @@ import { IoSearch } from "react-icons/io5";
 import { FaUserLarge } from "react-icons/fa6";
 import { MdFavoriteBorder } from "react-icons/md";
 import { PiHandbagBold } from "react-icons/pi";
-import { FaRegUser } from "react-icons/fa";
-import { LuUserRound } from "react-icons/lu";
 import { Link, useNavigate } from 'react-router';
 import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,57 +15,82 @@ const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const handleUserLogo = ()=>{
-    //navigate('/login');
+    if(isAuthenticated){
+      navigate('/account');
+      return;
+    }
+    
     dispatch(openLoginModal());
   }
+
   return (
     <>
     <header className="relative bg-white px-1 py-2 overflow-hidden shadow-xl">
-      {/* Texture overlay - now using custom utility */}
-      <div className="absolute inset-0 bg-terracotta-texture opacity-30 pointer-events-none" />
       
-      {/* Header content */}
-      <div className="relative z-10 max-w-8xl mx-auto">
-        <nav className="flex items-center justify-between px-10">
+      <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-10">
+        <nav className="grid grid-cols-3 items-center gap-4 py-2">
           
-          <div className='flex items-center gap-0.5 border-1 border-gray-500 focus:border-black hover:fill-amber-400  px-3 py-2 rounded-3xl'>
-            <IoSearch className='text-zinc-950' />
-            <input className='w-6 rounded-2xl px-2 focus:outline-none' type='text' placeholder='Search' value={searchText}/>
+          <div className="flex justify-start">
+            <div className='flex items-center gap-0.5 border border-gray-400 focus-within:border-black hover:border-amber-400 px-3 py-2 rounded-3xl transition-colors w-full max-w-xs'>
+              <IoSearch className='text-zinc-950 flex-shrink-0' size={18} />
+              <input 
+                className='w-full rounded-2xl px-2 focus:outline-none bg-transparent' 
+                type='text' 
+                placeholder='Search' 
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
           </div>
           
-          <Link to={'/'}>
-          <div className="" >
-            <img className='w-auto h-[80px] object-cover mx-auto' src={logoNew} alt='Shilpika'/>
+          <div className="flex justify-center">
+            <Link to={'/'}>
+              <img 
+                className='w-auto h-[60px] sm:h-[70px] lg:h-[80px] object-cover' 
+                src={logoNew} 
+                alt='Shilpika'
+              />
+            </Link>
           </div>
-          </Link>
 
-          <ul className="flex gap-3 text-black font-semibold">
-            <li className="">
-              <button className='cursor-pointer relative top-1' onClick={handleUserLogo}>
-                <FaUserLarge size={20}/>
-              </button>
-            </li>
-            <li className="">
-              <button className='cursor-pointer'>
-                <MdFavoriteBorder size={25}/>
-              </button>
-            </li>
-            <li className="">
-              <button className='cursor-pointer'>
-                <PiHandbagBold size={24}/>
-              </button>
-            </li>
-          </ul>
+          <div className="flex justify-end">
+            <ul className="flex gap-3 sm:gap-4 items-center">
+              <li>
+                <button 
+                  className='cursor-pointer hover:text-amber-600 transition-colors' 
+                  onClick={handleUserLogo}
+                  aria-label="User account"
+                >
+                  <FaUserLarge size={20}/>
+                </button>
+              </li>
+              <li>
+                <button 
+                  className='cursor-pointer hover:text-amber-600 transition-colors'
+                  aria-label="Wishlist"
+                >
+                  <MdFavoriteBorder size={25}/>
+                </button>
+              </li>
+              <li>
+                <button 
+                  className='cursor-pointer hover:text-amber-600 transition-colors'
+                  aria-label="Shopping cart"
+                >
+                  <PiHandbagBold size={24}/>
+                </button>
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
     </header>
     {
       isLoginModalOpen && !isAuthenticated &&
-      createPortal(<LoginModal />, document.body
-      )
+      createPortal(<LoginModal />, document.body)
     }
     </>
   );

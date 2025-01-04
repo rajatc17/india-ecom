@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductCard = ({product}) => {
   return (
-    <div className='aspect-[5/6] basis-1/4 h-auto w-full flex-col shadow-xs overflow-hidden'>
+    <div className='bg-white aspect-[5/6] basis-1/4 h-auto w-full flex-col shadow-xs overflow-hidden rounded-lg hover:shadow-md transition-shadow cursor-pointer'>
         <div className='relative h-[60%]'>
             {
               product.discount ? 

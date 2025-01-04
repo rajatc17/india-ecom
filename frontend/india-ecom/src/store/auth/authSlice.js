@@ -10,7 +10,6 @@ export const registerUser = createAsyncThunk(
                 body: JSON.stringify(userData)
             });
             
-            // Store token and update API client
             if (data.token) {
                 setToken(data.token);
             }
@@ -31,7 +30,6 @@ export const loginUser = createAsyncThunk(
                 body: JSON.stringify(credentials)
             });
             
-            // Store token and update API client
             if (data.token) {
                 setToken(data.token);
             }
@@ -75,15 +73,17 @@ const authSlice = createSlice({
     initialState: {
         currentUser: null,
         token: localStorage.getItem('token') || null,
-        isAuthenticated: !!localStorage.getItem('token'),
+        isAuthenticated: false,
         loading: false,
         error: null,
+        initialized: false,
     },
     reducers: {
         logout: (state) => {
             state.currentUser = null;
             state.token = null;
             state.isAuthenticated = false;
+            state.initialized = true;
             state.error = null;
             localStorage.removeItem('token');
             setToken(null);
@@ -95,65 +95,41 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // Register
-            .addCase(registerUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.currentUser = action.payload.user;
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
+                state.initialized = true;
+                localStorage.setItem('token', action.payload.token);
+                setToken(action.payload.token);
             })
-            .addCase(registerUser.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-            
             // Login
-            .addCase(loginUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.currentUser = action.payload.user;
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
+                state.initialized = true;
+                localStorage.setItem('token', action.payload.token);
+                setToken(action.payload.token);
             })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-            
             // Fetch current user
-            .addCase(fetchCurrentUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
             .addCase(fetchCurrentUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.currentUser = action.payload;
                 state.isAuthenticated = true;
+                state.initialized = true;
             })
             .addCase(fetchCurrentUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
                 state.isAuthenticated = false;
-            })
-            
-            // Update profile
-            .addCase(updateUserProfile.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(updateUserProfile.fulfilled, (state, action) => {
-                state.loading = false;
-                state.currentUser = action.payload;
-            })
-            .addCase(updateUserProfile.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
+                state.initialized = true;
+                state.token = null;
+                state.currentUser = null;
+                localStorage.removeItem('token');
+                setToken(null);
             });
     }
 });
