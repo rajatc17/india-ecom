@@ -8,6 +8,19 @@ const router = express.Router();
 const signToken = (userId) =>
   jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
+// Check if email exists
+router.post(
+  "/check-email",
+  asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    if (!email)
+      return res.status(400).json({ error: "Email required" });
+
+    const user = await User.findOne({ email });
+    res.json({ exists: !!user });
+  })
+);
+
 // Register
 router.post(
   "/register",

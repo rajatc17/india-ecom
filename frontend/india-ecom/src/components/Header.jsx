@@ -8,14 +8,20 @@ import { PiHandbagBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa";
 import { LuUserRound } from "react-icons/lu";
 import { Link, useNavigate } from 'react-router';
-import Modal from './Modal';
+import LoginModal from './modal/LoginModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { openLoginModal } from '../store/modal/modalSlice';
 
 const Header = () => {
   const [searchText, setSearchText] = useState()
   const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleUserLogo = ()=>{
-    navigate('/login');
+    //navigate('/login');
+    dispatch(openLoginModal());
   }
   return (
     <>
@@ -58,6 +64,11 @@ const Header = () => {
         </nav>
       </div>
     </header>
+    {
+      isLoginModalOpen && !isAuthenticated &&
+      createPortal(<LoginModal />, document.body
+      )
+    }
     </>
   );
 };
