@@ -9,9 +9,11 @@ import { Link, useNavigate } from 'react-router';
 import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { openLoginModal } from '../store/modal/modalSlice';
+import FloatingCart from './FloatingCart';
 
 const Header = () => {
   const [searchText, setSearchText] = useState()
+  const [isCartHovered, setIsCartHovered] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
@@ -28,7 +30,7 @@ const Header = () => {
 
   return (
     <>
-    <header className="relative bg-white px-1 py-2 overflow-hidden shadow-xl">
+    <header className="relative bg-white px-1 py-2 z-50">
       
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-10">
         <nav className="grid grid-cols-3 items-center gap-4 py-2">
@@ -75,13 +77,18 @@ const Header = () => {
                   <MdFavoriteBorder size={25}/>
                 </button>
               </li>
-              <li>
+              <li 
+                className="relative"
+                onMouseEnter={() => setIsCartHovered(true)}
+                onMouseLeave={() => setIsCartHovered(false)}
+              >
                 <button 
-                  className='cursor-pointer hover:text-amber-600 transition-colors'
+                  className='cursor-pointer hover:text-amber-600 transition-colors py-2'
                   aria-label="Shopping cart"
                 >
                   <PiHandbagBold size={24}/>
                 </button>
+                {<FloatingCart />}
               </li>
             </ul>
           </div>

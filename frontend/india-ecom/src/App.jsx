@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "./api/client";
 import { fetchCurrentUser } from "./store/auth/authSlice";
+import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 //import Category from "./pages/Category/Category";
 
@@ -17,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 const Category = lazy(()=>import('./pages/Category/Category'))
 const Account = lazy(()=>import('./pages/Account/Account'))
 const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
+const Cart = lazy(()=>import('./pages/Cart/Cart'))
 
 const Root = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,15 @@ const Root = () => {
     if (storedToken && !isAuthenticated) {
       setToken(storedToken);
       dispatch(fetchCurrentUser());
+    }
+    
+  
+    dispatch(fetchCart());
+  }, [isAuthenticated, dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(syncCart());
     }
   }, [isAuthenticated, dispatch]);
 
@@ -82,6 +93,14 @@ const appRouter = createBrowserRouter([
             <ProductDetail />
           </ProtectedRoute>
         </Suspense>
+      },
+      {
+        path: '/cart',
+        element: (
+          <Suspense fallback={() => <div>Loading...</div>}>
+            <Cart />
+          </Suspense>
+        )
       }
     ],
   },
