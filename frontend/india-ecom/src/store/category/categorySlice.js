@@ -38,6 +38,25 @@ export const fetchCategoryTree = createAsyncThunk(
 
 )
 
+export const fetchCategorySlug = createAsyncThunk(
+    'categories/fetchSlug',
+    async (params = {} , {rejectWithValue}) => {
+        try {
+
+            const query = new URLSearchParams(params).toString();
+            const req = await fetch(`http://localhost:5000/api/categories/?${query}`)
+
+            const data = await req.json();
+
+            return data;
+        }
+        catch(error){
+            return rejectWithValue(error.response)
+        }
+    }
+
+)
+
 const categorySlice = createSlice({
     name : 'categories',
     initialState : {
@@ -71,6 +90,18 @@ const categorySlice = createSlice({
                 state.items = action.payload;
             })
             .addCase(fetchCategoryTree.rejected , (state, action) => {
+                state.loading = false;
+                state.error = action.payload
+            })
+            .addCase(fetchCategorySlug.pending , (state) => {
+                state.loading = true;
+                state.error - null
+            })
+            .addCase(fetchCategorySlug.fulfilled , (state, action) => {
+                state.loading = false;
+                state.items = action.payload;
+            })
+            .addCase(fetchCategorySlug.rejected , (state, action) => {
                 state.loading = false;
                 state.error = action.payload
             })

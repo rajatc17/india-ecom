@@ -1,6 +1,8 @@
 const express = require('express');
 const Product = require('../models/Product');
 const isAdmin = require('../middleware/isAdmin');
+const mongoose = require('mongoose');
+const { getAllCategoryIds } = require('../utils/categoryHelper');
 const router = express.Router();
 
 // ============================================
@@ -11,30 +13,71 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const {
-      q,              // Search query
-      category,       // Category ID
-      region,         // Region filter
-      gi,             // GI-tagged only
-      minPrice,       // Price range
-      maxPrice,
-      inStock,        // Only available products
-      featured,       // Featured products
-      sort = '-createdAt', // Sort field
-      page = 1,       // Pagination
-      limit = 20
+      q, category, region, gi, minPrice, maxPrice,
+      inStock, featured, sort = '-createdAt', page = 1, limit = 20
     } = req.query;
 
+    console.log('📥 Request query params:', req.query);
+    console.log('🔍 Category param:', category);
+
     // Build filter object
-    const filter = { isActive: true }; // Only show active products
+    const filter = { isActive: true };
+
+    // Category filter - support both ID and slug (with hierarchical filtering)
+    if (category) {
+      console.log('🏷️  Processing category filter...');
+      const Category = require('../models/Category');
+      
+      // Check if it's a valid MongoDB ObjectId
+      const isValidObjectId = mongoose.Types.ObjectId.isValid(category) && 
+                              /^[0-9a-fA-F]{24}$/.test(category);
+      
+      console.log('   Is valid ObjectId?', isValidObjectId);
+      
+      let categoryDoc = null;
+      
+      if (isValidObjectId) {
+        // Try to find by ID
+        categoryDoc = await Category.findById(category);
+        console.log('   Found by ID?', categoryDoc ? 'YES' : 'NO');
+      }
+      
+      // If not found by ID, try slug
+      if (!categoryDoc) {
+        console.log('   Trying to find by slug:', category);
+        categoryDoc = await Category.findOne({ slug: category });
+        console.log('   Found by slug?', categoryDoc ? 'YES' : 'NO');
+        if (categoryDoc) {
+          console.log('   Category found:', { id: categoryDoc._id, name: categoryDoc.name, slug: categoryDoc.slug });
+        }
+      }
+      
+      if (categoryDoc) {
+        // Get all descendant category IDs (includes subcategories)
+        const allCategoryIds = await getAllCategoryIds(categoryDoc._id);
+        console.log('   ✅ Category filter applied with', allCategoryIds.length, 'categories (including descendants)');
+        filter.category = { $in: allCategoryIds };
+      } else {
+        console.log('   ❌ Category not found, returning empty results');
+        return res.json({
+          products: [],
+          pagination: {
+            page: Number(page),
+            limit: Math.min(Number(limit), 100),
+            total: 0,
+            pages: 0
+          }
+        });
+      }
+    }
 
     // Text search
     if (q) {
-      filter.$text = { $search: q };
-    }
-
-    // Category filter
-    if (category) {
-      filter.category = category;
+      filter.$or = [
+        { name: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } },
+        { tags: { $regex: q, $options: 'i' } }
+      ];
     }
 
     // Region filter
@@ -44,7 +87,7 @@ router.get('/', async (req, res) => {
 
     // GI-tagged filter
     if (gi === 'true') {
-      filter.giTagged = true;
+      filter.isGITagged = true;
     }
 
     // Price range filter
@@ -57,7 +100,6 @@ router.get('/', async (req, res) => {
     // In stock filter
     if (inStock === 'true') {
       filter.stock = { $gt: 0 };
-      filter.isAvailable = true;
     }
 
     // Featured filter
@@ -65,9 +107,11 @@ router.get('/', async (req, res) => {
       filter.isFeatured = true;
     }
 
+    console.log('🔎 Final filter object:', JSON.stringify(filter, null, 2));
+
     // Pagination
     const skip = (Number(page) - 1) * Number(limit);
-    const limitNum = Math.min(Number(limit), 100); // Max 100 per page
+    const limitNum = Math.min(Number(limit), 100);
 
     // Execute query
     const [products, total] = await Promise.all([
@@ -76,9 +120,12 @@ router.get('/', async (req, res) => {
         .sort(sort)
         .skip(skip)
         .limit(limitNum)
-        .lean(), // Convert to plain JS objects (faster)
+        .lean(),
       Product.countDocuments(filter)
     ]);
+
+    console.log('📦 Products found:', products.length);
+    console.log('📊 Total count:', total);
 
     res.json({
       products,
@@ -90,7 +137,7 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Get products error:', error);
+    console.error('❌ Get products error:', error);
     res.status(500).json({ 
       message: 'Error fetching products', 
       error: error.message 

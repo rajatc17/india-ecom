@@ -1,15 +1,19 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home/Home";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import Header from "./components/Header";
+import SubHeader from "./components/SubHeader";
+import Footer from "./components/Footer";
+import Home from "./pages/Home/Home";
+import Category from "./pages/Category/Category";
 
 const Root = () => {
   return (
     <div className="root" >
       <Header />
+      
+      <SubHeader />
 
       <div className="main-content">
         <Outlet />
@@ -29,6 +33,11 @@ const appRouter = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path : '/category/:slug',        
+        element : <Category />
+      },
+      
     ],
   },
 ]);

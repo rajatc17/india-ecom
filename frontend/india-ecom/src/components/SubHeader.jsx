@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategoryTree } from "../store/category/categorySlice";
+import { Link } from 'react-router';
 
 const SHCatNavMenu = ({ isHovered, category }) => {
   if (!category) return null;
@@ -16,7 +17,9 @@ const SHCatNavMenu = ({ isHovered, category }) => {
       <div className="grid grid-cols-4 gap-6 max-w-7xl mx-auto">
         {category.children.map((cat_lvl1) =>
           <div key={cat_lvl1.id}>
-            <h3 className='text-lg font-semibold mb-3'>{cat_lvl1.name}</h3>
+            <Link to={'/category/' + cat_lvl1.slug}>
+              <h3 className='text-lg font-semibold mb-3'>{cat_lvl1.name}</h3>
+            </Link> 
             <ul className='space-y-2 list-none'>
               {cat_lvl1.children?.map((cat_lvl2) =>
                 <li key={cat_lvl2.id} className='text-sm font-light hover:text-orange-400 cursor-pointer'>
@@ -70,6 +73,7 @@ const SubHeader = () => {
     <div className='sticky top-0 bg-white shadow-sm px-4 text-xs z-50' onMouseLeave={handleSHMouseLeave}>
       <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
         {categoryTree && categoryTree.map((cat) =>
+          <Link to={'/category/' + cat.slug}>
           <li
             key={cat.id}
             className={
@@ -78,8 +82,9 @@ const SubHeader = () => {
             }
             onMouseOver={() => handleCategoryHover(cat)}
           >
-            <span className='text-center'>{cat.name.toUpperCase()}</span>
+              <span className='text-center'>{cat.name.toUpperCase()}</span>
           </li>
+          </Link>
         )}
         <SHCatNavMenu isHovered={isHovered} category={displayCategory} />
       </ul>

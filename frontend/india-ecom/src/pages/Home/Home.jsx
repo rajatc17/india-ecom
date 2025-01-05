@@ -9,12 +9,11 @@ const Home = () => {
   const products = useSelector((state) => state.products.items);
   
   useEffect(()=>{
-    dispatch(fetchProducts({page: 1, limit : 100}));
+    //dispatch(fetchProducts({page: 1, limit : 100}));
   }, [])
 
   return (
     <div className="">
-      <SubHeader />
       <Hero />
     </div>
   );
