@@ -6,34 +6,3 @@
   font-style: normal;
 }
 
-@theme {
-  /* === Color System === */
-  /* Terracotta palette */
-  --color-terracotta-dark: #7A3B2E;
-  --color-terracotta: #8B4535;
-  --color-terracotta-light: #9B5842;
-  
-  /* Gold accent colors */
-  --color-gold-dark: #B8860B;
-  --color-gold: #DAA520;
-  --color-gold-light: #FFD700;
-  
-  /* Copper accent */
-  --color-copper: #B87333;
-  
-  /* === Background Images === */
-  --background-terracotta-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-  
-  /* === Custom Breakpoints (Optional) === */
-  --breakpoint-3xl: 1920px;
-  
-  /* === Custom Spacing (Optional) === */
-  --spacing-header: 3rem;
-}
-
-/* Custom utility classes using @layer */
-@layer utilities {
-  .bg-terracotta-texture {
-    background-image: var(--background-terracotta-texture);
-  }
-}
