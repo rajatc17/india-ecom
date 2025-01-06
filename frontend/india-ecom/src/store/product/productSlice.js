@@ -4,7 +4,9 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchAll',
     async (params = {} , {rejectWithValue}) => {
         try {
-            const req = await fetch(`http://localhost:5000/api/products`)
+
+            const query = new URLSearchParams(params).toString();
+            const req = await fetch(`http://localhost:5000/api/products?${query}`)
 
             const data = await req.json();
 
@@ -20,6 +22,12 @@ const productSlice = createSlice({
     name : 'products',
     initialState : {
         items : [],
+        pagination : {
+            page : 1,
+            limit : 20,
+            total : 0,
+            pages : 1
+        },
         loading : false,
         error : null,
     },
@@ -34,7 +42,8 @@ const productSlice = createSlice({
             })
             .addCase(fetchProducts.fulfilled , (state, action) => {
                 state.loading = false;
-                state.items = action.payload;
+                state.items = action.payload.products;
+                state.pagination = action.payload.pagination;
             })
             .addCase(fetchProducts.rejected , (state, action) => {
                 state.loading = false;
