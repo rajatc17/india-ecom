@@ -16,7 +16,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-amber-100">
+    <div className="">
       <Hero />
     </div>
   );
