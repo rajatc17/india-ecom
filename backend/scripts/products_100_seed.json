@@ -1,0 +1,5612 @@
+[
+  {
+    "name": "Blue Pottery Vase Floral",
+    "slug": "blue-pottery-vase-floral",
+    "sku": "PROD-001",
+    "description": "Handmade Blue Pottery Vase Floral by Kripal Singh. Features intricate detailing and superior craftsmanship. Made from high-quality Clay Glass.",
+    "category": "{REF:blue-pottery-jaipur}",
+    "price": 2499,
+    "discountedPrice": 2124,
+    "discount": 15,
+    "stock": 24,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kripal Singh",
+    "material": "Clay Glass",
+    "weight": 850,
+    "dimensions": {
+      "length": 38,
+      "width": 11,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Blue Pottery Vase Floral View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Blue Pottery Vase Floral View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Blue Pottery Vase Floral View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Blue Pottery Vase Floral View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Jaipur Rajasthan",
+    "giTagged": true,
+    "tags": [
+      "blue",
+      "pottery",
+      "vase",
+      "clay",
+      "jaipur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 79,
+    "shippingWeight": 1015,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Blue Pottery Plate Medium",
+    "slug": "blue-pottery-plate-medium",
+    "sku": "PROD-002",
+    "description": "Handmade Blue Pottery Plate Medium by Neerja Blue. Features intricate detailing and superior craftsmanship. Made from high-quality Clay Quartz.",
+    "category": "{REF:blue-pottery-jaipur}",
+    "price": 1299,
+    "discountedPrice": 1143,
+    "discount": 12,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Neerja Blue",
+    "material": "Clay Quartz",
+    "weight": 650,
+    "dimensions": {
+      "length": 34,
+      "width": 22,
+      "height": 13
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Blue Pottery Plate Medium View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Blue Pottery Plate Medium View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Jaipur Rajasthan",
+    "giTagged": true,
+    "tags": [
+      "blue",
+      "pottery",
+      "plate",
+      "clay",
+      "jaipur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 50,
+    "shippingWeight": 809,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Khurja Dinner Set 24pc",
+    "slug": "khurja-dinner-set-24pc",
+    "sku": "PROD-003",
+    "description": "Handmade Khurja Dinner Set 24pc by Khurja Pottery. Features intricate detailing and superior craftsmanship. Made from high-quality Ceramic.",
+    "category": "{REF:khurja-pottery}",
+    "price": 3499,
+    "discountedPrice": 2799,
+    "discount": 20,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Khurja Pottery",
+    "material": "Ceramic",
+    "weight": 8500,
+    "dimensions": {
+      "length": 33,
+      "width": 19,
+      "height": 11
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Khurja Dinner Set 24pc View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Khurja Dinner Set 24pc View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Khurja Dinner Set 24pc View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Khurja UP",
+    "giTagged": true,
+    "tags": [
+      "khurja",
+      "dinner",
+      "set",
+      "ceramic",
+      "khurja",
+      "gi-tagged"
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 40,
+    "shippingWeight": 8669,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Khurja Coffee Mug Set 6pc",
+    "slug": "khurja-coffee-mug-set-6pc",
+    "sku": "PROD-004",
+    "description": "Khurja Coffee Mug Set 6pc - A timeless piece reflecting Indian artisan skills. Crafted from Ceramic in Khurja UP. Ideal for both daily use and special occasions.",
+    "category": "{REF:khurja-pottery}",
+    "price": 899,
+    "discountedPrice": 809,
+    "discount": 10,
+    "stock": 42,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Khurja Ceramic",
+    "material": "Ceramic",
+    "weight": 850,
+    "dimensions": {
+      "length": 12,
+      "width": 22,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Khurja Coffee Mug Set 6pc View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Khurja Coffee Mug Set 6pc View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Khurja Coffee Mug Set 6pc View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Khurja Coffee Mug Set 6pc View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Khurja UP",
+    "giTagged": true,
+    "tags": [
+      "khurja",
+      "coffee",
+      "mug",
+      "ceramic",
+      "khurja",
+      "gi-tagged"
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 71,
+    "shippingWeight": 939,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Longpi Cooking Pot Medium",
+    "slug": "longpi-cooking-pot-medium",
+    "sku": "PROD-005",
+    "description": "Handmade Longpi Cooking Pot Medium by Longpi Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Serpentinite.",
+    "category": "{REF:longpi-black-pottery}",
+    "price": 1299,
+    "discountedPrice": 1195,
+    "discount": 8,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Longpi Craft",
+    "material": "Serpentinite",
+    "weight": 1400,
+    "dimensions": {
+      "length": 39,
+      "width": 28,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Longpi Cooking Pot Medium View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Longpi Cooking Pot Medium View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Manipur",
+    "giTagged": true,
+    "tags": [
+      "longpi",
+      "cooking",
+      "pot",
+      "serpentinite",
+      "manipur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 67,
+    "shippingWeight": 1594,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Longpi Tea Set 4 Cups",
+    "slug": "longpi-tea-set-4-cups",
+    "sku": "PROD-006",
+    "description": "Handmade Longpi Tea Set 4 Cups by Manipur Art. Features intricate detailing and superior craftsmanship. Made from high-quality Serpentinite.",
+    "category": "{REF:longpi-black-pottery}",
+    "price": 1899,
+    "discountedPrice": 1671,
+    "discount": 12,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Manipur Art",
+    "material": "Serpentinite",
+    "weight": 950,
+    "dimensions": {
+      "length": 25,
+      "width": 12,
+      "height": 12
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Longpi Tea Set 4 Cups View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Longpi Tea Set 4 Cups View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Longpi Tea Set 4 Cups View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Longpi Tea Set 4 Cups View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Manipur",
+    "giTagged": true,
+    "tags": [
+      "longpi",
+      "tea",
+      "set",
+      "serpentinite",
+      "manipur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 8,
+    "shippingWeight": 1089,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Terracotta Planter Large",
+    "slug": "terracotta-planter-large",
+    "sku": "PROD-007",
+    "description": "Authentic Terracotta Planter Large handcrafted by skilled artisans. Made from Clay using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:terracotta}",
+    "price": 399,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 68,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Clay Craft",
+    "material": "Clay",
+    "weight": 1500,
+    "dimensions": {
+      "length": 34,
+      "width": 27,
+      "height": 20
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Terracotta Planter Large View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Terracotta Planter Large View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Terracotta Planter Large View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Terracotta Planter Large View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "West Bengal",
+    "giTagged": false,
+    "tags": [
+      "terracotta",
+      "planter",
+      "large",
+      "clay",
+      "west"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 140,
+    "shippingWeight": 1670,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Terracotta Diya Set 12pc",
+    "slug": "terracotta-diya-set-12pc",
+    "sku": "PROD-008",
+    "description": "Handmade Terracotta Diya Set 12pc by Earthen Art. Features intricate detailing and superior craftsmanship. Made from high-quality Clay.",
+    "category": "{REF:terracotta}",
+    "price": 299,
+    "discountedPrice": 269,
+    "discount": 10,
+    "stock": 124,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Earthen Art",
+    "material": "Clay",
+    "weight": 420,
+    "dimensions": {
+      "length": 32,
+      "width": 13,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Terracotta Diya Set 12pc View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Terracotta Diya Set 12pc View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Terracotta Diya Set 12pc View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Terracotta Diya Set 12pc View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "terracotta",
+      "diya",
+      "set",
+      "clay",
+      "multiple"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 8,
+    "shippingWeight": 532,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Molela Horse Plaque",
+    "slug": "molela-horse-plaque",
+    "sku": "PROD-009",
+    "description": "Molela Horse Plaque - A timeless piece reflecting Indian artisan skills. Crafted from Clay in Rajasthan. Ideal for both daily use and special occasions.",
+    "category": "{REF:molela-clay-art}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Molela Artists",
+    "material": "Clay",
+    "weight": 750,
+    "dimensions": {
+      "length": 25,
+      "width": 20,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Molela Horse Plaque View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Molela Horse Plaque View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": true,
+    "tags": [
+      "molela",
+      "horse",
+      "plaque",
+      "clay",
+      "rajasthan",
+      "gi-tagged"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 120,
+    "shippingWeight": 898,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Molela Elephant Wall Art",
+    "slug": "molela-elephant-wall-art",
+    "sku": "PROD-010",
+    "description": "Molela Elephant Wall Art - A timeless piece reflecting Indian artisan skills. Crafted from Clay in Rajasthan. Ideal for both daily use and special occasions.",
+    "category": "{REF:molela-clay-art}",
+    "price": 1199,
+    "discountedPrice": 1019,
+    "discount": 15,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Molela Craft",
+    "material": "Clay",
+    "weight": 980,
+    "dimensions": {
+      "length": 20,
+      "width": 14,
+      "height": 14
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Molela Elephant Wall Art View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Molela Elephant Wall Art View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Molela Elephant Wall Art View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Molela Elephant Wall Art View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": true,
+    "tags": [
+      "molela",
+      "elephant",
+      "wall",
+      "clay",
+      "rajasthan",
+      "gi-tagged"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 14,
+    "shippingWeight": 1160,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Bidriware Vase Silver Inlay",
+    "slug": "bidriware-vase-silver-inlay",
+    "sku": "PROD-011",
+    "description": "Handmade Bidriware Vase Silver Inlay by Karnataka Bidri. Features intricate detailing and superior craftsmanship. Made from high-quality Zinc Silver.",
+    "category": "{REF:bidriware}",
+    "price": 4999,
+    "discountedPrice": 4099,
+    "discount": 18,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Karnataka Bidri",
+    "material": "Zinc Silver",
+    "weight": 1800,
+    "dimensions": {
+      "length": 22,
+      "width": 15,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Bidriware Vase Silver Inlay View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Bidriware Vase Silver Inlay View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Bidriware Vase Silver Inlay View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Bidar Karnataka",
+    "giTagged": true,
+    "tags": [
+      "bidriware",
+      "vase",
+      "silver",
+      "zinc",
+      "bidar",
+      "gi-tagged"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 62,
+    "shippingWeight": 1975,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Bidriware Jewelry Box",
+    "slug": "bidriware-jewelry-box",
+    "sku": "PROD-012",
+    "description": "Traditional Bidriware Jewelry Box showcasing the rich cultural heritage of Bidar Karnataka. Crafted with care using Zinc Silver. A beautiful addition to any collection.",
+    "category": "{REF:bidriware}",
+    "price": 3799,
+    "discountedPrice": 3229,
+    "discount": 15,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Bidar Craft",
+    "material": "Zinc Silver",
+    "weight": 850,
+    "dimensions": {
+      "length": 17,
+      "width": 18,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Bidriware Jewelry Box View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Bidriware Jewelry Box View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Bidriware Jewelry Box View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Bidriware Jewelry Box View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Bidar Karnataka",
+    "giTagged": true,
+    "tags": [
+      "bidriware",
+      "jewelry",
+      "box",
+      "zinc",
+      "bidar",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 141,
+    "shippingWeight": 983,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Dhokra Dancing Girl",
+    "slug": "dhokra-dancing-girl",
+    "sku": "PROD-013",
+    "description": "Traditional Dhokra Dancing Girl showcasing the rich cultural heritage of Bastar Chhattisgarh. Crafted with care using Brass. A beautiful addition to any collection.",
+    "category": "{REF:dhokra}",
+    "price": 2299,
+    "discountedPrice": 1954,
+    "discount": 15,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Bastar Tribal",
+    "material": "Brass",
+    "weight": 450,
+    "dimensions": {
+      "length": 35,
+      "width": 23,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Dhokra Dancing Girl View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Dhokra Dancing Girl View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Dhokra Dancing Girl View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Bastar Chhattisgarh",
+    "giTagged": true,
+    "tags": [
+      "dhokra",
+      "dancing",
+      "girl",
+      "brass",
+      "bastar",
+      "gi-tagged"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 139,
+    "shippingWeight": 533,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Dhokra Tribal Necklace",
+    "slug": "dhokra-tribal-necklace",
+    "sku": "PROD-014",
+    "description": "Authentic Dhokra Tribal Necklace handcrafted by skilled artisans. Made from Brass using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:dhokra}",
+    "price": 1899,
+    "discountedPrice": 1671,
+    "discount": 12,
+    "stock": 24,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Tribal Art Co",
+    "material": "Brass",
+    "weight": 85,
+    "dimensions": {
+      "length": 14,
+      "width": 13,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Dhokra Tribal Necklace View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Dhokra Tribal Necklace View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Dhokra Tribal Necklace View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Bastar Chhattisgarh",
+    "giTagged": true,
+    "tags": [
+      "dhokra",
+      "tribal",
+      "necklace",
+      "brass",
+      "bastar",
+      "gi-tagged"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 21,
+    "shippingWeight": 195,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Thanjavur Brass Plate Temple",
+    "slug": "thanjavur-brass-plate-temple",
+    "sku": "PROD-015",
+    "description": "Authentic Thanjavur Brass Plate Temple handcrafted by skilled artisans. Made from Brass using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:thanjavur-plates}",
+    "price": 1799,
+    "discountedPrice": 1619,
+    "discount": 10,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Thanjavur Craft",
+    "material": "Brass",
+    "weight": 850,
+    "dimensions": {
+      "length": 27,
+      "width": 22,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Thanjavur Brass Plate Temple View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Thanjavur Brass Plate Temple View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Thanjavur Brass Plate Temple View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Thanjavur TN",
+    "giTagged": true,
+    "tags": [
+      "thanjavur",
+      "brass",
+      "plate",
+      "brass",
+      "thanjavur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 141,
+    "shippingWeight": 963,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Thanjavur Brass Lamp",
+    "slug": "thanjavur-brass-lamp",
+    "sku": "PROD-016",
+    "description": "Traditional Thanjavur Brass Lamp showcasing the rich cultural heritage of Thanjavur TN. Crafted with care using Brass. A beautiful addition to any collection.",
+    "category": "{REF:thanjavur-plates}",
+    "price": 2299,
+    "discountedPrice": 1954,
+    "discount": 15,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "TN Brass",
+    "material": "Brass",
+    "weight": 1200,
+    "dimensions": {
+      "length": 34,
+      "width": 19,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Thanjavur Brass Lamp View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Thanjavur Brass Lamp View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Thanjavur TN",
+    "giTagged": true,
+    "tags": [
+      "thanjavur",
+      "brass",
+      "lamp",
+      "brass",
+      "thanjavur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 141,
+    "shippingWeight": 1326,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Moradabad Brass Tea Set",
+    "slug": "moradabad-brass-tea-set",
+    "sku": "PROD-017",
+    "description": "Authentic Moradabad Brass Tea Set handcrafted by skilled artisans. Made from Brass using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:moradabad-brassware}",
+    "price": 2899,
+    "discountedPrice": 2319,
+    "discount": 20,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Moradabad Brass",
+    "material": "Brass",
+    "weight": 1500,
+    "dimensions": {
+      "length": 34,
+      "width": 25,
+      "height": 12
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Moradabad Brass Tea Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Moradabad Brass Tea Set View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Moradabad UP",
+    "giTagged": false,
+    "tags": [
+      "moradabad",
+      "brass",
+      "tea",
+      "brass",
+      "moradabad"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 47,
+    "shippingWeight": 1686,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Moradabad Flower Vase",
+    "slug": "moradabad-flower-vase",
+    "sku": "PROD-018",
+    "description": "Handmade Moradabad Flower Vase by Brass House. Features intricate detailing and superior craftsmanship. Made from high-quality Brass.",
+    "category": "{REF:moradabad-brassware}",
+    "price": 1599,
+    "discountedPrice": 1407,
+    "discount": 12,
+    "stock": 28,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Brass House",
+    "material": "Brass",
+    "weight": 950,
+    "dimensions": {
+      "length": 37,
+      "width": 13,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Moradabad Flower Vase View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Moradabad Flower Vase View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Moradabad UP",
+    "giTagged": false,
+    "tags": [
+      "moradabad",
+      "flower",
+      "vase",
+      "brass",
+      "moradabad"
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 116,
+    "shippingWeight": 1123,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Silver Filigree Box",
+    "slug": "silver-filigree-box",
+    "sku": "PROD-019",
+    "description": "Traditional Silver Filigree Box showcasing the rich cultural heritage of Cuttack Odisha. Crafted with care using Silver. A beautiful addition to any collection.",
+    "category": "{REF:silver-filigree}",
+    "price": 3499,
+    "discountedPrice": 3079,
+    "discount": 12,
+    "stock": 11,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Cuttack Filigree",
+    "material": "Silver",
+    "weight": 280,
+    "dimensions": {
+      "length": 28,
+      "width": 26,
+      "height": 13
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Silver Filigree Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Silver Filigree Box View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Silver Filigree Box View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Silver Filigree Box View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Cuttack Odisha",
+    "giTagged": true,
+    "tags": [
+      "silver",
+      "filigree",
+      "box",
+      "silver",
+      "cuttack",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 54,
+    "shippingWeight": 353,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Silver Filigree Earrings",
+    "slug": "silver-filigree-earrings",
+    "sku": "PROD-020",
+    "description": "Handmade Silver Filigree Earrings by Odisha Silver. Features intricate detailing and superior craftsmanship. Made from high-quality Silver.",
+    "category": "{REF:silver-filigree}",
+    "price": 1899,
+    "discountedPrice": 1709,
+    "discount": 10,
+    "stock": 34,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Odisha Silver",
+    "material": "Silver",
+    "weight": 45,
+    "dimensions": {
+      "length": 33,
+      "width": 27,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Silver Filigree Earrings View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Silver Filigree Earrings View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Silver Filigree Earrings View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Cuttack Odisha",
+    "giTagged": true,
+    "tags": [
+      "silver",
+      "filigree",
+      "earrings",
+      "silver",
+      "cuttack",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 27,
+    "shippingWeight": 117,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Saharanpur Wall Mirror Carved",
+    "slug": "saharanpur-wall-mirror-carved",
+    "sku": "PROD-021",
+    "description": "Traditional Saharanpur Wall Mirror Carved showcasing the rich cultural heritage of Saharanpur UP. Crafted with care using Sheesham. A beautiful addition to any collection.",
+    "category": "{REF:saharanpur-woodwork}",
+    "price": 3299,
+    "discountedPrice": 2705,
+    "discount": 18,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Saharanpur Wood",
+    "material": "Sheesham",
+    "weight": 2200,
+    "dimensions": {
+      "length": 37,
+      "width": 19,
+      "height": 21
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Saharanpur Wall Mirror Carved View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Saharanpur Wall Mirror Carved View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Saharanpur UP",
+    "giTagged": true,
+    "tags": [
+      "saharanpur",
+      "wall",
+      "mirror",
+      "sheesham",
+      "saharanpur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 142,
+    "shippingWeight": 2262,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Saharanpur Wooden Tray",
+    "slug": "saharanpur-wooden-tray",
+    "sku": "PROD-022",
+    "description": "Saharanpur Wooden Tray - A timeless piece reflecting Indian artisan skills. Crafted from Sheesham in Saharanpur UP. Ideal for both daily use and special occasions.",
+    "category": "{REF:saharanpur-woodwork}",
+    "price": 1499,
+    "discountedPrice": 1319,
+    "discount": 12,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Wood Carvers",
+    "material": "Sheesham",
+    "weight": 850,
+    "dimensions": {
+      "length": 26,
+      "width": 14,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Saharanpur Wooden Tray View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Saharanpur Wooden Tray View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Saharanpur Wooden Tray View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Saharanpur UP",
+    "giTagged": true,
+    "tags": [
+      "saharanpur",
+      "wooden",
+      "tray",
+      "sheesham",
+      "saharanpur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 24,
+    "shippingWeight": 986,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Bastar Tribal Mask",
+    "slug": "bastar-tribal-mask",
+    "sku": "PROD-023",
+    "description": "Handmade Bastar Tribal Mask by Bastar Collective. Features intricate detailing and superior craftsmanship. Made from high-quality Wood.",
+    "category": "{REF:bastar-art}",
+    "price": 1499,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 19,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Bastar Collective",
+    "material": "Wood",
+    "weight": 650,
+    "dimensions": {
+      "length": 10,
+      "width": 13,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Bastar Tribal Mask View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Bastar Tribal Mask View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Bastar Tribal Mask View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Bastar Tribal Mask View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Bastar Chhattisgarh",
+    "giTagged": false,
+    "tags": [
+      "bastar",
+      "tribal",
+      "mask",
+      "wood",
+      "bastar"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 96,
+    "shippingWeight": 811,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Bastar Wooden Figurine",
+    "slug": "bastar-wooden-figurine",
+    "sku": "PROD-024",
+    "description": "Traditional Bastar Wooden Figurine showcasing the rich cultural heritage of Bastar Chhattisgarh. Crafted with care using Wood. A beautiful addition to any collection.",
+    "category": "{REF:bastar-art}",
+    "price": 999,
+    "discountedPrice": 899,
+    "discount": 10,
+    "stock": 26,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Tribal Craft",
+    "material": "Wood",
+    "weight": 420,
+    "dimensions": {
+      "length": 19,
+      "width": 21,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Bastar Wooden Figurine View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Bastar Wooden Figurine View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Bastar Chhattisgarh",
+    "giTagged": false,
+    "tags": [
+      "bastar",
+      "wooden",
+      "figurine",
+      "wood",
+      "bastar"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 9,
+    "shippingWeight": 489,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Channapatna Toy Set Animals",
+    "slug": "channapatna-toy-set-animals",
+    "sku": "PROD-025",
+    "description": "Traditional Channapatna Toy Set Animals showcasing the rich cultural heritage of Channapatna Karnataka. Crafted with care using Hale Wood. A beautiful addition to any collection.",
+    "category": "{REF:channapatna-wooden-items}",
+    "price": 899,
+    "discountedPrice": 764,
+    "discount": 15,
+    "stock": 42,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Channapatna Toys",
+    "material": "Hale Wood",
+    "weight": 320,
+    "dimensions": {
+      "length": 37,
+      "width": 17,
+      "height": 19
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Channapatna Toy Set Animals View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Channapatna Toy Set Animals View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Channapatna Karnataka",
+    "giTagged": true,
+    "tags": [
+      "channapatna",
+      "toy",
+      "set",
+      "hale",
+      "channapatna",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 134,
+    "shippingWeight": 407,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Channapatna Spinning Tops 5pc",
+    "slug": "channapatna-spinning-tops-5pc",
+    "sku": "PROD-026",
+    "description": "Channapatna Spinning Tops 5pc - A timeless piece reflecting Indian artisan skills. Crafted from Hale Wood in Channapatna Karnataka. Ideal for both daily use and special occasions.",
+    "category": "{REF:channapatna-wooden-items}",
+    "price": 399,
+    "discountedPrice": 359,
+    "discount": 10,
+    "stock": 96,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Toys Coop",
+    "material": "Hale Wood",
+    "weight": 180,
+    "dimensions": {
+      "length": 36,
+      "width": 28,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Channapatna Spinning Tops 5pc View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Channapatna Spinning Tops 5pc View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Channapatna Spinning Tops 5pc View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Channapatna Spinning Tops 5pc View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Channapatna Karnataka",
+    "giTagged": true,
+    "tags": [
+      "channapatna",
+      "spinning",
+      "tops",
+      "hale",
+      "channapatna",
+      "gi-tagged"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 94,
+    "shippingWeight": 300,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kondapalli Bullock Cart",
+    "slug": "kondapalli-bullock-cart",
+    "sku": "PROD-027",
+    "description": "Kondapalli Bullock Cart - A timeless piece reflecting Indian artisan skills. Crafted from Tella Poniki in Kondapalli AP. Ideal for both daily use and special occasions.",
+    "category": "{REF:kondapalli-wooden-crafts}",
+    "price": 799,
+    "discountedPrice": 679,
+    "discount": 15,
+    "stock": 34,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kondapalli Art",
+    "material": "Tella Poniki",
+    "weight": 320,
+    "dimensions": {
+      "length": 19,
+      "width": 26,
+      "height": 11
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Kondapalli Bullock Cart View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kondapalli Bullock Cart View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kondapalli Bullock Cart View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Kondapalli AP",
+    "giTagged": true,
+    "tags": [
+      "kondapalli",
+      "bullock",
+      "cart",
+      "tella",
+      "kondapalli",
+      "gi-tagged"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 131,
+    "shippingWeight": 415,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kondapalli Doll Set",
+    "slug": "kondapalli-doll-set",
+    "sku": "PROD-028",
+    "description": "Handmade Kondapalli Doll Set by AP Wooden Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Tella Poniki.",
+    "category": "{REF:kondapalli-wooden-crafts}",
+    "price": 1299,
+    "discountedPrice": 1143,
+    "discount": 12,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "AP Wooden Craft",
+    "material": "Tella Poniki",
+    "weight": 450,
+    "dimensions": {
+      "length": 10,
+      "width": 18,
+      "height": 15
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kondapalli Doll Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kondapalli Doll Set View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Kondapalli AP",
+    "giTagged": true,
+    "tags": [
+      "kondapalli",
+      "doll",
+      "set",
+      "tella",
+      "kondapalli",
+      "gi-tagged"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 126,
+    "shippingWeight": 580,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Walnut Box Kashmir",
+    "slug": "walnut-box-kashmir",
+    "sku": "PROD-029",
+    "description": "Walnut Box Kashmir - A timeless piece reflecting Indian artisan skills. Crafted from Walnut in Kashmir. Ideal for both daily use and special occasions.",
+    "category": "{REF:walnut-carving-kashmir}",
+    "price": 5499,
+    "discountedPrice": 4399,
+    "discount": 20,
+    "stock": 7,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Kashmir Walnut",
+    "material": "Walnut",
+    "weight": 950,
+    "dimensions": {
+      "length": 39,
+      "width": 13,
+      "height": 22
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Walnut Box Kashmir View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Walnut Box Kashmir View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Walnut Box Kashmir View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Kashmir",
+    "giTagged": true,
+    "tags": [
+      "walnut",
+      "box",
+      "kashmir",
+      "walnut",
+      "kashmir",
+      "gi-tagged"
+    ],
+    "averageRating": 5.0,
+    "reviewCount": 101,
+    "shippingWeight": 1033,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Walnut Photo Frame",
+    "slug": "walnut-photo-frame",
+    "sku": "PROD-030",
+    "description": "Walnut Photo Frame - A timeless piece reflecting Indian artisan skills. Crafted from Walnut in Kashmir. Ideal for both daily use and special occasions.",
+    "category": "{REF:walnut-carving-kashmir}",
+    "price": 2999,
+    "discountedPrice": 2549,
+    "discount": 15,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Kashmiri Craft",
+    "material": "Walnut",
+    "weight": 680,
+    "dimensions": {
+      "length": 13,
+      "width": 22,
+      "height": 22
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Walnut Photo Frame View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Walnut Photo Frame View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Walnut Photo Frame View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Kashmir",
+    "giTagged": true,
+    "tags": [
+      "walnut",
+      "photo",
+      "frame",
+      "walnut",
+      "kashmir",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 6,
+    "shippingWeight": 798,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Agra Marble Inlay Box",
+    "slug": "agra-marble-inlay-box",
+    "sku": "PROD-031",
+    "description": "Authentic Agra Marble Inlay Box handcrafted by skilled artisans. Made from Marble Stone using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:agra-marble-inlay}",
+    "price": 4299,
+    "discountedPrice": 3783,
+    "discount": 12,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Agra Marble",
+    "material": "Marble Stone",
+    "weight": 1250,
+    "dimensions": {
+      "length": 21,
+      "width": 20,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Agra Marble Inlay Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Agra Marble Inlay Box View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Agra UP",
+    "giTagged": true,
+    "tags": [
+      "agra",
+      "marble",
+      "inlay",
+      "marble",
+      "agra",
+      "gi-tagged"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 86,
+    "shippingWeight": 1330,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Agra Marble Coaster Set",
+    "slug": "agra-marble-coaster-set",
+    "sku": "PROD-032",
+    "description": "Agra Marble Coaster Set - A timeless piece reflecting Indian artisan skills. Crafted from Marble Stone in Agra UP. Ideal for both daily use and special occasions.",
+    "category": "{REF:agra-marble-inlay}",
+    "price": 1899,
+    "discountedPrice": 1614,
+    "discount": 15,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Marble Emporium",
+    "material": "Marble Stone",
+    "weight": 680,
+    "dimensions": {
+      "length": 14,
+      "width": 22,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Agra Marble Coaster Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Agra Marble Coaster Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Agra Marble Coaster Set View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Agra Marble Coaster Set View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Agra UP",
+    "giTagged": true,
+    "tags": [
+      "agra",
+      "marble",
+      "coaster",
+      "marble",
+      "agra",
+      "gi-tagged"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 23,
+    "shippingWeight": 766,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Odisha Stone Ganesha",
+    "slug": "odisha-stone-ganesha",
+    "sku": "PROD-033",
+    "description": "Odisha Stone Ganesha - A timeless piece reflecting Indian artisan skills. Crafted from Sandstone in Odisha. Ideal for both daily use and special occasions.",
+    "category": "{REF:odisha-stonework}",
+    "price": 2799,
+    "discountedPrice": 2519,
+    "discount": 10,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Odisha Stone",
+    "material": "Sandstone",
+    "weight": 1800,
+    "dimensions": {
+      "length": 29,
+      "width": 17,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Odisha Stone Ganesha View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Odisha Stone Ganesha View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Odisha",
+    "giTagged": true,
+    "tags": [
+      "odisha",
+      "stone",
+      "ganesha",
+      "sandstone",
+      "odisha",
+      "gi-tagged"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 72,
+    "shippingWeight": 1948,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Odisha Stone Lamp",
+    "slug": "odisha-stone-lamp",
+    "sku": "PROD-034",
+    "description": "Odisha Stone Lamp - A timeless piece reflecting Indian artisan skills. Crafted from Sandstone in Odisha. Ideal for both daily use and special occasions.",
+    "category": "{REF:odisha-stonework}",
+    "price": 1599,
+    "discountedPrice": 1407,
+    "discount": 12,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Stone Artisans",
+    "material": "Sandstone",
+    "weight": 1200,
+    "dimensions": {
+      "length": 24,
+      "width": 18,
+      "height": 6
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Odisha Stone Lamp View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Odisha Stone Lamp View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Odisha Stone Lamp View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Odisha Stone Lamp View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Odisha",
+    "giTagged": true,
+    "tags": [
+      "odisha",
+      "stone",
+      "lamp",
+      "sandstone",
+      "odisha",
+      "gi-tagged"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 21,
+    "shippingWeight": 1274,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Soapstone Elephant Statue",
+    "slug": "soapstone-elephant-statue",
+    "sku": "PROD-035",
+    "description": "Traditional Soapstone Elephant Statue showcasing the rich cultural heritage of Karnataka. Crafted with care using Soapstone. A beautiful addition to any collection.",
+    "category": "{REF:soapstone-carving}",
+    "price": 1299,
+    "discountedPrice": 1195,
+    "discount": 8,
+    "stock": 26,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Karnataka Soap",
+    "material": "Soapstone",
+    "weight": 950,
+    "dimensions": {
+      "length": 31,
+      "width": 14,
+      "height": 13
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Soapstone Elephant Statue View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Soapstone Elephant Statue View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Soapstone Elephant Statue View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Karnataka",
+    "giTagged": false,
+    "tags": [
+      "soapstone",
+      "elephant",
+      "statue",
+      "soapstone",
+      "karnataka"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 51,
+    "shippingWeight": 1001,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Soapstone Jewelry Box",
+    "slug": "soapstone-jewelry-box",
+    "sku": "PROD-036",
+    "description": "Handmade Soapstone Jewelry Box by Stone Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Soapstone.",
+    "category": "{REF:soapstone-carving}",
+    "price": 999,
+    "discountedPrice": 899,
+    "discount": 10,
+    "stock": 34,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Stone Craft",
+    "material": "Soapstone",
+    "weight": 480,
+    "dimensions": {
+      "length": 35,
+      "width": 17,
+      "height": 15
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Soapstone Jewelry Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Soapstone Jewelry Box View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Soapstone Jewelry Box View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Karnataka",
+    "giTagged": false,
+    "tags": [
+      "soapstone",
+      "jewelry",
+      "box",
+      "soapstone",
+      "karnataka"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 85,
+    "shippingWeight": 572,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Sandstone Temple Replica",
+    "slug": "sandstone-temple-replica",
+    "sku": "PROD-037",
+    "description": "Handmade Sandstone Temple Replica by Heritage Stone. Features intricate detailing and superior craftsmanship. Made from high-quality Sandstone.",
+    "category": "{REF:sandstone-sculpture}",
+    "price": 8999,
+    "discountedPrice": 7379,
+    "discount": 18,
+    "stock": 5,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Heritage Stone",
+    "material": "Sandstone",
+    "weight": 4500,
+    "dimensions": {
+      "length": 17,
+      "width": 18,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Sandstone Temple Replica View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Sandstone Temple Replica View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Sandstone Temple Replica View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Sandstone Temple Replica View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "sandstone",
+      "temple",
+      "replica",
+      "sandstone",
+      "rajasthan"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 96,
+    "shippingWeight": 4589,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Sandstone Garden Statue",
+    "slug": "sandstone-garden-statue",
+    "sku": "PROD-038",
+    "description": "Authentic Sandstone Garden Statue handcrafted by skilled artisans. Made from Sandstone using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:sandstone-sculpture}",
+    "price": 5499,
+    "discountedPrice": 4674,
+    "discount": 15,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Rajasthan Stone",
+    "material": "Sandstone",
+    "weight": 3200,
+    "dimensions": {
+      "length": 19,
+      "width": 13,
+      "height": 12
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Sandstone Garden Statue View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Sandstone Garden Statue View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "sandstone",
+      "garden",
+      "statue",
+      "sandstone",
+      "rajasthan"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 139,
+    "shippingWeight": 3389,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Assam Cane Chair",
+    "slug": "assam-cane-chair",
+    "sku": "PROD-039",
+    "description": "Assam Cane Chair - A timeless piece reflecting Indian artisan skills. Crafted from Cane in Assam. Ideal for both daily use and special occasions.",
+    "category": "{REF:assam-cane}",
+    "price": 3499,
+    "discountedPrice": 3079,
+    "discount": 12,
+    "stock": 10,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Assam Cane",
+    "material": "Cane",
+    "weight": 5500,
+    "dimensions": {
+      "length": 11,
+      "width": 12,
+      "height": 12
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Assam Cane Chair View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Assam Cane Chair View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Assam",
+    "giTagged": false,
+    "tags": [
+      "assam",
+      "cane",
+      "chair",
+      "cane",
+      "assam"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 91,
+    "shippingWeight": 5586,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Assam Cane Basket Set",
+    "slug": "assam-cane-basket-set",
+    "sku": "PROD-040",
+    "description": "Traditional Assam Cane Basket Set showcasing the rich cultural heritage of Assam. Crafted with care using Cane. A beautiful addition to any collection.",
+    "category": "{REF:assam-cane}",
+    "price": 799,
+    "discountedPrice": 719,
+    "discount": 10,
+    "stock": 42,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "NE Craft",
+    "material": "Cane",
+    "weight": 850,
+    "dimensions": {
+      "length": 22,
+      "width": 21,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Assam Cane Basket Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Assam Cane Basket Set View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Assam",
+    "giTagged": false,
+    "tags": [
+      "assam",
+      "cane",
+      "basket",
+      "cane",
+      "assam"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 78,
+    "shippingWeight": 912,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Tripura Bamboo Lamp",
+    "slug": "tripura-bamboo-lamp",
+    "sku": "PROD-041",
+    "description": "Authentic Tripura Bamboo Lamp handcrafted by skilled artisans. Made from Bamboo using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:tripura-bamboo}",
+    "price": 1299,
+    "discountedPrice": 1104,
+    "discount": 15,
+    "stock": 24,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Tripura Bamboo",
+    "material": "Bamboo",
+    "weight": 680,
+    "dimensions": {
+      "length": 13,
+      "width": 14,
+      "height": 7
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Tripura Bamboo Lamp View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Tripura Bamboo Lamp View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Tripura",
+    "giTagged": false,
+    "tags": [
+      "tripura",
+      "bamboo",
+      "lamp",
+      "bamboo",
+      "tripura"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 23,
+    "shippingWeight": 789,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Tripura Bamboo Tray",
+    "slug": "tripura-bamboo-tray",
+    "sku": "PROD-042",
+    "description": "Handmade Tripura Bamboo Tray by Bamboo Art. Features intricate detailing and superior craftsmanship. Made from high-quality Bamboo.",
+    "category": "{REF:tripura-bamboo}",
+    "price": 599,
+    "discountedPrice": 551,
+    "discount": 8,
+    "stock": 56,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Bamboo Art",
+    "material": "Bamboo",
+    "weight": 420,
+    "dimensions": {
+      "length": 17,
+      "width": 22,
+      "height": 19
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Tripura Bamboo Tray View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Tripura Bamboo Tray View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Tripura Bamboo Tray View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Tripura",
+    "giTagged": false,
+    "tags": [
+      "tripura",
+      "bamboo",
+      "tray",
+      "bamboo",
+      "tripura"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 47,
+    "shippingWeight": 506,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Nagaland Cane Basket",
+    "slug": "nagaland-cane-basket",
+    "sku": "PROD-043",
+    "description": "Traditional Nagaland Cane Basket showcasing the rich cultural heritage of Nagaland. Crafted with care using Cane. A beautiful addition to any collection.",
+    "category": "{REF:nagaland-basketry}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 32,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Naga Artisans",
+    "material": "Cane",
+    "weight": 520,
+    "dimensions": {
+      "length": 20,
+      "width": 19,
+      "height": 23
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Nagaland Cane Basket View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Nagaland Cane Basket View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Nagaland Cane Basket View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Nagaland",
+    "giTagged": false,
+    "tags": [
+      "nagaland",
+      "cane",
+      "basket",
+      "cane",
+      "nagaland"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 36,
+    "shippingWeight": 710,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Nagaland Wall Hanging",
+    "slug": "nagaland-wall-hanging",
+    "sku": "PROD-044",
+    "description": "Handmade Nagaland Wall Hanging by NE Tribal. Features intricate detailing and superior craftsmanship. Made from high-quality Cane.",
+    "category": "{REF:nagaland-basketry}",
+    "price": 1199,
+    "discountedPrice": 1079,
+    "discount": 10,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "NE Tribal",
+    "material": "Cane",
+    "weight": 380,
+    "dimensions": {
+      "length": 10,
+      "width": 27,
+      "height": 13
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Nagaland Wall Hanging View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Nagaland Wall Hanging View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Nagaland",
+    "giTagged": false,
+    "tags": [
+      "nagaland",
+      "wall",
+      "hanging",
+      "cane",
+      "nagaland"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 52,
+    "shippingWeight": 458,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Mizoram Bamboo Box",
+    "slug": "mizoram-bamboo-box",
+    "sku": "PROD-045",
+    "description": "Handmade Mizoram Bamboo Box by Mizoram Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Bamboo.",
+    "category": "{REF:mizoram-handicrafts}",
+    "price": 699,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 48,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Mizoram Craft",
+    "material": "Bamboo",
+    "weight": 320,
+    "dimensions": {
+      "length": 40,
+      "width": 22,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Mizoram Bamboo Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Mizoram Bamboo Box View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Mizoram",
+    "giTagged": false,
+    "tags": [
+      "mizoram",
+      "bamboo",
+      "box",
+      "bamboo",
+      "mizoram"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 49,
+    "shippingWeight": 516,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Mizoram Bamboo Pen Holder",
+    "slug": "mizoram-bamboo-pen-holder",
+    "sku": "PROD-046",
+    "description": "Mizoram Bamboo Pen Holder - A timeless piece reflecting Indian artisan skills. Crafted from Bamboo in Mizoram. Ideal for both daily use and special occasions.",
+    "category": "{REF:mizoram-handicrafts}",
+    "price": 399,
+    "discountedPrice": 359,
+    "discount": 10,
+    "stock": 72,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Mizo Art",
+    "material": "Bamboo",
+    "weight": 150,
+    "dimensions": {
+      "length": 38,
+      "width": 27,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Mizoram Bamboo Pen Holder View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Mizoram Bamboo Pen Holder View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Mizoram Bamboo Pen Holder View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Mizoram",
+    "giTagged": false,
+    "tags": [
+      "mizoram",
+      "bamboo",
+      "pen",
+      "bamboo",
+      "mizoram"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 32,
+    "shippingWeight": 324,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Shantiniketan Leather Bag",
+    "slug": "shantiniketan-leather-bag",
+    "sku": "PROD-047",
+    "description": "Authentic Shantiniketan Leather Bag handcrafted by skilled artisans. Made from Leather using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:shantiniketan-leather}",
+    "price": 2299,
+    "discountedPrice": 1885,
+    "discount": 18,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Shantiniketan Co",
+    "material": "Leather",
+    "weight": 420,
+    "dimensions": {
+      "length": 10,
+      "width": 20,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Shantiniketan Leather Bag View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Shantiniketan Leather Bag View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Shantiniketan WB",
+    "giTagged": true,
+    "tags": [
+      "shantiniketan",
+      "leather",
+      "bag",
+      "leather",
+      "shantiniketan",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 91,
+    "shippingWeight": 519,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Shantiniketan Wallet",
+    "slug": "shantiniketan-wallet",
+    "sku": "PROD-048",
+    "description": "Handmade Shantiniketan Wallet by Bengal Leather. Features intricate detailing and superior craftsmanship. Made from high-quality Leather.",
+    "category": "{REF:shantiniketan-leather}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 45,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Bengal Leather",
+    "material": "Leather",
+    "weight": 120,
+    "dimensions": {
+      "length": 33,
+      "width": 20,
+      "height": 23
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Shantiniketan Wallet View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Shantiniketan Wallet View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Shantiniketan Wallet View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Shantiniketan WB",
+    "giTagged": true,
+    "tags": [
+      "shantiniketan",
+      "wallet",
+      "leather",
+      "shantiniketan",
+      "gi-tagged"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 18,
+    "shippingWeight": 172,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kalpi Handmade Journal",
+    "slug": "kalpi-handmade-journal",
+    "sku": "PROD-049",
+    "description": "Authentic Kalpi Handmade Journal handcrafted by skilled artisans. Made from Handmade Paper using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:kalpi-handmade-paper}",
+    "price": 499,
+    "discountedPrice": 449,
+    "discount": 10,
+    "stock": 68,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kalpi Paper",
+    "material": "Handmade Paper",
+    "weight": 280,
+    "dimensions": {
+      "length": 16,
+      "width": 21,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kalpi Handmade Journal View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kalpi Handmade Journal View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Kalpi Handmade Journal View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kalpi Handmade Journal View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Kalpi UP",
+    "giTagged": false,
+    "tags": [
+      "kalpi",
+      "handmade",
+      "journal",
+      "handmade",
+      "kalpi"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 14,
+    "shippingWeight": 420,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kalpi Gift Box Set",
+    "slug": "kalpi-gift-box-set",
+    "sku": "PROD-050",
+    "description": "Authentic Kalpi Gift Box Set handcrafted by skilled artisans. Made from Handmade Paper using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:kalpi-handmade-paper}",
+    "price": 799,
+    "discountedPrice": 679,
+    "discount": 15,
+    "stock": 42,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Paper Craft UP",
+    "material": "Handmade Paper",
+    "weight": 420,
+    "dimensions": {
+      "length": 35,
+      "width": 22,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kalpi Gift Box Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kalpi Gift Box Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kalpi Gift Box Set View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Kalpi UP",
+    "giTagged": false,
+    "tags": [
+      "kalpi",
+      "gift",
+      "box",
+      "handmade",
+      "kalpi"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 129,
+    "shippingWeight": 483,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Papier Mache Box Kashmir",
+    "slug": "papier-mache-box-kashmir",
+    "sku": "PROD-051",
+    "description": "Traditional Papier Mache Box Kashmir showcasing the rich cultural heritage of Kashmir. Crafted with care using Papier Mache. A beautiful addition to any collection.",
+    "category": "{REF:papier-mache-kashmir}",
+    "price": 1599,
+    "discountedPrice": 1407,
+    "discount": 12,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kashmir Paper",
+    "material": "Papier Mache",
+    "weight": 320,
+    "dimensions": {
+      "length": 27,
+      "width": 20,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Papier Mache Box Kashmir View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Papier Mache Box Kashmir View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Papier Mache Box Kashmir View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Papier Mache Box Kashmir View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Kashmir",
+    "giTagged": true,
+    "tags": [
+      "papier",
+      "mache",
+      "box",
+      "papier",
+      "kashmir",
+      "gi-tagged"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 114,
+    "shippingWeight": 501,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Papier Mache Christmas Ball",
+    "slug": "papier-mache-christmas-ball",
+    "sku": "PROD-052",
+    "description": "Papier Mache Christmas Ball - A timeless piece reflecting Indian artisan skills. Crafted from Papier Mache in Kashmir. Ideal for both daily use and special occasions.",
+    "category": "{REF:papier-mache-kashmir}",
+    "price": 899,
+    "discountedPrice": 809,
+    "discount": 10,
+    "stock": 36,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kashmiri Art",
+    "material": "Papier Mache",
+    "weight": 85,
+    "dimensions": {
+      "length": 37,
+      "width": 20,
+      "height": 19
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Papier Mache Christmas Ball View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Papier Mache Christmas Ball View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Kashmir",
+    "giTagged": true,
+    "tags": [
+      "papier",
+      "mache",
+      "christmas",
+      "papier",
+      "kashmir",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 108,
+    "shippingWeight": 253,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Madhubani Radha Krishna",
+    "slug": "madhubani-radha-krishna",
+    "sku": "PROD-053",
+    "description": "Madhubani Radha Krishna - A timeless piece reflecting Indian artisan skills. Crafted from Paper Dye in Madhubani Bihar. Ideal for both daily use and special occasions.",
+    "category": "{REF:madhubani-bihar}",
+    "price": 3499,
+    "discountedPrice": 2974,
+    "discount": 15,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Mithila Art",
+    "material": "Paper Dye",
+    "weight": 120,
+    "dimensions": {
+      "length": 38,
+      "width": 26,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Madhubani Radha Krishna View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Madhubani Radha Krishna View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Madhubani Radha Krishna View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Madhubani Bihar",
+    "giTagged": true,
+    "tags": [
+      "madhubani",
+      "radha",
+      "krishna",
+      "paper",
+      "madhubani",
+      "gi-tagged"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 59,
+    "shippingWeight": 315,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Madhubani Tree of Life",
+    "slug": "madhubani-tree-of-life",
+    "sku": "PROD-054",
+    "description": "Handmade Madhubani Tree of Life by Bihar Folk. Features intricate detailing and superior craftsmanship. Made from high-quality Paper Dye.",
+    "category": "{REF:madhubani-bihar}",
+    "price": 2999,
+    "discountedPrice": 2639,
+    "discount": 12,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Bihar Folk",
+    "material": "Paper Dye",
+    "weight": 120,
+    "dimensions": {
+      "length": 10,
+      "width": 21,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Madhubani Tree of Life View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Madhubani Tree of Life View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Madhubani Tree of Life View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Madhubani Tree of Life View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Madhubani Bihar",
+    "giTagged": true,
+    "tags": [
+      "madhubani",
+      "tree",
+      "of",
+      "paper",
+      "madhubani",
+      "gi-tagged"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 16,
+    "shippingWeight": 238,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Warli Tribal Dance",
+    "slug": "warli-tribal-dance",
+    "sku": "PROD-055",
+    "description": "Traditional Warli Tribal Dance showcasing the rich cultural heritage of Maharashtra. Crafted with care using Canvas Acrylic. A beautiful addition to any collection.",
+    "category": "{REF:warli-maharashtra}",
+    "price": 2799,
+    "discountedPrice": 2519,
+    "discount": 10,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Warli Collective",
+    "material": "Canvas Acrylic",
+    "weight": 180,
+    "dimensions": {
+      "length": 29,
+      "width": 21,
+      "height": 20
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Warli Tribal Dance View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Warli Tribal Dance View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Maharashtra",
+    "giTagged": false,
+    "tags": [
+      "warli",
+      "tribal",
+      "dance",
+      "canvas",
+      "maharashtra"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 131,
+    "shippingWeight": 232,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Warli Coaster Set 6pc",
+    "slug": "warli-coaster-set-6pc",
+    "sku": "PROD-056",
+    "description": "Handmade Warli Coaster Set 6pc by Tribal Studio. Features intricate detailing and superior craftsmanship. Made from high-quality MDF Acrylic.",
+    "category": "{REF:warli-maharashtra}",
+    "price": 499,
+    "discountedPrice": 449,
+    "discount": 10,
+    "stock": 67,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Tribal Studio",
+    "material": "MDF Acrylic",
+    "weight": 380,
+    "dimensions": {
+      "length": 35,
+      "width": 18,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Warli Coaster Set 6pc View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Warli Coaster Set 6pc View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Maharashtra",
+    "giTagged": false,
+    "tags": [
+      "warli",
+      "coaster",
+      "set",
+      "mdf",
+      "maharashtra"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 98,
+    "shippingWeight": 576,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Pattachitra Jagannath",
+    "slug": "pattachitra-jagannath",
+    "sku": "PROD-057",
+    "description": "Traditional Pattachitra Jagannath showcasing the rich cultural heritage of Puri Odisha. Crafted with care using Cloth Dye. A beautiful addition to any collection.",
+    "category": "{REF:pattachitra-odisha}",
+    "price": 4299,
+    "discountedPrice": 3525,
+    "discount": 18,
+    "stock": 6,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Odisha Patta",
+    "material": "Cloth Dye",
+    "weight": 150,
+    "dimensions": {
+      "length": 14,
+      "width": 26,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Pattachitra Jagannath View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Pattachitra Jagannath View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Pattachitra Jagannath View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Pattachitra Jagannath View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Puri Odisha",
+    "giTagged": true,
+    "tags": [
+      "pattachitra",
+      "jagannath",
+      "cloth",
+      "puri",
+      "gi-tagged"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 134,
+    "shippingWeight": 261,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Pattachitra Wall Hanging",
+    "slug": "pattachitra-wall-hanging",
+    "sku": "PROD-058",
+    "description": "Handmade Pattachitra Wall Hanging by Patta Artists. Features intricate detailing and superior craftsmanship. Made from high-quality Cloth Dye.",
+    "category": "{REF:pattachitra-odisha}",
+    "price": 3599,
+    "discountedPrice": 3059,
+    "discount": 15,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Patta Artists",
+    "material": "Cloth Dye",
+    "weight": 180,
+    "dimensions": {
+      "length": 11,
+      "width": 22,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Pattachitra Wall Hanging View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Pattachitra Wall Hanging View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Puri Odisha",
+    "giTagged": true,
+    "tags": [
+      "pattachitra",
+      "wall",
+      "hanging",
+      "cloth",
+      "puri",
+      "gi-tagged"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 93,
+    "shippingWeight": 239,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Kalamkari Bedsheet",
+    "slug": "kalamkari-bedsheet",
+    "sku": "PROD-059",
+    "description": "Authentic Kalamkari Bedsheet handcrafted by skilled artisans. Made from Cotton Dye using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:kalamkari-andhra-pradesh}",
+    "price": 2999,
+    "discountedPrice": 2399,
+    "discount": 20,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "AP Kalamkari",
+    "material": "Cotton Dye",
+    "weight": 850,
+    "dimensions": {
+      "length": 37,
+      "width": 25,
+      "height": 8
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Kalamkari Bedsheet View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kalamkari Bedsheet View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kalamkari Bedsheet View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kalamkari Bedsheet View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Andhra Pradesh",
+    "giTagged": true,
+    "tags": [
+      "kalamkari",
+      "bedsheet",
+      "cotton",
+      "andhra",
+      "gi-tagged"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 94,
+    "shippingWeight": 938,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kalamkari Wall Art",
+    "slug": "kalamkari-wall-art",
+    "sku": "PROD-060",
+    "description": "Authentic Kalamkari Wall Art handcrafted by skilled artisans. Made from Cotton Dye using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:kalamkari-andhra-pradesh}",
+    "price": 3499,
+    "discountedPrice": 2974,
+    "discount": 15,
+    "stock": 11,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Kalamkari House",
+    "material": "Cotton Dye",
+    "weight": 420,
+    "dimensions": {
+      "length": 33,
+      "width": 25,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kalamkari Wall Art View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Kalamkari Wall Art View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kalamkari Wall Art View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kalamkari Wall Art View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Andhra Pradesh",
+    "giTagged": true,
+    "tags": [
+      "kalamkari",
+      "wall",
+      "art",
+      "cotton",
+      "andhra",
+      "gi-tagged"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 47,
+    "shippingWeight": 563,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Phad Painting Devnarayan",
+    "slug": "phad-painting-devnarayan",
+    "sku": "PROD-061",
+    "description": "Authentic Phad Painting Devnarayan handcrafted by skilled artisans. Made from Cloth Dye using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:phad-rajasthan}",
+    "price": 5499,
+    "discountedPrice": 4509,
+    "discount": 18,
+    "stock": 5,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Phad Artists RJ",
+    "material": "Cloth Dye",
+    "weight": 220,
+    "dimensions": {
+      "length": 18,
+      "width": 13,
+      "height": 12
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Phad Painting Devnarayan View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Phad Painting Devnarayan View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Phad Painting Devnarayan View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Phad Painting Devnarayan View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "phad",
+      "painting",
+      "devnarayan",
+      "cloth",
+      "rajasthan"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 41,
+    "shippingWeight": 353,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Phad Scroll Medium",
+    "slug": "phad-scroll-medium",
+    "sku": "PROD-062",
+    "description": "Handmade Phad Scroll Medium by Rajasthan Phad. Features intricate detailing and superior craftsmanship. Made from high-quality Cloth Dye.",
+    "category": "{REF:phad-rajasthan}",
+    "price": 3999,
+    "discountedPrice": 3399,
+    "discount": 15,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Rajasthan Phad",
+    "material": "Cloth Dye",
+    "weight": 180,
+    "dimensions": {
+      "length": 20,
+      "width": 29,
+      "height": 15
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Phad Scroll Medium View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Phad Scroll Medium View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Phad Scroll Medium View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "phad",
+      "scroll",
+      "medium",
+      "cloth",
+      "rajasthan"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 25,
+    "shippingWeight": 288,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Gond Art Tiger",
+    "slug": "gond-art-tiger",
+    "sku": "PROD-063",
+    "description": "Traditional Gond Art Tiger showcasing the rich cultural heritage of Madhya Pradesh. Crafted with care using Paper Acrylic. A beautiful addition to any collection.",
+    "category": "{REF:gond-madhya-pradesh}",
+    "price": 2799,
+    "discountedPrice": 2463,
+    "discount": 12,
+    "stock": 14,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Gond Tribal",
+    "material": "Paper Acrylic",
+    "weight": 150,
+    "dimensions": {
+      "length": 38,
+      "width": 13,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Gond Art Tiger View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Gond Art Tiger View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Gond Art Tiger View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Gond Art Tiger View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Madhya Pradesh",
+    "giTagged": false,
+    "tags": [
+      "gond",
+      "art",
+      "tiger",
+      "paper",
+      "madhya"
+    ],
+    "averageRating": 4.9,
+    "reviewCount": 105,
+    "shippingWeight": 261,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Gond Canvas Large",
+    "slug": "gond-canvas-large",
+    "sku": "PROD-064",
+    "description": "Gond Canvas Large - A timeless piece reflecting Indian artisan skills. Crafted from Canvas Acrylic in Madhya Pradesh. Ideal for both daily use and special occasions.",
+    "category": "{REF:gond-madhya-pradesh}",
+    "price": 4299,
+    "discountedPrice": 3525,
+    "discount": 18,
+    "stock": 7,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "MP Gond Art",
+    "material": "Canvas Acrylic",
+    "weight": 280,
+    "dimensions": {
+      "length": 20,
+      "width": 16,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Gond Canvas Large View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Gond Canvas Large View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Gond Canvas Large View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Gond Canvas Large View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Madhya Pradesh",
+    "giTagged": false,
+    "tags": [
+      "gond",
+      "canvas",
+      "large",
+      "canvas",
+      "madhya"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 135,
+    "shippingWeight": 338,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Brass Diya Lamp",
+    "slug": "brass-diya-lamp",
+    "sku": "PROD-065",
+    "description": "Brass Diya Lamp - A timeless piece reflecting Indian artisan skills. Crafted from Brass in Moradabad UP. Ideal for both daily use and special occasions.",
+    "category": "{REF:lamps-and-lighting}",
+    "price": 649,
+    "discountedPrice": 552,
+    "discount": 15,
+    "stock": 156,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Brass House",
+    "material": "Brass",
+    "weight": 420,
+    "dimensions": {
+      "length": 23,
+      "width": 12,
+      "height": 22
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Brass Diya Lamp View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Brass Diya Lamp View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Moradabad UP",
+    "giTagged": false,
+    "tags": [
+      "brass",
+      "diya",
+      "lamp",
+      "brass",
+      "moradabad"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 121,
+    "shippingWeight": 534,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Terracotta Lamp Shade",
+    "slug": "terracotta-lamp-shade",
+    "sku": "PROD-066",
+    "description": "Terracotta Lamp Shade - A timeless piece reflecting Indian artisan skills. Crafted from Terracotta in Tamil Nadu. Ideal for both daily use and special occasions.",
+    "category": "{REF:lamps-and-lighting}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 48,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Clay Decor",
+    "material": "Terracotta",
+    "weight": 650,
+    "dimensions": {
+      "length": 34,
+      "width": 21,
+      "height": 19
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Terracotta Lamp Shade View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Terracotta Lamp Shade View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Tamil Nadu",
+    "giTagged": false,
+    "tags": [
+      "terracotta",
+      "lamp",
+      "shade",
+      "terracotta",
+      "tamil"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 128,
+    "shippingWeight": 816,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Wooden Name Plate",
+    "slug": "wooden-name-plate",
+    "sku": "PROD-067",
+    "description": "Handmade Wooden Name Plate by Wood Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Wood.",
+    "category": "{REF:nameplates}",
+    "price": 599,
+    "discountedPrice": 539,
+    "discount": 10,
+    "stock": 84,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Wood Craft",
+    "material": "Wood",
+    "weight": 180,
+    "dimensions": {
+      "length": 20,
+      "width": 19,
+      "height": 8
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Wooden Name Plate View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Wooden Name Plate View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "wooden",
+      "name",
+      "plate",
+      "wood",
+      "multiple"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 150,
+    "shippingWeight": 292,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Brass Wall Clock",
+    "slug": "brass-wall-clock",
+    "sku": "PROD-068",
+    "description": "Authentic Brass Wall Clock handcrafted by skilled artisans. Made from Brass Wood using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:clocks}",
+    "price": 1899,
+    "discountedPrice": 1614,
+    "discount": 15,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Time Craft",
+    "material": "Brass Wood",
+    "weight": 980,
+    "dimensions": {
+      "length": 38,
+      "width": 24,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Brass Wall Clock View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Brass Wall Clock View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "brass",
+      "wall",
+      "clock",
+      "brass",
+      "multiple"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 68,
+    "shippingWeight": 1170,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Clay Dinner Set",
+    "slug": "clay-dinner-set",
+    "sku": "PROD-069",
+    "description": "Handmade Clay Dinner Set by Earthen Ware. Features intricate detailing and superior craftsmanship. Made from high-quality Clay.",
+    "category": "{REF:clay-serveware}",
+    "price": 1599,
+    "discountedPrice": 1311,
+    "discount": 18,
+    "stock": 16,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Earthen Ware",
+    "material": "Clay",
+    "weight": 2800,
+    "dimensions": {
+      "length": 34,
+      "width": 12,
+      "height": 10
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Clay Dinner Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Clay Dinner Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Clay Dinner Set View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "clay",
+      "dinner",
+      "set",
+      "clay",
+      "multiple"
+    ],
+    "averageRating": 4.0,
+    "reviewCount": 33,
+    "shippingWeight": 2911,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Brass Serving Bowl",
+    "slug": "brass-serving-bowl",
+    "sku": "PROD-070",
+    "description": "Traditional Brass Serving Bowl showcasing the rich cultural heritage of Multiple. Crafted with care using Brass. A beautiful addition to any collection.",
+    "category": "{REF:copper-and-brass-items}",
+    "price": 1299,
+    "discountedPrice": 1143,
+    "discount": 12,
+    "stock": 28,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Metal Serve",
+    "material": "Brass",
+    "weight": 850,
+    "dimensions": {
+      "length": 22,
+      "width": 28,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Brass Serving Bowl View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Brass Serving Bowl View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Brass Serving Bowl View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "brass",
+      "serving",
+      "bowl",
+      "brass",
+      "multiple"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 17,
+    "shippingWeight": 968,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Bamboo Coaster Set",
+    "slug": "bamboo-coaster-set",
+    "sku": "PROD-071",
+    "description": "Authentic Bamboo Coaster Set handcrafted by skilled artisans. Made from Bamboo using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:bamboo-tableware}",
+    "price": 399,
+    "discountedPrice": 367,
+    "discount": 8,
+    "stock": 96,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Bamboo Life",
+    "material": "Bamboo",
+    "weight": 220,
+    "dimensions": {
+      "length": 27,
+      "width": 24,
+      "height": 24
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Bamboo Coaster Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Bamboo Coaster Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Bamboo Coaster Set View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "NE India",
+    "giTagged": false,
+    "tags": [
+      "bamboo",
+      "coaster",
+      "set",
+      "bamboo",
+      "ne"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 60,
+    "shippingWeight": 361,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Handwoven Cushion Cover",
+    "slug": "handwoven-cushion-cover",
+    "sku": "PROD-072",
+    "description": "Traditional Handwoven Cushion Cover showcasing the rich cultural heritage of Multiple. Crafted with care using Cotton. A beautiful addition to any collection.",
+    "category": "{REF:handwoven-cushion-covers}",
+    "price": 699,
+    "discountedPrice": 594,
+    "discount": 15,
+    "stock": 64,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Weave House",
+    "material": "Cotton",
+    "weight": 180,
+    "dimensions": {
+      "length": 31,
+      "width": 14,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Handwoven Cushion Cover View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Handwoven Cushion Cover View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Handwoven Cushion Cover View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Handwoven Cushion Cover View 4",
+        "isPrimary": true,
+        "order": 4
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "handwoven",
+      "cushion",
+      "cover",
+      "cotton",
+      "multiple"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 21,
+    "shippingWeight": 293,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Darrie Rug Small",
+    "slug": "darrie-rug-small",
+    "sku": "PROD-073",
+    "description": "Authentic Darrie Rug Small handcrafted by skilled artisans. Made from Cotton using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:rugs-and-darries}",
+    "price": 1899,
+    "discountedPrice": 1557,
+    "discount": 18,
+    "stock": 18,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Floor Craft",
+    "material": "Cotton",
+    "weight": 1500,
+    "dimensions": {
+      "length": 29,
+      "width": 21,
+      "height": 15
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Darrie Rug Small View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Darrie Rug Small View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Darrie Rug Small View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "darrie",
+      "rug",
+      "small",
+      "cotton",
+      "rajasthan"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 78,
+    "shippingWeight": 1659,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Madur Mat Medium",
+    "slug": "madur-mat-medium",
+    "sku": "PROD-074",
+    "description": "Madur Mat Medium - A timeless piece reflecting Indian artisan skills. Crafted from Madur Grass in West Bengal. Ideal for both daily use and special occasions.",
+    "category": "{REF:madur-mats}",
+    "price": 799,
+    "discountedPrice": 719,
+    "discount": 10,
+    "stock": 42,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Mat Weavers",
+    "material": "Madur Grass",
+    "weight": 680,
+    "dimensions": {
+      "length": 26,
+      "width": 28,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Madur Mat Medium View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Madur Mat Medium View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Madur Mat Medium View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Madur Mat Medium View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "West Bengal",
+    "giTagged": true,
+    "tags": [
+      "madur",
+      "mat",
+      "medium",
+      "madur",
+      "west",
+      "gi-tagged"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 72,
+    "shippingWeight": 774,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Jute Basket Large",
+    "slug": "jute-basket-large",
+    "sku": "PROD-075",
+    "description": "Traditional Jute Basket Large showcasing the rich cultural heritage of West Bengal. Crafted with care using Jute. A beautiful addition to any collection.",
+    "category": "{REF:jute-baskets}",
+    "price": 599,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 78,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Bengal Jute",
+    "material": "Jute",
+    "weight": 520,
+    "dimensions": {
+      "length": 30,
+      "width": 22,
+      "height": 5
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Jute Basket Large View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Jute Basket Large View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Jute Basket Large View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Jute Basket Large View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "West Bengal",
+    "giTagged": false,
+    "tags": [
+      "jute",
+      "basket",
+      "large",
+      "jute",
+      "west"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 147,
+    "shippingWeight": 603,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Bamboo Storage Box",
+    "slug": "bamboo-storage-box",
+    "sku": "PROD-076",
+    "description": "Traditional Bamboo Storage Box showcasing the rich cultural heritage of Multiple. Crafted with care using Bamboo. A beautiful addition to any collection.",
+    "category": "{REF:bamboo-boxes}",
+    "price": 799,
+    "discountedPrice": 703,
+    "discount": 12,
+    "stock": 48,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Organize Bamboo",
+    "material": "Bamboo",
+    "weight": 420,
+    "dimensions": {
+      "length": 14,
+      "width": 20,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Bamboo Storage Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Bamboo Storage Box View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Bamboo Storage Box View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "bamboo",
+      "storage",
+      "box",
+      "bamboo",
+      "multiple"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 124,
+    "shippingWeight": 577,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Meenakari Necklace",
+    "slug": "meenakari-necklace",
+    "sku": "PROD-077",
+    "description": "Traditional Meenakari Necklace showcasing the rich cultural heritage of Rajasthan. Crafted with care using Gold Plated. A beautiful addition to any collection.",
+    "category": "{REF:meenakari}",
+    "price": 2999,
+    "discountedPrice": 2549,
+    "discount": 15,
+    "stock": 12,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "RJ Meenakari",
+    "material": "Gold Plated",
+    "weight": 85,
+    "dimensions": {
+      "length": 33,
+      "width": 26,
+      "height": 22
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Meenakari Necklace View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Meenakari Necklace View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "meenakari",
+      "necklace",
+      "gold",
+      "rajasthan"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 22,
+    "shippingWeight": 158,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Kundan Earrings",
+    "slug": "kundan-earrings",
+    "sku": "PROD-078",
+    "description": "Authentic Kundan Earrings handcrafted by skilled artisans. Made from Gold Plated using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:kundan}",
+    "price": 1899,
+    "discountedPrice": 1671,
+    "discount": 12,
+    "stock": 24,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kundan House",
+    "material": "Gold Plated",
+    "weight": 45,
+    "dimensions": {
+      "length": 15,
+      "width": 14,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kundan Earrings View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kundan Earrings View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "kundan",
+      "earrings",
+      "gold",
+      "rajasthan"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 140,
+    "shippingWeight": 236,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Silver Tribal Ring",
+    "slug": "silver-tribal-ring",
+    "sku": "PROD-079",
+    "description": "Handmade Silver Tribal Ring by Tribal Silver. Features intricate detailing and superior craftsmanship. Made from high-quality Silver.",
+    "category": "{REF:silver-tribal}",
+    "price": 1299,
+    "discountedPrice": 1169,
+    "discount": 10,
+    "stock": 34,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Tribal Silver",
+    "material": "Silver",
+    "weight": 25,
+    "dimensions": {
+      "length": 10,
+      "width": 22,
+      "height": 14
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Silver Tribal Ring View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Silver Tribal Ring View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Silver Tribal Ring View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Silver Tribal Ring View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Odisha",
+    "giTagged": false,
+    "tags": [
+      "silver",
+      "tribal",
+      "ring",
+      "silver",
+      "odisha"
+    ],
+    "averageRating": 5.0,
+    "reviewCount": 11,
+    "shippingWeight": 104,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Thewa Pendant",
+    "slug": "thewa-pendant",
+    "sku": "PROD-080",
+    "description": "Authentic Thewa Pendant handcrafted by skilled artisans. Made from Gold Glass using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:thewa-rajasthan}",
+    "price": 3499,
+    "discountedPrice": 2869,
+    "discount": 18,
+    "stock": 8,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "Thewa Craft",
+    "material": "Gold Glass",
+    "weight": 35,
+    "dimensions": {
+      "length": 24,
+      "width": 21,
+      "height": 23
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Thewa Pendant View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Thewa Pendant View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": true,
+    "tags": [
+      "thewa",
+      "pendant",
+      "gold",
+      "rajasthan",
+      "gi-tagged"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 85,
+    "shippingWeight": 207,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Varanasi Bead Necklace",
+    "slug": "varanasi-bead-necklace",
+    "sku": "PROD-081",
+    "description": "Authentic Varanasi Bead Necklace handcrafted by skilled artisans. Made from Glass using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:varanasi-beads}",
+    "price": 899,
+    "discountedPrice": 764,
+    "discount": 15,
+    "stock": 48,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Banaras Beads",
+    "material": "Glass",
+    "weight": 65,
+    "dimensions": {
+      "length": 29,
+      "width": 14,
+      "height": 11
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Varanasi Bead Necklace View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Varanasi Bead Necklace View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Varanasi UP",
+    "giTagged": false,
+    "tags": [
+      "varanasi",
+      "bead",
+      "necklace",
+      "glass",
+      "varanasi"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 110,
+    "shippingWeight": 251,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Terracotta Earrings",
+    "slug": "terracotta-earrings",
+    "sku": "PROD-082",
+    "description": "Authentic Terracotta Earrings handcrafted by skilled artisans. Made from Terracotta using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:terracotta-jewellery}",
+    "price": 399,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 96,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Clay Jewelry",
+    "material": "Terracotta",
+    "weight": 25,
+    "dimensions": {
+      "length": 25,
+      "width": 29,
+      "height": 14
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Terracotta Earrings View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Terracotta Earrings View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "terracotta",
+      "earrings",
+      "terracotta",
+      "multiple"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 14,
+    "shippingWeight": 89,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Rudraksha Mala",
+    "slug": "rudraksha-mala",
+    "sku": "PROD-083",
+    "description": "Handmade Rudraksha Mala by Spiritual Store. Features intricate detailing and superior craftsmanship. Made from high-quality Rudraksha.",
+    "category": "{REF:rudraksha}",
+    "price": 1599,
+    "discountedPrice": 1407,
+    "discount": 12,
+    "stock": 28,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Spiritual Store",
+    "material": "Rudraksha",
+    "weight": 45,
+    "dimensions": {
+      "length": 36,
+      "width": 28,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Rudraksha Mala View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Rudraksha Mala View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Rudraksha Mala View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "rudraksha",
+      "mala",
+      "rudraksha",
+      "multiple"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 118,
+    "shippingWeight": 178,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Thread Bangles Set",
+    "slug": "thread-bangles-set",
+    "sku": "PROD-084",
+    "description": "Authentic Thread Bangles Set handcrafted by skilled artisans. Made from Thread using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:thread-jewellery}",
+    "price": 299,
+    "discountedPrice": 269,
+    "discount": 10,
+    "stock": 124,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Thread Art",
+    "material": "Thread",
+    "weight": 35,
+    "dimensions": {
+      "length": 14,
+      "width": 24,
+      "height": 11
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Thread Bangles Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Thread Bangles Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Thread Bangles Set View 3",
+        "isPrimary": true,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Thread Bangles Set View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "thread",
+      "bangles",
+      "set",
+      "thread",
+      "multiple"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 78,
+    "shippingWeight": 159,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Jute Tote Bag",
+    "slug": "jute-tote-bag",
+    "sku": "PROD-085",
+    "description": "Traditional Jute Tote Bag showcasing the rich cultural heritage of West Bengal. Crafted with care using Jute. A beautiful addition to any collection.",
+    "category": "{REF:jute-bags}",
+    "price": 599,
+    "discountedPrice": 509,
+    "discount": 15,
+    "stock": 86,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Eco Bag",
+    "material": "Jute",
+    "weight": 280,
+    "dimensions": {
+      "length": 29,
+      "width": 19,
+      "height": 21
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Jute Tote Bag View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Jute Tote Bag View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Jute Tote Bag View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Jute Tote Bag View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "West Bengal",
+    "giTagged": false,
+    "tags": [
+      "jute",
+      "tote",
+      "bag",
+      "jute",
+      "west"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 80,
+    "shippingWeight": 439,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kolhapuri Chappal",
+    "slug": "kolhapuri-chappal",
+    "sku": "PROD-086",
+    "description": "Kolhapuri Chappal - A timeless piece reflecting Indian artisan skills. Crafted from Leather in Kolhapur MH. Ideal for both daily use and special occasions.",
+    "category": "{REF:kolhapuri-chappals}",
+    "price": 1299,
+    "discountedPrice": 1065,
+    "discount": 18,
+    "stock": 32,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Kolhapur Craft",
+    "material": "Leather",
+    "weight": 420,
+    "dimensions": {
+      "length": 38,
+      "width": 26,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Kolhapuri Chappal View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Kolhapuri Chappal View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Kolhapur MH",
+    "giTagged": true,
+    "tags": [
+      "kolhapuri",
+      "chappal",
+      "leather",
+      "kolhapur",
+      "gi-tagged"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 76,
+    "shippingWeight": 615,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Etikoppaka Toys Set",
+    "slug": "etikoppaka-toys-set",
+    "sku": "PROD-087",
+    "description": "Authentic Etikoppaka Toys Set handcrafted by skilled artisans. Made from Wood using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:etikoppaka-toys}",
+    "price": 699,
+    "discountedPrice": 615,
+    "discount": 12,
+    "stock": 38,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "AP Toys",
+    "material": "Wood",
+    "weight": 280,
+    "dimensions": {
+      "length": 31,
+      "width": 11,
+      "height": 24
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Etikoppaka Toys Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Etikoppaka Toys Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Etikoppaka Toys Set View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Etikoppaka AP",
+    "giTagged": true,
+    "tags": [
+      "etikoppaka",
+      "toys",
+      "set",
+      "wood",
+      "etikoppaka",
+      "gi-tagged"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 45,
+    "shippingWeight": 456,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Varanasi Lac Toys",
+    "slug": "varanasi-lac-toys",
+    "sku": "PROD-088",
+    "description": "Varanasi Lac Toys - A timeless piece reflecting Indian artisan skills. Crafted from Wood Lac in Varanasi UP. Ideal for both daily use and special occasions.",
+    "category": "{REF:varanasi-lac-toys}",
+    "price": 899,
+    "discountedPrice": 764,
+    "discount": 15,
+    "stock": 26,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Banaras Toys",
+    "material": "Wood Lac",
+    "weight": 320,
+    "dimensions": {
+      "length": 34,
+      "width": 23,
+      "height": 10
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Varanasi Lac Toys View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Varanasi Lac Toys View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Varanasi Lac Toys View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Varanasi Lac Toys View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Varanasi UP",
+    "giTagged": false,
+    "tags": [
+      "varanasi",
+      "lac",
+      "toys",
+      "wood",
+      "varanasi"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 114,
+    "shippingWeight": 453,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Heritage Puzzle India Map",
+    "slug": "heritage-puzzle-india-map",
+    "sku": "PROD-089",
+    "description": "Traditional Heritage Puzzle India Map showcasing the rich cultural heritage of Multiple. Crafted with care using Wood. A beautiful addition to any collection.",
+    "category": "{REF:heritage-puzzle-games}",
+    "price": 599,
+    "discountedPrice": 539,
+    "discount": 10,
+    "stock": 54,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Learn Play",
+    "material": "Wood",
+    "weight": 420,
+    "dimensions": {
+      "length": 18,
+      "width": 25,
+      "height": 8
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Heritage Puzzle India Map View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Heritage Puzzle India Map View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Heritage Puzzle India Map View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Heritage Puzzle India Map View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "heritage",
+      "puzzle",
+      "india",
+      "wood",
+      "multiple"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 101,
+    "shippingWeight": 554,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Folk Story Book Set",
+    "slug": "folk-story-book-set",
+    "sku": "PROD-090",
+    "description": "Traditional Folk Story Book Set showcasing the rich cultural heritage of Multiple. Crafted with care using Paper. A beautiful addition to any collection.",
+    "category": "{REF:folk-story-sets}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 38,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Story House",
+    "material": "Paper",
+    "weight": 580,
+    "dimensions": {
+      "length": 12,
+      "width": 23,
+      "height": 16
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Folk Story Book Set View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Folk Story Book Set View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Folk Story Book Set View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "folk",
+      "story",
+      "book",
+      "paper",
+      "multiple"
+    ],
+    "averageRating": 4.2,
+    "reviewCount": 64,
+    "shippingWeight": 724,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "DIY Pottery Kit",
+    "slug": "diy-pottery-kit",
+    "sku": "PROD-091",
+    "description": "Handmade DIY Pottery Kit by Learn Craft. Features intricate detailing and superior craftsmanship. Made from high-quality Clay Tools.",
+    "category": "{REF:craft-diy-kits}",
+    "price": 1299,
+    "discountedPrice": 1104,
+    "discount": 15,
+    "stock": 22,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Learn Craft",
+    "material": "Clay Tools",
+    "weight": 850,
+    "dimensions": {
+      "length": 12,
+      "width": 15,
+      "height": 17
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "DIY Pottery Kit View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "DIY Pottery Kit View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "DIY Pottery Kit View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "diy",
+      "pottery",
+      "kit",
+      "clay",
+      "multiple"
+    ],
+    "averageRating": 4.1,
+    "reviewCount": 111,
+    "shippingWeight": 1021,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Puppet Set Traditional",
+    "slug": "puppet-set-traditional",
+    "sku": "PROD-092",
+    "description": "Puppet Set Traditional - A timeless piece reflecting Indian artisan skills. Crafted from Cloth Wood in Rajasthan. Ideal for both daily use and special occasions.",
+    "category": "{REF:puppet-miniatures}",
+    "price": 799,
+    "discountedPrice": 719,
+    "discount": 10,
+    "stock": 32,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Puppet Art",
+    "material": "Cloth Wood",
+    "weight": 280,
+    "dimensions": {
+      "length": 19,
+      "width": 27,
+      "height": 18
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Puppet Set Traditional View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Puppet Set Traditional View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Puppet Set Traditional View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Puppet Set Traditional View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Rajasthan",
+    "giTagged": false,
+    "tags": [
+      "puppet",
+      "set",
+      "traditional",
+      "cloth",
+      "rajasthan"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 77,
+    "shippingWeight": 473,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Brass Diya 6pc Set",
+    "slug": "brass-diya-6pc-set",
+    "sku": "PROD-093",
+    "description": "Brass Diya 6pc Set - A timeless piece reflecting Indian artisan skills. Crafted from Brass in Multiple. Ideal for both daily use and special occasions.",
+    "category": "{REF:brass-diyas}",
+    "price": 649,
+    "discountedPrice": 552,
+    "discount": 15,
+    "stock": 142,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Puja Brass",
+    "material": "Brass",
+    "weight": 420,
+    "dimensions": {
+      "length": 21,
+      "width": 23,
+      "height": 20
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Brass Diya 6pc Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Brass Diya 6pc Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Brass Diya 6pc Set View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "brass",
+      "diya",
+      "6pc",
+      "brass",
+      "multiple"
+    ],
+    "averageRating": 4.3,
+    "reviewCount": 150,
+    "shippingWeight": 521,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Kalash Brass Set",
+    "slug": "kalash-brass-set",
+    "sku": "PROD-094",
+    "description": "Kalash Brass Set - A timeless piece reflecting Indian artisan skills. Crafted from Brass in Multiple. Ideal for both daily use and special occasions.",
+    "category": "{REF:kalash}",
+    "price": 899,
+    "discountedPrice": 791,
+    "discount": 12,
+    "stock": 68,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Temple Store",
+    "material": "Brass",
+    "weight": 680,
+    "dimensions": {
+      "length": 29,
+      "width": 13,
+      "height": 21
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Kalash Brass Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Kalash Brass Set View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "kalash",
+      "brass",
+      "set",
+      "brass",
+      "multiple"
+    ],
+    "averageRating": 4.6,
+    "reviewCount": 104,
+    "shippingWeight": 817,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Incense Holder Brass",
+    "slug": "incense-holder-brass",
+    "sku": "PROD-095",
+    "description": "Traditional Incense Holder Brass showcasing the rich cultural heritage of Multiple. Crafted with care using Brass. A beautiful addition to any collection.",
+    "category": "{REF:incense-holders}",
+    "price": 299,
+    "discountedPrice": 269,
+    "discount": 10,
+    "stock": 156,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Puja Items",
+    "material": "Brass",
+    "weight": 120,
+    "dimensions": {
+      "length": 27,
+      "width": 15,
+      "height": 20
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Incense Holder Brass View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Incense Holder Brass View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Incense Holder Brass View 3",
+        "isPrimary": false,
+        "order": 3
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Incense Holder Brass View 4",
+        "isPrimary": false,
+        "order": 4
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "incense",
+      "holder",
+      "brass",
+      "brass",
+      "multiple"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 146,
+    "shippingWeight": 177,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Panchaloha Ganesh Idol",
+    "slug": "panchaloha-ganesh-idol",
+    "sku": "PROD-096",
+    "description": "Panchaloha Ganesh Idol - A timeless piece reflecting Indian artisan skills. Crafted from Panchaloha in Tamil Nadu. Ideal for both daily use and special occasions.",
+    "category": "{REF:panchaloha-idols}",
+    "price": 3499,
+    "discountedPrice": 2869,
+    "discount": 18,
+    "stock": 9,
+    "lowStockThreshold": 5,
+    "isAvailable": true,
+    "brand": "South Idol",
+    "material": "Panchaloha",
+    "weight": 580,
+    "dimensions": {
+      "length": 39,
+      "width": 28,
+      "height": 25
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Panchaloha Ganesh Idol View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Panchaloha Ganesh Idol View 2",
+        "isPrimary": true,
+        "order": 2
+      }
+    ],
+    "region": "Tamil Nadu",
+    "giTagged": true,
+    "tags": [
+      "panchaloha",
+      "ganesh",
+      "idol",
+      "panchaloha",
+      "tamil",
+      "gi-tagged"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 75,
+    "shippingWeight": 669,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Clay Ganesh 8 inch",
+    "slug": "clay-ganesh-8-inch",
+    "sku": "PROD-097",
+    "description": "Authentic Clay Ganesh 8 inch handcrafted by skilled artisans. Made from Clay using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:clay-ganesha}",
+    "price": 499,
+    "discountedPrice": null,
+    "discount": 0,
+    "stock": 86,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Festival Clay",
+    "material": "Clay",
+    "weight": 680,
+    "dimensions": {
+      "length": 19,
+      "width": 18,
+      "height": 24
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Clay Ganesh 8 inch View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Clay Ganesh 8 inch View 2",
+        "isPrimary": true,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Clay Ganesh 8 inch View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Maharashtra",
+    "giTagged": false,
+    "tags": [
+      "clay",
+      "ganesh",
+      "8",
+      "clay",
+      "maharashtra"
+    ],
+    "averageRating": 4.5,
+    "reviewCount": 19,
+    "shippingWeight": 856,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Toran Door Hanging",
+    "slug": "toran-door-hanging",
+    "sku": "PROD-098",
+    "description": "Authentic Toran Door Hanging handcrafted by skilled artisans. Made from Cloth using traditional techniques. Perfect for home decor and gifting.",
+    "category": "{REF:torans}",
+    "price": 399,
+    "discountedPrice": 351,
+    "discount": 12,
+    "stock": 124,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Festive Decor",
+    "material": "Cloth",
+    "weight": 180,
+    "dimensions": {
+      "length": 28,
+      "width": 27,
+      "height": 9
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Toran Door Hanging View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Toran Door Hanging View 2",
+        "isPrimary": false,
+        "order": 2
+      }
+    ],
+    "region": "Gujarat",
+    "giTagged": false,
+    "tags": [
+      "toran",
+      "door",
+      "hanging",
+      "cloth",
+      "gujarat"
+    ],
+    "averageRating": 4.7,
+    "reviewCount": 5,
+    "shippingWeight": 295,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Rangoli Stencil Set Traditional",
+    "slug": "rangoli-stencil-set-traditional",
+    "sku": "PROD-099",
+    "description": "Traditional rangoli stencil set with 10 different designs. Made from durable plastic for repeated use. Perfect for festivals and celebrations. Easy to clean and store.",
+    "category": "{REF:rangoli-stencils}",
+    "price": 399,
+    "discountedPrice": 339,
+    "discount": 15,
+    "stock": 112,
+    "lowStockThreshold": 20,
+    "isAvailable": true,
+    "brand": "Festive Art",
+    "material": "Plastic",
+    "weight": 180,
+    "dimensions": {
+      "length": 25,
+      "width": 25,
+      "height": 2
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_3_fuxqaz.png",
+        "alt": "Rangoli Stencil Set View 1",
+        "isPrimary": true,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Rangoli Stencil Set View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Rangoli Stencil Set View 3",
+        "isPrimary": false,
+        "order": 3
+      }
+    ],
+    "region": "Multiple",
+    "giTagged": false,
+    "tags": [
+      "rangoli",
+      "stencil",
+      "festival",
+      "diwali",
+      "decoration"
+    ],
+    "averageRating": 4.4,
+    "reviewCount": 89,
+    "shippingWeight": 250,
+    "freeShipping": false,
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Heritage Souvenir Box Regional Crafts",
+    "slug": "heritage-souvenir-box-regional-crafts",
+    "sku": "PROD-100",
+    "description": "Curated heritage souvenir box containing miniature samples of regional Indian crafts. Includes small pottery piece, textile sample, wooden toy, and miniature painting. Perfect gift for cultural enthusiasts.",
+    "category": "{REF:heritage-souvenir-boxes}",
+    "price": 1899,
+    "discountedPrice": 1519,
+    "discount": 20,
+    "stock": 28,
+    "lowStockThreshold": 10,
+    "isAvailable": true,
+    "brand": "Heritage Collection",
+    "material": "Mixed Materials",
+    "weight": 650,
+    "dimensions": {
+      "length": 30,
+      "width": 20,
+      "height": 10
+    },
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562278/generated_image_2_gmvjif.png",
+        "alt": "Heritage Souvenir Box View 1",
+        "isPrimary": false,
+        "order": 1
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_mbmj6z.png",
+        "alt": "Heritage Souvenir Box View 2",
+        "isPrimary": false,
+        "order": 2
+      },
+      {
+        "url": "https://res.cloudinary.com/dkzstqbxn/image/upload/v1760562277/generated_image_1_j2ezme.png",
+        "alt": "Heritage Souvenir Box View 3",
+        "isPrimary": true,
+        "order": 3
+      }
+    ],
+    "region": "Multiple Regions",
+    "giTagged": false,
+    "tags": [
+      "heritage",
+      "gift",
+      "souvenir",
+      "crafts",
+      "collection"
+    ],
+    "averageRating": 4.8,
+    "reviewCount": 42,
+    "shippingWeight": 850,
+    "freeShipping": true,
+    "isActive": true,
+    "isFeatured": true
+  }
+]
