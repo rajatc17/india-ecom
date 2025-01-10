@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { Schema , model } = mongoose;
 
 const OrderItemSchema = new Schema(
   {
@@ -33,4 +33,4 @@ const OrderSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Order", OrderSchema);
+module.exports = model("Order", OrderSchema);
