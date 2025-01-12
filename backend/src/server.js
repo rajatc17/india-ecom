@@ -27,3 +27,9 @@ app.use('/api/users', usersRoutes);
 
 const orderRoutes = require('./routes/orders');
 app.use('/api/orders', orderRoutes);
+
+const adminOrdersRoutes = require('./routes/adminOrders');
+app.use('/api/admin', adminOrdersRoutes);
+
+const adminUsersRoutes = require('./routes/adminUsers');
+app.use('/api/admin', adminUsersRoutes);
