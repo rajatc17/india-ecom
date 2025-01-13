@@ -25,7 +25,14 @@ const UserSchema = new mongoose.Schema(
     name: String,
     addresses: [AddressSchema],
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+      index: true,
+    },
   },
+
   { timestamps: true }
 );
 
