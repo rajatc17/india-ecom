@@ -6,7 +6,7 @@ const connectDB = async () => {
 
   try {
     await mongoose.connect(uri, {
-      dbName: 'indie-ecom',
+      dbName: 'india-ecom',
       connectTimeoutMS: 10000,
       serverSelectionTimeoutMS: 10000,
       // Mongoose 7 uses sensible defaults; add options if needed

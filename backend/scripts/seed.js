@@ -47,7 +47,7 @@ const seedData = [
 
 (async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { dbName: 'indie-ecom' });
+    await mongoose.connect(process.env.MONGO_URI, { dbName: 'india-ecom' });
     console.log('✅ Connected to DB');
 
     await Product.deleteMany({});
