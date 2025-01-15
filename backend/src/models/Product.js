@@ -17,3 +17,5 @@ const ProductSchema = new Schema(
   },
   { timestamps: true }
 );
+
+module.exports = model('Product', ProductSchema);
