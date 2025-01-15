@@ -5,6 +5,9 @@ const connectDB = require('./db')
 const app = express();
 app.use(express.json());
 
+const products = require('./routes/products');
+app.use('/api/products', products);
+
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
