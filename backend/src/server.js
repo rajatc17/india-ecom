@@ -33,3 +33,5 @@ app.use('/api/admin', adminOrdersRoutes);
 
 const adminUsersRoutes = require('./routes/adminUsers');
 app.use('/api/admin', adminUsersRoutes);
+
+app.use(require('cors')({ origin: 'http://localhost:5173', credentials: true }));
