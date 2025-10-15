@@ -15,7 +15,9 @@ router.get('/', async (req, res) => {
   if (gi) filter.giTagged = gi === 'true';
   if (q) filter.$text = { $search: q }; // needs text index later
 
-  const items = await Product.find(filter).limit(200);
+  const items = await Product.find(filter)
+    .populate('category')
+    .limit(200);
   res.json(items);
 });
 

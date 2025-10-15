@@ -19,6 +19,9 @@ connectDB().then(()=>{
 const products = require('./routes/products');
 app.use('/api/products', products);
 
+const categoriesRoutes = require('./routes/categories');
+app.use('/api/categories', categoriesRoutes);
+
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
