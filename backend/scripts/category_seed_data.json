@@ -1,0 +1,1579 @@
+[
+  {
+    "name": "Handicrafts & Heritage Art",
+    "slug": "handicrafts-and-heritage-art",
+    "parent": null,
+    "level": 0,
+    "description": "Traditional crafts made from pottery, metal, wood, stone, bamboo, and paper",
+    "icon": "🛠️",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Paintings & Visual Arts",
+    "slug": "paintings-and-visual-arts",
+    "parent": null,
+    "level": 0,
+    "description": "Traditional and contemporary Indian paintings and visual art forms",
+    "icon": "🎨",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Home & Living",
+    "slug": "home-and-living",
+    "parent": null,
+    "level": 0,
+    "description": "Craft-based home décor, tableware, and furnishings",
+    "icon": "🏡",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Jewellery & Personal Accessories",
+    "slug": "jewellery-and-personal-accessories",
+    "parent": null,
+    "level": 0,
+    "description": "Traditional jewelry, beaded items, bags, and sustainable lifestyle products",
+    "icon": "💍",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Toys, Learning & Collectibles",
+    "slug": "toys-learning-and-collectibles",
+    "parent": null,
+    "level": 0,
+    "description": "Wooden toys, educational kits, and collectible miniatures",
+    "icon": "🧸",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Festive, Ritual & Spiritual Craft",
+    "slug": "festive-ritual-and-spiritual-craft",
+    "parent": null,
+    "level": 0,
+    "description": "Puja items, idols, festive décor, and gift hampers",
+    "icon": "🪶",
+    "isActive": true,
+    "sortOrder": 6,
+    "productCount": 0
+  },
+  {
+    "name": "Museum, Collectors & Heritage Editions",
+    "slug": "museum-collectors-and-heritage-editions",
+    "parent": null,
+    "level": 0,
+    "description": "Premium limited editions, replicas, archival prints, and curated collections",
+    "icon": "🏛️",
+    "isActive": true,
+    "sortOrder": 7,
+    "productCount": 0
+  },
+  {
+    "name": "Pottery & Ceramics",
+    "slug": "pottery-and-ceramics",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Pottery & Ceramics from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Blue Pottery (Jaipur)",
+    "slug": "blue-pottery-jaipur",
+    "parent": "{REF:Pottery & Ceramics}",
+    "level": 2,
+    "description": "Blue Pottery (Jaipur) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Khurja Pottery",
+    "slug": "khurja-pottery",
+    "parent": "{REF:Pottery & Ceramics}",
+    "level": 2,
+    "description": "Khurja Pottery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Longpi Black Pottery",
+    "slug": "longpi-black-pottery",
+    "parent": "{REF:Pottery & Ceramics}",
+    "level": 2,
+    "description": "Longpi Black Pottery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Terracotta",
+    "slug": "terracotta",
+    "parent": "{REF:Pottery & Ceramics}",
+    "level": 2,
+    "description": "Terracotta - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Molela Clay Art",
+    "slug": "molela-clay-art",
+    "parent": "{REF:Pottery & Ceramics}",
+    "level": 2,
+    "description": "Molela Clay Art - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Metal Crafts",
+    "slug": "metal-crafts",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Metal Crafts from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Bidriware",
+    "slug": "bidriware",
+    "parent": "{REF:Metal Crafts}",
+    "level": 2,
+    "description": "Bidriware - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Dhokra",
+    "slug": "dhokra",
+    "parent": "{REF:Metal Crafts}",
+    "level": 2,
+    "description": "Dhokra - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Thanjavur Plates",
+    "slug": "thanjavur-plates",
+    "parent": "{REF:Metal Crafts}",
+    "level": 2,
+    "description": "Thanjavur Plates - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Moradabad Brassware",
+    "slug": "moradabad-brassware",
+    "parent": "{REF:Metal Crafts}",
+    "level": 2,
+    "description": "Moradabad Brassware - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Silver Filigree",
+    "slug": "silver-filigree",
+    "parent": "{REF:Metal Crafts}",
+    "level": 2,
+    "description": "Silver Filigree - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Woodcraft & Carvings",
+    "slug": "woodcraft-and-carvings",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Woodcraft & Carvings from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Saharanpur Woodwork",
+    "slug": "saharanpur-woodwork",
+    "parent": "{REF:Woodcraft & Carvings}",
+    "level": 2,
+    "description": "Saharanpur Woodwork - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Bastar Art",
+    "slug": "bastar-art",
+    "parent": "{REF:Woodcraft & Carvings}",
+    "level": 2,
+    "description": "Bastar Art - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Channapatna Wooden Items",
+    "slug": "channapatna-wooden-items",
+    "parent": "{REF:Woodcraft & Carvings}",
+    "level": 2,
+    "description": "Channapatna Wooden Items - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Kondapalli Wooden Crafts",
+    "slug": "kondapalli-wooden-crafts",
+    "parent": "{REF:Woodcraft & Carvings}",
+    "level": 2,
+    "description": "Kondapalli Wooden Crafts - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Walnut Carving (Kashmir)",
+    "slug": "walnut-carving-kashmir",
+    "parent": "{REF:Woodcraft & Carvings}",
+    "level": 2,
+    "description": "Walnut Carving (Kashmir) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Stone & Marble Work",
+    "slug": "stone-and-marble-work",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Stone & Marble Work from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Agra Marble Inlay",
+    "slug": "agra-marble-inlay",
+    "parent": "{REF:Stone & Marble Work}",
+    "level": 2,
+    "description": "Agra Marble Inlay - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Odisha Stonework",
+    "slug": "odisha-stonework",
+    "parent": "{REF:Stone & Marble Work}",
+    "level": 2,
+    "description": "Odisha Stonework - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Soapstone Carving",
+    "slug": "soapstone-carving",
+    "parent": "{REF:Stone & Marble Work}",
+    "level": 2,
+    "description": "Soapstone Carving - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Sandstone Sculpture",
+    "slug": "sandstone-sculpture",
+    "parent": "{REF:Stone & Marble Work}",
+    "level": 2,
+    "description": "Sandstone Sculpture - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Bamboo & Cane Craft",
+    "slug": "bamboo-and-cane-craft",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Bamboo & Cane Craft from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Assam Cane",
+    "slug": "assam-cane",
+    "parent": "{REF:Bamboo & Cane Craft}",
+    "level": 2,
+    "description": "Assam Cane - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Tripura Bamboo",
+    "slug": "tripura-bamboo",
+    "parent": "{REF:Bamboo & Cane Craft}",
+    "level": 2,
+    "description": "Tripura Bamboo - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Nagaland Basketry",
+    "slug": "nagaland-basketry",
+    "parent": "{REF:Bamboo & Cane Craft}",
+    "level": 2,
+    "description": "Nagaland Basketry - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Mizoram Handicrafts",
+    "slug": "mizoram-handicrafts",
+    "parent": "{REF:Bamboo & Cane Craft}",
+    "level": 2,
+    "description": "Mizoram Handicrafts - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Leather & Paper Craft",
+    "slug": "leather-and-paper-craft",
+    "parent": "{REF:Handicrafts & Heritage Art}",
+    "level": 1,
+    "description": "Leather & Paper Craft from Handicrafts & Heritage Art",
+    "isActive": true,
+    "sortOrder": 6,
+    "productCount": 0
+  },
+  {
+    "name": "Shantiniketan Leather",
+    "slug": "shantiniketan-leather",
+    "parent": "{REF:Leather & Paper Craft}",
+    "level": 2,
+    "description": "Shantiniketan Leather - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Kalpi Handmade Paper",
+    "slug": "kalpi-handmade-paper",
+    "parent": "{REF:Leather & Paper Craft}",
+    "level": 2,
+    "description": "Kalpi Handmade Paper - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Papier-Mâché (Kashmir)",
+    "slug": "papier-mâché-kashmir",
+    "parent": "{REF:Leather & Paper Craft}",
+    "level": 2,
+    "description": "Papier-Mâché (Kashmir) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Traditional Folk Paintings",
+    "slug": "traditional-folk-paintings",
+    "parent": "{REF:Paintings & Visual Arts}",
+    "level": 1,
+    "description": "Traditional Folk Paintings from Paintings & Visual Arts",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Madhubani (Bihar)",
+    "slug": "madhubani-bihar",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Madhubani (Bihar) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Warli (Maharashtra)",
+    "slug": "warli-maharashtra",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Warli (Maharashtra) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Pattachitra (Odisha)",
+    "slug": "pattachitra-odisha",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Pattachitra (Odisha) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Kalamkari (Andhra Pradesh)",
+    "slug": "kalamkari-andhra-pradesh",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Kalamkari (Andhra Pradesh) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Phad (Rajasthan)",
+    "slug": "phad-rajasthan",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Phad (Rajasthan) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Gond (Madhya Pradesh)",
+    "slug": "gond-madhya-pradesh",
+    "parent": "{REF:Traditional Folk Paintings}",
+    "level": 2,
+    "description": "Gond (Madhya Pradesh) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 6,
+    "productCount": 0
+  },
+  {
+    "name": "Miniature Schools",
+    "slug": "miniature-schools",
+    "parent": "{REF:Paintings & Visual Arts}",
+    "level": 1,
+    "description": "Miniature Schools from Paintings & Visual Arts",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Rajput Miniatures",
+    "slug": "rajput-miniatures",
+    "parent": "{REF:Miniature Schools}",
+    "level": 2,
+    "description": "Rajput Miniatures - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Mughal Miniatures",
+    "slug": "mughal-miniatures",
+    "parent": "{REF:Miniature Schools}",
+    "level": 2,
+    "description": "Mughal Miniatures - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Pahari Miniatures",
+    "slug": "pahari-miniatures",
+    "parent": "{REF:Miniature Schools}",
+    "level": 2,
+    "description": "Pahari Miniatures - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Tanjore Paintings",
+    "slug": "tanjore-paintings",
+    "parent": "{REF:Miniature Schools}",
+    "level": 2,
+    "description": "Tanjore Paintings - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Mysore Paintings",
+    "slug": "mysore-paintings",
+    "parent": "{REF:Miniature Schools}",
+    "level": 2,
+    "description": "Mysore Paintings - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Contemporary Folk Art",
+    "slug": "contemporary-folk-art",
+    "parent": "{REF:Paintings & Visual Arts}",
+    "level": 1,
+    "description": "Contemporary Folk Art from Paintings & Visual Arts",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Modern Tribal Fusion",
+    "slug": "modern-tribal-fusion",
+    "parent": "{REF:Contemporary Folk Art}",
+    "level": 2,
+    "description": "Modern Tribal Fusion - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Urban Folk Reinterpretations",
+    "slug": "urban-folk-reinterpretations",
+    "parent": "{REF:Contemporary Folk Art}",
+    "level": 2,
+    "description": "Urban Folk Reinterpretations - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Wall Panels & Canvas Prints",
+    "slug": "wall-panels-and-canvas-prints",
+    "parent": "{REF:Paintings & Visual Arts}",
+    "level": 1,
+    "description": "Wall Panels & Canvas Prints from Paintings & Visual Arts",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Heritage Design Reproductions",
+    "slug": "heritage-design-reproductions",
+    "parent": "{REF:Wall Panels & Canvas Prints}",
+    "level": 2,
+    "description": "Heritage Design Reproductions - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Limited Edition Prints",
+    "slug": "limited-edition-prints",
+    "parent": "{REF:Wall Panels & Canvas Prints}",
+    "level": 2,
+    "description": "Limited Edition Prints - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Décor & Accents",
+    "slug": "décor-and-accents",
+    "parent": "{REF:Home & Living}",
+    "level": 1,
+    "description": "Décor & Accents from Home & Living",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Lamps & Lighting",
+    "slug": "lamps-and-lighting",
+    "parent": "{REF:Décor & Accents}",
+    "level": 2,
+    "description": "Lamps & Lighting - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Wall Plates",
+    "slug": "wall-plates",
+    "parent": "{REF:Décor & Accents}",
+    "level": 2,
+    "description": "Wall Plates - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Mirrors & Frames",
+    "slug": "mirrors-and-frames",
+    "parent": "{REF:Décor & Accents}",
+    "level": 2,
+    "description": "Mirrors & Frames - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Nameplates",
+    "slug": "nameplates",
+    "parent": "{REF:Décor & Accents}",
+    "level": 2,
+    "description": "Nameplates - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Clocks",
+    "slug": "clocks",
+    "parent": "{REF:Décor & Accents}",
+    "level": 2,
+    "description": "Clocks - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Tableware & Serveware",
+    "slug": "tableware-and-serveware",
+    "parent": "{REF:Home & Living}",
+    "level": 1,
+    "description": "Tableware & Serveware from Home & Living",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Clay Serveware",
+    "slug": "clay-serveware",
+    "parent": "{REF:Tableware & Serveware}",
+    "level": 2,
+    "description": "Clay Serveware - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Copper & Brass Items",
+    "slug": "copper-and-brass-items",
+    "parent": "{REF:Tableware & Serveware}",
+    "level": 2,
+    "description": "Copper & Brass Items - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Bamboo Tableware",
+    "slug": "bamboo-tableware",
+    "parent": "{REF:Tableware & Serveware}",
+    "level": 2,
+    "description": "Bamboo Tableware - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Coasters & Trays",
+    "slug": "coasters-and-trays",
+    "parent": "{REF:Tableware & Serveware}",
+    "level": 2,
+    "description": "Coasters & Trays - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Furnishings",
+    "slug": "furnishings",
+    "parent": "{REF:Home & Living}",
+    "level": 1,
+    "description": "Furnishings from Home & Living",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Handwoven Cushion Covers",
+    "slug": "handwoven-cushion-covers",
+    "parent": "{REF:Furnishings}",
+    "level": 2,
+    "description": "Handwoven Cushion Covers - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Rugs & Darries",
+    "slug": "rugs-and-darries",
+    "parent": "{REF:Furnishings}",
+    "level": 2,
+    "description": "Rugs & Darries - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Madur Mats",
+    "slug": "madur-mats",
+    "parent": "{REF:Furnishings}",
+    "level": 2,
+    "description": "Madur Mats - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Table Linen",
+    "slug": "table-linen",
+    "parent": "{REF:Furnishings}",
+    "level": 2,
+    "description": "Table Linen - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Storage & Organizers",
+    "slug": "storage-and-organizers",
+    "parent": "{REF:Home & Living}",
+    "level": 1,
+    "description": "Storage & Organizers from Home & Living",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Jute Baskets",
+    "slug": "jute-baskets",
+    "parent": "{REF:Storage & Organizers}",
+    "level": 2,
+    "description": "Jute Baskets - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Bamboo Boxes",
+    "slug": "bamboo-boxes",
+    "parent": "{REF:Storage & Organizers}",
+    "level": 2,
+    "description": "Bamboo Boxes - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Wooden Organizers",
+    "slug": "wooden-organizers",
+    "parent": "{REF:Storage & Organizers}",
+    "level": 2,
+    "description": "Wooden Organizers - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Cane Storage",
+    "slug": "cane-storage",
+    "parent": "{REF:Storage & Organizers}",
+    "level": 2,
+    "description": "Cane Storage - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Traditional Jewellery",
+    "slug": "traditional-jewellery",
+    "parent": "{REF:Jewellery & Personal Accessories}",
+    "level": 1,
+    "description": "Traditional Jewellery from Jewellery & Personal Accessories",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Dhokra Tribal Jewellery",
+    "slug": "dhokra-tribal-jewellery",
+    "parent": "{REF:Traditional Jewellery}",
+    "level": 2,
+    "description": "Dhokra Tribal Jewellery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Meenakari",
+    "slug": "meenakari",
+    "parent": "{REF:Traditional Jewellery}",
+    "level": 2,
+    "description": "Meenakari - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Kundan",
+    "slug": "kundan",
+    "parent": "{REF:Traditional Jewellery}",
+    "level": 2,
+    "description": "Kundan - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Silver Tribal",
+    "slug": "silver-tribal",
+    "parent": "{REF:Traditional Jewellery}",
+    "level": 2,
+    "description": "Silver Tribal - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Thewa (Rajasthan)",
+    "slug": "thewa-rajasthan",
+    "parent": "{REF:Traditional Jewellery}",
+    "level": 2,
+    "description": "Thewa (Rajasthan) - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Terracotta & Beaded Jewellery",
+    "slug": "terracotta-and-beaded-jewellery",
+    "parent": "{REF:Jewellery & Personal Accessories}",
+    "level": 1,
+    "description": "Terracotta & Beaded Jewellery from Jewellery & Personal Accessories",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Varanasi Beads",
+    "slug": "varanasi-beads",
+    "parent": "{REF:Terracotta & Beaded Jewellery}",
+    "level": 2,
+    "description": "Varanasi Beads - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Terracotta Jewellery",
+    "slug": "terracotta-jewellery",
+    "parent": "{REF:Terracotta & Beaded Jewellery}",
+    "level": 2,
+    "description": "Terracotta Jewellery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Glass Beads",
+    "slug": "glass-beads",
+    "parent": "{REF:Terracotta & Beaded Jewellery}",
+    "level": 2,
+    "description": "Glass Beads - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Rudraksha",
+    "slug": "rudraksha",
+    "parent": "{REF:Terracotta & Beaded Jewellery}",
+    "level": 2,
+    "description": "Rudraksha - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Thread Jewellery",
+    "slug": "thread-jewellery",
+    "parent": "{REF:Terracotta & Beaded Jewellery}",
+    "level": 2,
+    "description": "Thread Jewellery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Bags & Accessories",
+    "slug": "bags-and-accessories",
+    "parent": "{REF:Jewellery & Personal Accessories}",
+    "level": 1,
+    "description": "Bags & Accessories from Jewellery & Personal Accessories",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Jute Bags",
+    "slug": "jute-bags",
+    "parent": "{REF:Bags & Accessories}",
+    "level": 2,
+    "description": "Jute Bags - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Hand-painted Leather Purses",
+    "slug": "hand-painted-leather-purses",
+    "parent": "{REF:Bags & Accessories}",
+    "level": 2,
+    "description": "Hand-painted Leather Purses - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Cane Clutches",
+    "slug": "cane-clutches",
+    "parent": "{REF:Bags & Accessories}",
+    "level": 2,
+    "description": "Cane Clutches - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Keychains",
+    "slug": "keychains",
+    "parent": "{REF:Bags & Accessories}",
+    "level": 2,
+    "description": "Keychains - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Kolhapuri Chappals",
+    "slug": "kolhapuri-chappals",
+    "parent": "{REF:Bags & Accessories}",
+    "level": 2,
+    "description": "Kolhapuri Chappals - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Sustainable Lifestyle Products",
+    "slug": "sustainable-lifestyle-products",
+    "parent": "{REF:Jewellery & Personal Accessories}",
+    "level": 1,
+    "description": "Sustainable Lifestyle Products from Jewellery & Personal Accessories",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Eco Notebooks",
+    "slug": "eco-notebooks",
+    "parent": "{REF:Sustainable Lifestyle Products}",
+    "level": 2,
+    "description": "Eco Notebooks - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Hand-painted Stationery",
+    "slug": "hand-painted-stationery",
+    "parent": "{REF:Sustainable Lifestyle Products}",
+    "level": 2,
+    "description": "Hand-painted Stationery - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Reusable Crafted Items",
+    "slug": "reusable-crafted-items",
+    "parent": "{REF:Sustainable Lifestyle Products}",
+    "level": 2,
+    "description": "Reusable Crafted Items - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Wooden Toys",
+    "slug": "wooden-toys",
+    "parent": "{REF:Toys, Learning & Collectibles}",
+    "level": 1,
+    "description": "Wooden Toys from Toys, Learning & Collectibles",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Channapatna Toys",
+    "slug": "channapatna-toys",
+    "parent": "{REF:Wooden Toys}",
+    "level": 2,
+    "description": "Channapatna Toys - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Kondapalli Toys",
+    "slug": "kondapalli-toys",
+    "parent": "{REF:Wooden Toys}",
+    "level": 2,
+    "description": "Kondapalli Toys - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Etikoppaka Toys",
+    "slug": "etikoppaka-toys",
+    "parent": "{REF:Wooden Toys}",
+    "level": 2,
+    "description": "Etikoppaka Toys - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Varanasi Lac Toys",
+    "slug": "varanasi-lac-toys",
+    "parent": "{REF:Wooden Toys}",
+    "level": 2,
+    "description": "Varanasi Lac Toys - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Educational Kits",
+    "slug": "educational-kits",
+    "parent": "{REF:Toys, Learning & Collectibles}",
+    "level": 1,
+    "description": "Educational Kits from Toys, Learning & Collectibles",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Craft DIY Kits",
+    "slug": "craft-diy-kits",
+    "parent": "{REF:Educational Kits}",
+    "level": 2,
+    "description": "Craft DIY Kits - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Heritage Puzzle Games",
+    "slug": "heritage-puzzle-games",
+    "parent": "{REF:Educational Kits}",
+    "level": 2,
+    "description": "Heritage Puzzle Games - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Folk Story Sets",
+    "slug": "folk-story-sets",
+    "parent": "{REF:Educational Kits}",
+    "level": 2,
+    "description": "Folk Story Sets - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Artisan Skill Boxes",
+    "slug": "artisan-skill-boxes",
+    "parent": "{REF:Educational Kits}",
+    "level": 2,
+    "description": "Artisan Skill Boxes - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Collectibles & Miniatures",
+    "slug": "collectibles-and-miniatures",
+    "parent": "{REF:Toys, Learning & Collectibles}",
+    "level": 1,
+    "description": "Collectibles & Miniatures from Toys, Learning & Collectibles",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Model Carts",
+    "slug": "model-carts",
+    "parent": "{REF:Collectibles & Miniatures}",
+    "level": 2,
+    "description": "Model Carts - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Folk Character Dolls",
+    "slug": "folk-character-dolls",
+    "parent": "{REF:Collectibles & Miniatures}",
+    "level": 2,
+    "description": "Folk Character Dolls - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Puppet Miniatures",
+    "slug": "puppet-miniatures",
+    "parent": "{REF:Collectibles & Miniatures}",
+    "level": 2,
+    "description": "Puppet Miniatures - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Figurines",
+    "slug": "figurines",
+    "parent": "{REF:Collectibles & Miniatures}",
+    "level": 2,
+    "description": "Figurines - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Puja & Ritual Items",
+    "slug": "puja-and-ritual-items",
+    "parent": "{REF:Festive, Ritual & Spiritual Craft}",
+    "level": 1,
+    "description": "Puja & Ritual Items from Festive, Ritual & Spiritual Craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Brass Diyas",
+    "slug": "brass-diyas",
+    "parent": "{REF:Puja & Ritual Items}",
+    "level": 2,
+    "description": "Brass Diyas - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Kalash",
+    "slug": "kalash",
+    "parent": "{REF:Puja & Ritual Items}",
+    "level": 2,
+    "description": "Kalash - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Incense Holders",
+    "slug": "incense-holders",
+    "parent": "{REF:Puja & Ritual Items}",
+    "level": 2,
+    "description": "Incense Holders - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Camphor Boxes",
+    "slug": "camphor-boxes",
+    "parent": "{REF:Puja & Ritual Items}",
+    "level": 2,
+    "description": "Camphor Boxes - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Aarti Thalis",
+    "slug": "aarti-thalis",
+    "parent": "{REF:Puja & Ritual Items}",
+    "level": 2,
+    "description": "Aarti Thalis - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Idols & Figures",
+    "slug": "idols-and-figures",
+    "parent": "{REF:Festive, Ritual & Spiritual Craft}",
+    "level": 1,
+    "description": "Idols & Figures from Festive, Ritual & Spiritual Craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Clay Ganesha",
+    "slug": "clay-ganesha",
+    "parent": "{REF:Idols & Figures}",
+    "level": 2,
+    "description": "Clay Ganesha - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Bronze Krishna",
+    "slug": "bronze-krishna",
+    "parent": "{REF:Idols & Figures}",
+    "level": 2,
+    "description": "Bronze Krishna - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Dhokra Durga",
+    "slug": "dhokra-durga",
+    "parent": "{REF:Idols & Figures}",
+    "level": 2,
+    "description": "Dhokra Durga - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Stone Buddha",
+    "slug": "stone-buddha",
+    "parent": "{REF:Idols & Figures}",
+    "level": 2,
+    "description": "Stone Buddha - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Panchaloha Idols",
+    "slug": "panchaloha-idols",
+    "parent": "{REF:Idols & Figures}",
+    "level": 2,
+    "description": "Panchaloha Idols - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "name": "Festive Décor",
+    "slug": "festive-décor",
+    "parent": "{REF:Festive, Ritual & Spiritual Craft}",
+    "level": 1,
+    "description": "Festive Décor from Festive, Ritual & Spiritual Craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Torans",
+    "slug": "torans",
+    "parent": "{REF:Festive Décor}",
+    "level": 2,
+    "description": "Torans - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Rangoli Stencils",
+    "slug": "rangoli-stencils",
+    "parent": "{REF:Festive Décor}",
+    "level": 2,
+    "description": "Rangoli Stencils - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Decorative Lamps",
+    "slug": "decorative-lamps",
+    "parent": "{REF:Festive Décor}",
+    "level": 2,
+    "description": "Decorative Lamps - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Handmade Ornaments",
+    "slug": "handmade-ornaments",
+    "parent": "{REF:Festive Décor}",
+    "level": 2,
+    "description": "Handmade Ornaments - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Gift Hampers",
+    "slug": "gift-hampers",
+    "parent": "{REF:Festive, Ritual & Spiritual Craft}",
+    "level": 1,
+    "description": "Gift Hampers from Festive, Ritual & Spiritual Craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Regional Craft Combos",
+    "slug": "regional-craft-combos",
+    "parent": "{REF:Gift Hampers}",
+    "level": 2,
+    "description": "Regional Craft Combos - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Heritage Souvenir Boxes",
+    "slug": "heritage-souvenir-boxes",
+    "parent": "{REF:Gift Hampers}",
+    "level": 2,
+    "description": "Heritage Souvenir Boxes - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Eco Gifting Sets",
+    "slug": "eco-gifting-sets",
+    "parent": "{REF:Gift Hampers}",
+    "level": 2,
+    "description": "Eco Gifting Sets - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Festival Bundles",
+    "slug": "festival-bundles",
+    "parent": "{REF:Gift Hampers}",
+    "level": 2,
+    "description": "Festival Bundles - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Replica Artifacts",
+    "slug": "replica-artifacts",
+    "parent": "{REF:Museum, Collectors & Heritage Editions}",
+    "level": 1,
+    "description": "Replica Artifacts from Museum, Collectors & Heritage Editions",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Miniature Temples",
+    "slug": "miniature-temples",
+    "parent": "{REF:Replica Artifacts}",
+    "level": 2,
+    "description": "Miniature Temples - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Vintage Coins",
+    "slug": "vintage-coins",
+    "parent": "{REF:Replica Artifacts}",
+    "level": 2,
+    "description": "Vintage Coins - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Weapon Miniatures",
+    "slug": "weapon-miniatures",
+    "parent": "{REF:Replica Artifacts}",
+    "level": 2,
+    "description": "Weapon Miniatures - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Script Plates",
+    "slug": "script-plates",
+    "parent": "{REF:Replica Artifacts}",
+    "level": 2,
+    "description": "Script Plates - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Archival Prints",
+    "slug": "archival-prints",
+    "parent": "{REF:Museum, Collectors & Heritage Editions}",
+    "level": 1,
+    "description": "Archival Prints from Museum, Collectors & Heritage Editions",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Historic Maps",
+    "slug": "historic-maps",
+    "parent": "{REF:Archival Prints}",
+    "level": 2,
+    "description": "Historic Maps - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Manuscript Reproductions",
+    "slug": "manuscript-reproductions",
+    "parent": "{REF:Archival Prints}",
+    "level": 2,
+    "description": "Manuscript Reproductions - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Folk Tales on Canvas",
+    "slug": "folk-tales-on-canvas",
+    "parent": "{REF:Archival Prints}",
+    "level": 2,
+    "description": "Folk Tales on Canvas - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Vintage Travel Posters",
+    "slug": "vintage-travel-posters",
+    "parent": "{REF:Archival Prints}",
+    "level": 2,
+    "description": "Vintage Travel Posters - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Curated Collections",
+    "slug": "curated-collections",
+    "parent": "{REF:Museum, Collectors & Heritage Editions}",
+    "level": 1,
+    "description": "Curated Collections from Museum, Collectors & Heritage Editions",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Tribal Art Boxes",
+    "slug": "tribal-art-boxes",
+    "parent": "{REF:Curated Collections}",
+    "level": 2,
+    "description": "Tribal Art Boxes - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Regional Craft Exhibits",
+    "slug": "regional-craft-exhibits",
+    "parent": "{REF:Curated Collections}",
+    "level": 2,
+    "description": "Regional Craft Exhibits - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "GI Showcase Sets",
+    "slug": "gi-showcase-sets",
+    "parent": "{REF:Curated Collections}",
+    "level": 2,
+    "description": "GI Showcase Sets - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "name": "Artisan Master Series",
+    "slug": "artisan-master-series",
+    "parent": "{REF:Curated Collections}",
+    "level": 2,
+    "description": "Artisan Master Series - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Limited Editions",
+    "slug": "limited-editions",
+    "parent": "{REF:Museum, Collectors & Heritage Editions}",
+    "level": 1,
+    "description": "Limited Editions from Museum, Collectors & Heritage Editions",
+    "isActive": true,
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "name": "Numbered Artist Pieces",
+    "slug": "numbered-artist-pieces",
+    "parent": "{REF:Limited Editions}",
+    "level": 2,
+    "description": "Numbered Artist Pieces - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "name": "Museum Collaborations",
+    "slug": "museum-collaborations",
+    "parent": "{REF:Limited Editions}",
+    "level": 2,
+    "description": "Museum Collaborations - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 2,
+    "productCount": 0
+  },
+  {
+    "name": "Heritage Documentation Projects",
+    "slug": "heritage-documentation-projects",
+    "parent": "{REF:Limited Editions}",
+    "level": 2,
+    "description": "Heritage Documentation Projects - authentic traditional craft",
+    "isActive": true,
+    "sortOrder": 3,
+    "productCount": 0
+  }
+]
