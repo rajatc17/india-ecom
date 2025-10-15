@@ -1,14 +1,21 @@
-import { useState } from 'react'
 import './App.css'
+import Home from './components/Home'
+import { createBrowserRouter, RouterProvider } from 'react-router'
+
+const Root = () =>{
+  <div>
+
+  </div>
+}
+
+const appRouter = createBrowserRouter([
+  {
+    
+  }
+])
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className=''>
-      Init india e-com project
-    </div>
-  )
+  return <RouterProvider router={appRouter} />
 }
 
 export default App
