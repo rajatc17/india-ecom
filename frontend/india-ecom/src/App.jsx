@@ -6,7 +6,7 @@ import LandingPage from "./pages/LandingPage";
 
 const Root = () => {
   return (
-    <div>
+    <>
       <Header />
 
       <div className="main-content">
@@ -14,7 +14,7 @@ const Root = () => {
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 };
 
