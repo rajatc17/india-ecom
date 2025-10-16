@@ -4,7 +4,7 @@ const LandingPage = () => {
   useEffect(() => {
 
     const fetchProducts = async () => {
-        const data = await fetch('http://localhost:5000/api/categories?level=0');
+        const data = await fetch('http://localhost:5000/api/products/featured');
         const json = await data.json();
         console.log(json);
     }
@@ -14,7 +14,7 @@ const LandingPage = () => {
 
   return (
     <div>
-
+        
     </div>
   )
 }
