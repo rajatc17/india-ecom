@@ -13,6 +13,7 @@ const LandingPage = () => {
 
   return (
     <div className="bg-amber-400">
+      
     </div>
   );
 };
