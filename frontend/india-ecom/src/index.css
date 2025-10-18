@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  font-family: 'Montes', sans-serif;
+}
+
 @theme {
   /* === Color System === */
   /* Terracotta palette */
