@@ -3,6 +3,9 @@ const express = require("express");
 const connectDB = require('./db')
 
 const app = express();
+
+// CORS should be before other middleware
+app.use(require('cors')({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
@@ -37,4 +40,5 @@ app.use('/api/admin', adminOrdersRoutes);
 const adminUsersRoutes = require('./routes/adminUsers');
 app.use('/api/admin', adminUsersRoutes);
 
-app.use(require('cors')({ origin: 'http://localhost:5173', credentials: true }));
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
