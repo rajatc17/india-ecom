@@ -2,7 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import LandingPage from "./pages/LandingPage";
+import Home from "./pages/Home/Home";
 
 const Root = () => {
   return (
@@ -25,7 +25,7 @@ const appRouter = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: <Home />,
       },
     ],
   },
