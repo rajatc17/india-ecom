@@ -9,7 +9,7 @@ const Home = () => {
       const cats = json.map(element => {
         return element.name
       });
-      console.log(cats)
+      //console.log(cats)
     };
 
     fetchProducts();
