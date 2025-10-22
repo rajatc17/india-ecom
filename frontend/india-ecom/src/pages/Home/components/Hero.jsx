@@ -33,25 +33,28 @@ const HeroImage = ({ image, ref }) => {
     );
 };
 
+const HeroPageButton = () => {
+    return <button className="bg"></button>;
+};
+
 const Hero = () => {
     const imageArray = useMemo(() => Object.values(images), []);
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const heroSectionRef = useRef(null)
+    const heroSectionRef = useRef(null);
     const heroCarouselRefs = useRef([]);
 
     useEffect(() => {
         const heroCarouselResize = () => {
             heroCarouselRefs.current[currentSlide].scrollIntoView({
-                behavior: 'instant'
-            })
-        }
+                behavior: "instant",
+            });
+        };
 
-        window.addEventListener('resize', heroCarouselResize)
+        window.addEventListener("resize", heroCarouselResize);
 
-        return () => window.removeEventListener('resize', heroCarouselResize)
-
-    }, [currentSlide, heroCarouselRefs])
+        return () => window.removeEventListener("resize", heroCarouselResize);
+    }, [currentSlide, heroCarouselRefs]);
 
     const scrollNext = () => {
         const next = currentSlide + 1;
@@ -70,7 +73,7 @@ const Hero = () => {
     };
 
     return (
-        <section className="relative h-[600px]">
+        <section className="relative h-fit">
             <div className="absolute left-0 top-1/2 z-10">
                 <button
                     className="bg-black/55 p-2 rounded-4xl text-white cursor-pointer"
@@ -79,7 +82,10 @@ const Hero = () => {
                     <SlArrowLeft size={30} />
                 </button>
             </div>
-            <div className="overflow-hidden flex flex-nowrap gap-0.5 h-full" ref={heroSectionRef}>
+            <div
+                className="overflow-hidden flex flex-nowrap gap-0.5 h-full"
+                ref={heroSectionRef}
+            >
                 {imageArray &&
                     imageArray.map((image, i) => (
                         <HeroImage
@@ -96,6 +102,25 @@ const Hero = () => {
                 >
                     <SlArrowRight size={30} />
                 </button>
+            </div>
+            <div className="absolute bottom-2 w-screen">
+            <div className="flex justify-center">
+                {imageArray &&
+                    imageArray.map((image, i) => (
+                        <button
+                            className={"p-1.5 m-1 cursor-pointer rounded-4xl hover:bg-amber-600/50 " + ((currentSlide == i) ? " bg-amber-600" : " bg-white")}
+                            key={i}
+                            onClick={() => {
+                                heroCarouselRefs.current[i].scrollIntoView({
+                                    behavior: "smooth",
+                                });
+                                setCurrentSlide(i);
+                            }}
+                        >
+                            {" "}
+                        </button>
+                    ))}
+            </div>
             </div>
         </section>
     );
