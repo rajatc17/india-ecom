@@ -1,22 +1,20 @@
 import { useEffect } from "react";
 import Hero from "./components/Hero";
+import SubHeader from "./components/SubHeader";
+import { useSelector , useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/product/productSlice";
 
 const Home = () => {
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await fetch("http://localhost:5000/api/categories?level=0");
-      const json = await data.json();
-      const cats = json.map(element => {
-        return element.name
-      });
-      //console.log(cats)
-    };
-
-    fetchProducts();
-  }, []);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.items);
+  
+  useEffect(()=>{
+    dispatch(fetchProducts());
+  }, [])
 
   return (
     <div className="">
+      <SubHeader />
       <Hero />
     </div>
   );

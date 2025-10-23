@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const Root = () => {
   return (
@@ -21,7 +23,7 @@ const Root = () => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Provider store={store} > <Root /> </Provider>,
     children: [
       {
         index: true,

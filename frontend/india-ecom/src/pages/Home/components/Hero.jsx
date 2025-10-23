@@ -108,7 +108,7 @@ const Hero = () => {
                 {imageArray &&
                     imageArray.map((image, i) => (
                         <button
-                            className={"p-1.5 m-1 cursor-pointer rounded-4xl hover:bg-amber-600/50 " + ((currentSlide == i) ? " bg-amber-600" : " bg-white")}
+                            className={"p-1.5 m-1 cursor-pointer rounded-4xl " + ((currentSlide == i) ? "bg-amber-600" : "bg-white hover:bg-amber-600/50")}
                             key={i}
                             onClick={() => {
                                 heroCarouselRefs.current[i].scrollIntoView({
