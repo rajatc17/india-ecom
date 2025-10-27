@@ -8,7 +8,7 @@ import store from "./store/store";
 
 const Root = () => {
   return (
-    <>
+    <div className="root" >
       <Header />
 
       <div className="main-content">
@@ -16,7 +16,7 @@ const Root = () => {
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 };
 
