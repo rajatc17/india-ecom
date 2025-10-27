@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 * {
-  font-family: 'Montes', sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 @theme {

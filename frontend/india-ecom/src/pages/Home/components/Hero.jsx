@@ -6,7 +6,7 @@ const images = import.meta.glob(
   { eager: true }
 );
 
-const HeroImage = ({ image, ref }) => {
+const HeroImage = ({ image, ref, timerRef }) => {
   return (
     <div
       className="grid grid-cols-4 w-screen shrink-0 items-center justify-center"
@@ -33,17 +33,37 @@ const HeroImage = ({ image, ref }) => {
   );
 };
 
-const HeroPageButton = () => {
-  return <button className="bg"></button>;
-};
-
 const Hero = () => {
   const imageArray = useMemo(() => Object.values(images), []);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroCarouselRefs = useRef([]);
+  const heroImageContainerRef = useRef(null);
+  const timerRef = useRef(null);
 
-  useEffect(() => {
+  const scrollToSlide = (index) => {
+  const container = heroImageContainerRef.current;
+  if (container && container.children[index]) {
+    const slide = container.children[index];
+    container.scrollTo({
+      left: slide.offsetLeft,
+      behavior: "smooth"
+    });
+    setCurrentSlide(index);
+  }
+};
+
+  const scrollNext = () => {
+    const next = (currentSlide + 1) % heroImageContainerRef.current.children.length;
+    scrollToSlide(next);
+  };
+
+  const scrollPrev = () => {
+    const prev = (currentSlide - 1 + heroImageContainerRef.current.children.length) % heroImageContainerRef.current.children.length;
+    scrollToSlide(prev);
+  };
+
+   useEffect(() => {
     const heroCarouselResize = () => {
       heroCarouselRefs.current[currentSlide].scrollIntoView({
         behavior: "instant",
@@ -55,34 +75,12 @@ const Hero = () => {
     return () => window.removeEventListener("resize", heroCarouselResize);
   }, [currentSlide, heroCarouselRefs]);
 
-  const scrollNext = () => {
-    const next = currentSlide + 1;
-    if (next < heroCarouselRefs.current.length) {
-      heroCarouselRefs.current[next].scrollIntoView({ behavior: "smooth" });
-      setCurrentSlide(next);
-    }
-  };
-
-  const scrollPrev = () => {
-    const prev = currentSlide - 1;
-    if (prev >= 0) {
-      heroCarouselRefs.current[prev].scrollIntoView({ behavior: "smooth" });
-      setCurrentSlide(prev);
-    }
-  };
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentSlide === heroCarouselRefs.current.length - 1) {
-        console.log("here");
-        heroCarouselRefs.current[0].scrollIntoView({ behavior: "instant" });
-        setCurrentSlide(0);
-      } else {
-        scrollNext();
-      }
-    }, 2000);
+    timerRef.current = setTimeout(() => scrollNext(), 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timerRef.current)
+    };
   }, [currentSlide]);
 
   return (
@@ -95,13 +93,14 @@ const Hero = () => {
           <SlArrowLeft size={30} />
         </button>
       </div>
-      <div className="overflow-hidden flex flex-nowrap gap-0.5 h-full">
+      <div className="overflow-hidden  flex flex-nowrap gap-0.5 h-full" ref={heroImageContainerRef}>
         {imageArray &&
           imageArray.map((image, i) => (
             <HeroImage
               image={image}
               key={i}
               ref={(e) => (heroCarouselRefs.current[i] = e)}
+              timerRef={timerRef.current}
             />
           ))}
       </div>
@@ -126,10 +125,7 @@ const Hero = () => {
                 }
                 key={i}
                 onClick={() => {
-                  heroCarouselRefs.current[i].scrollIntoView({
-                    behavior: "smooth",
-                  });
-                  setCurrentSlide(i);
+                  scrollToSlide(i)
                 }}
               >
                 {" "}
