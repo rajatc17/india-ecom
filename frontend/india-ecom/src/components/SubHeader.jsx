@@ -45,7 +45,7 @@ const SubHeader = () => {
         </div>
       }
 
-      <div className={'absolute w-full bg-white px-6 py-8 flex-col transition-all delay-150 duration-150 ease-in-out ' + (isHovered ? 'visible opacity-100' : 'invisible opacity-0')} 
+      <div className={'absolute w-full bg-white px-6 py-8 flex-col transition-all delay-0 duration-150 ease-in-out ' + (isHovered ? 'visible opacity-100' : 'invisible opacity-0')} 
       ref={catRef}>
         {
           category && category.children.map((cat_lvl1 , i)=>
