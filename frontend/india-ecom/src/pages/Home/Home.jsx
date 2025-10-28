@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Hero from "./components/Hero";
-import SubHeader from "./components/SubHeader";
+import SubHeader from "../../components/SubHeader";
 import { useSelector , useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/product/productSlice";
 
