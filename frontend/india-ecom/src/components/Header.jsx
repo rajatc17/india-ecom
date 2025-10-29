@@ -2,6 +2,7 @@ import logoSVG from '../assets/logoSVG.svg';
 import logoNew from '../assets/logoNew.png';
 import { useState } from 'react';
 import { IoSearch } from "react-icons/io5";
+import { Link, Links } from 'react-router';
 
 const Header = () => {
   const [searchText, setSearchText] = useState()
@@ -17,9 +18,11 @@ const Header = () => {
             <IoSearch className='text-zinc-950' />
             <input className=' rounded-2xl px-2 focus:outline-none' type='text' placeholder='Search' value={searchText}/>
           </div>
-          <div className="">
+          <Link to={'/'}>
+          <div className="" >
             <img className='w-auto h-[80px] object-cover mx-auto' src={logoNew} alt='Shilpika'/>
           </div>
+          </Link>
           <ul className="flex gap-8 text-black font-semibold">
             <li className="hover:text-gold transition cursor-pointer">LOGIN</li>
             <li className="hover:text-gold transition cursor-pointer">WISHLIST</li>
