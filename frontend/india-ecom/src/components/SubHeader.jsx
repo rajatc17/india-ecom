@@ -1,69 +1,90 @@
-import { useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategoryTree } from "../store/category/categorySlice";
 
-const SubHeader = () => {
-
-  const dispatch = useDispatch();
-  const categoryTree = useSelector((state) => state.categories.items)
-  const [category, setCategory] = useState(null);
-  const [isHovered , setIsHovered] = useState(false);
-  const catRef = useRef(null);
-  const timerRef = useRef(null)
-  
-  useEffect(()=>{
-    dispatch(fetchCategoryTree())
-  },[])
-
-  useEffect(()=>{
-   clearTimeout(timerRef.current)
-  },[category])
- 
-  const handleSHMouseLeave = ()=>{
-    setIsHovered(false);
-    //setCategory(null);
-  }
-
-  const handleCategoryHover = (category)=>{
-    setIsHovered(false);
-    timerRef.current = setTimeout(()=> {
-      setCategory(category) 
-      setIsHovered(true)
-    }, 200);
-  }
+const SHCatNavMenu = ({ isHovered, category }) => {
+  if (!category) return null;
 
   return (
-    <div className='sticky px-4 py-2 text-xs z-100' onMouseLeave={()=>handleSHMouseLeave()}>
-      {
-        <div className='flex gap-1 justify-between'>
-          {
-            categoryTree && categoryTree.map((category,i) => 
-            <button className='px-2 py-3 font-semibold' key={category.id} onMouseOver={()=> handleCategoryHover(category)}> 
-              {category.name.toUpperCase()}
-            </button>)
-          }
-        </div>
+    <div
+      className={
+        'absolute left-0 top-full w-full px-6 py-8 shadow-lg border-t transition-all duration-300 ease-in-out ' +
+        (isHovered ? 'visible opacity-100 bg-white translate-y-0' : 'invisible opacity-0 -translate-y-2')
       }
-
-      <div className={'absolute w-full bg-white px-6 py-8 flex-col transition-all delay-0 duration-150 ease-in-out ' + (isHovered ? 'visible opacity-100' : 'invisible opacity-0')} 
-      ref={catRef}>
-        {
-          category && category.children.map((cat_lvl1 , i)=>
-            <ul key={cat_lvl1.id}>
-              <li className='text-lg font-semibold '>{cat_lvl1.name}</li>
-              <div className='text-sm font-light'>
-                {
-                  cat_lvl1.children?.map((cat_lvl2 , i)=>
-                    
-                    <p key={cat_lvl2.id}>{cat_lvl2.name}</p>)
-                }
-              </div>
+      style={{ zIndex: 40 }}
+    >
+      <div className="grid grid-cols-4 gap-6 max-w-7xl mx-auto">
+        {category.children.map((cat_lvl1) =>
+          <div key={cat_lvl1.id}>
+            <h3 className='text-lg font-semibold mb-3'>{cat_lvl1.name}</h3>
+            <ul className='space-y-2 list-none'>
+              {cat_lvl1.children?.map((cat_lvl2) =>
+                <li key={cat_lvl2.id} className='text-sm font-light hover:text-orange-400 cursor-pointer'>
+                  {cat_lvl2.name}
+                </li>
+              )}
             </ul>
-          )
-        }
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
-export default SubHeader
+const SubHeader = () => {
+  const dispatch = useDispatch();
+  const categoryTree = useSelector((state) => state.categories.items);
+  const [category, setCategory] = useState(null);
+  const [displayCategory, setDisplayCategory] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const hideTimer = useRef(null);
+
+  useEffect(() => {
+    dispatch(fetchCategoryTree());
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    if (category) {
+      setDisplayCategory(category);
+      setIsHovered(true);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    } else {
+      setIsHovered(false);
+      hideTimer.current = setTimeout(() => {
+        setDisplayCategory(null);
+      }, 300);
+    }
+    return () => hideTimer.current && clearTimeout(hideTimer.current);
+  }, [category]);
+
+  const handleSHMouseLeave = () => {
+    setCategory(null);
+  };
+
+  const handleCategoryHover = (cat) => {
+    setCategory(cat);
+  };
+
+  return (
+    <div className='sticky top-0 bg-white shadow-sm px-4 text-xs z-50' onMouseLeave={handleSHMouseLeave}>
+      <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
+        {categoryTree && categoryTree.map((cat) =>
+          <li
+            key={cat.id}
+            className={
+              'px-2 py-3 font-light border-b-2 border-transparent transition-all duration-150 ease-in-out cursor-pointer ' +
+              ((category?.id === cat.id) ? 'border-b-orange-400 text-orange-400' : 'hover:text-orange-400')
+            }
+            onMouseOver={() => handleCategoryHover(cat)}
+          >
+            <span className='text-center'>{cat.name.toUpperCase()}</span>
+          </li>
+        )}
+        <SHCatNavMenu isHovered={isHovered} category={displayCategory} />
+      </ul>
+    </div>
+  );
+};
+
+export default SubHeader;
