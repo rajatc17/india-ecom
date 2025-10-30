@@ -1,9 +1,8 @@
 import { useMemo, useEffect, useRef, useState } from "react";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
-const images = import.meta.glob(
-  "../../../assets/hero/*.{jpg,jpeg,png,webp,avif}",
-  { eager: true }
+const imageFiles = import.meta.glob(
+  "../../../assets/hero/*.{jpg,jpeg,png,webp,avif}"
 );
 
 const HeroImage = ({ image, ref, timerRef }) => {
@@ -34,7 +33,20 @@ const HeroImage = ({ image, ref, timerRef }) => {
 };
 
 const Hero = () => {
-  const imageArray = useMemo(() => Object.values(images), []);
+
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const loadedImages = await Promise.all(
+        Object.values(imageFiles).map((importFn) => importFn())
+      );
+      setImages(loadedImages);
+      setLoading(false);
+    };
+    loadImages();
+  }, []);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroCarouselRefs = useRef([]);
@@ -83,6 +95,10 @@ const Hero = () => {
     };
   }, [currentSlide]);
 
+  if(loading){
+    return <div>Loading images...</div>;
+  }
+
   return (
     <section className="relative h-fit">
       <div className="absolute left-0 top-1/2 z-10">
@@ -94,8 +110,8 @@ const Hero = () => {
         </button>
       </div>
       <div className="overflow-hidden  flex flex-nowrap gap-0.5 h-full" ref={heroImageContainerRef}>
-        {imageArray &&
-          imageArray.map((image, i) => (
+        {images &&
+          images.map((image, i) => (
             <HeroImage
               image={image}
               key={i}
@@ -114,8 +130,8 @@ const Hero = () => {
       </div>
       <div className="absolute bottom-2 w-screen">
         <div className="flex justify-center">
-          {imageArray &&
-            imageArray.map((image, i) => (
+          {images &&
+            images.map((image, i) => (
               <button
                 className={
                   "p-1.5 m-1 cursor-pointer rounded-4xl " +
