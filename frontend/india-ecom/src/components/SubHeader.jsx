@@ -23,7 +23,9 @@ const SHCatNavMenu = ({ isHovered, category }) => {
             <ul className='space-y-2 list-none'>
               {cat_lvl1.children?.map((cat_lvl2) =>
                 <li key={cat_lvl2.id} className='text-sm font-light hover:text-orange-400 cursor-pointer'>
-                  {cat_lvl2.name}
+                  <Link to={'/category/' + cat_lvl2.slug}>
+                    {cat_lvl2.name}
+                  </Link>
                 </li>
               )}
             </ul>
@@ -70,7 +72,13 @@ const SubHeader = () => {
   };
 
   return (
-    <div className='sticky top-0 bg-white shadow-sm px-4 text-xs z-50' onMouseLeave={handleSHMouseLeave}>
+    <>
+
+    <div className='hidden md:block lg:hidden'>
+      
+    </div>
+
+    <div className='hidden lg:block sticky top-0 bg-white shadow-sm px-4 text-xs z-50' onMouseLeave={handleSHMouseLeave}>
       <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
         {categoryTree && categoryTree.map((cat) =>
           <Link to={'/category/' + cat.slug}>
@@ -89,6 +97,8 @@ const SubHeader = () => {
         <SHCatNavMenu isHovered={isHovered} category={displayCategory} />
       </ul>
     </div>
+    
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Product = require('../src/models/Product'); // Adjust path to your Product model
-const Category = require('../src/models/Category'); // Adjust path to your Category model
-const seedData = require('./products_100_seed.json'); // Path to your products JSON
+const Product = require('../src/models/Product');
+const Category = require('../src/models/Category');
+const seedData = require('./products_100_seed.json');
 require('dotenv').config();
 
 // Connect to MongoDB
