@@ -1,16 +1,24 @@
 import logoNew from '../assets/logoNew.png';
-import { useState } from 'react';
+import { useState  } from 'react';
+import { createPortal } from 'react-dom'
 import { IoSearch } from "react-icons/io5";
 import { FaUserLarge } from "react-icons/fa6";
 import { MdFavoriteBorder } from "react-icons/md";
 import { PiHandbagBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa";
 import { LuUserRound } from "react-icons/lu";
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import Modal from './Modal';
 
 const Header = () => {
   const [searchText, setSearchText] = useState()
+  const navigate = useNavigate()
+
+  const handleUserLogo = ()=>{
+    navigate('/login');
+  }
   return (
+    <>
     <header className="relative bg-white px-1 py-2 overflow-hidden shadow-xl">
       {/* Texture overlay - now using custom utility */}
       <div className="absolute inset-0 bg-terracotta-texture opacity-30 pointer-events-none" />
@@ -31,19 +39,26 @@ const Header = () => {
           </Link>
 
           <ul className="flex gap-3 text-black font-semibold">
-            <li className="hover:text-gold transition cursor-pointer">
-              <FaUserLarge size={20} className='relative top-1'/>
+            <li className="">
+              <button className='cursor-pointer relative top-1' onClick={handleUserLogo}>
+                <FaUserLarge size={20}/>
+              </button>
             </li>
-            <li className="hover:text-gold transition cursor-pointer">
-              <MdFavoriteBorder size={25}/>
+            <li className="">
+              <button className='cursor-pointer'>
+                <MdFavoriteBorder size={25}/>
+              </button>
             </li>
-            <li className="hover:text-gold transition cursor-pointer">
-              <PiHandbagBold size={24}/>
+            <li className="">
+              <button className='cursor-pointer'>
+                <PiHandbagBold size={24}/>
+              </button>
             </li>
           </ul>
         </nav>
       </div>
     </header>
+    </>
   );
 };
 

@@ -227,6 +227,142 @@ router.get('/:id', async (req, res) => {
 // ADMIN ROUTES (Protected)
 // ============================================
 
+// GET /api/products/admin/all - Get all products for admin (including inactive)
+router.get('/admin/all', isAdmin, async (req, res) => {
+  try {
+    const {
+      q, category, region, gi, minPrice, maxPrice,
+      inStock, featured, isActive, sort = '-createdAt', 
+      page = 1, limit = 20
+    } = req.query;
+
+    console.log('📥 Admin request query params:', req.query);
+
+    // Build filter object (no isActive filter by default for admin)
+    const filter = {};
+
+    // Category filter
+    if (category) {
+      const Category = require('../models/Category');
+      const isValidObjectId = mongoose.Types.ObjectId.isValid(category) && 
+                              /^[0-9a-fA-F]{24}$/.test(category);
+      
+      let categoryDoc = null;
+      
+      if (isValidObjectId) {
+        categoryDoc = await Category.findById(category);
+      }
+      
+      if (!categoryDoc) {
+        categoryDoc = await Category.findOne({ slug: category });
+      }
+      
+      if (categoryDoc) {
+        const allCategoryIds = await getAllCategoryIds(categoryDoc._id);
+        filter.category = { $in: allCategoryIds };
+      }
+    }
+
+    // Text search
+    if (q) {
+      filter.$or = [
+        { name: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } },
+        { sku: { $regex: q, $options: 'i' } },
+        { tags: { $regex: q, $options: 'i' } }
+      ];
+    }
+
+    // Region filter
+    if (region) {
+      filter.region = region;
+    }
+
+    // GI-tagged filter
+    if (gi === 'true') {
+      filter.isGITagged = true;
+    }
+
+    // Price range filter
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+
+    // In stock filter
+    if (inStock === 'true') {
+      filter.stock = { $gt: 0 };
+    } else if (inStock === 'false') {
+      filter.stock = { $lte: 0 };
+    }
+
+    // Featured filter
+    if (featured === 'true') {
+      filter.isFeatured = true;
+    } else if (featured === 'false') {
+      filter.isFeatured = false;
+    }
+
+    // Active status filter (admin can filter by active/inactive)
+    if (isActive === 'true') {
+      filter.isActive = true;
+    } else if (isActive === 'false') {
+      filter.isActive = false;
+    }
+
+    console.log('🔎 Admin filter object:', JSON.stringify(filter, null, 2));
+
+    // Pagination
+    const skip = (Number(page) - 1) * Number(limit);
+    const limitNum = Math.min(Number(limit), 100);
+
+    // Execute query
+    const [products, total] = await Promise.all([
+      Product.find(filter)
+        .populate('category', 'name slug')
+        .sort(sort)
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      Product.countDocuments(filter)
+    ]);
+
+    console.log('📦 Admin products found:', products.length);
+    console.log('📊 Total count:', total);
+
+    // Add stock status and availability info
+    const productsWithStatus = products.map(product => ({
+      ...product,
+      stockStatus: product.stock > 0 ? 'in-stock' : 'out-of-stock',
+      lowStock: product.stock > 0 && product.stock <= 10
+    }));
+
+    res.json({
+      products: productsWithStatus,
+      pagination: {
+        page: Number(page),
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      },
+      stats: {
+        total,
+        active: await Product.countDocuments({ ...filter, isActive: true }),
+        inactive: await Product.countDocuments({ ...filter, isActive: false }),
+        outOfStock: await Product.countDocuments({ ...filter, stock: { $lte: 0 } }),
+        lowStock: await Product.countDocuments({ ...filter, stock: { $gt: 0, $lte: 10 } })
+      }
+    });
+  } catch (error) {
+    console.error('❌ Admin get products error:', error);
+    res.status(500).json({ 
+      message: 'Error fetching products', 
+      error: error.message 
+    });
+  }
+});
+
 // POST /api/products - Create product (Admin only)
 router.post('/', isAdmin, async (req, res) => {
   try {

@@ -1,4 +1,5 @@
 import "./App.css";
+import { lazy , Suspense } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -7,6 +8,8 @@ import SubHeader from "./components/SubHeader";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import Category from "./pages/Category/Category";
+
+const Login = lazy(()=>import('./pages/Login/Login'))
 
 const Root = () => {
   return (
@@ -37,7 +40,13 @@ const appRouter = createBrowserRouter([
         path : '/category/:slug',        
         element : <Category />
       },
-      
+      {
+        path : '/login',
+        element : 
+        <Suspense fallback={()=><div>Loading...</div>}>
+          <Login />
+        </Suspense>  
+      }
     ],
   },
 ]);
