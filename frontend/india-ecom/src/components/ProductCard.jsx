@@ -13,7 +13,8 @@ const ProductCard = ({product}) => {
               </div> :
               null
             }
-            <img className='w-full max-h-full object-cover' src={ product.images.find((img) => img.isPrimary === true).url } />
+            <img className='w-full max-h-full object-cover' 
+            src={ product.images.find((img) => img.isPrimary === true).url } />
         </div>
         <div className='px-4 md:text-sm lg:text-base my-1'>
           <p className='font-semibold'>{product.name}</p>

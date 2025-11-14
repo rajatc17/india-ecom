@@ -7,9 +7,10 @@ import Header from "./components/Header";
 import SubHeader from "./components/SubHeader";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
-import Category from "./pages/Category/Category";
+//import Category from "./pages/Category/Category";
 
 const Login = lazy(()=>import('./pages/Login/Login'))
+const Category = lazy(()=>import('./pages/Category/Category'))
 
 const Root = () => {
   return (
@@ -40,13 +41,13 @@ const appRouter = createBrowserRouter([
         path : '/category/:slug',        
         element : <Category />
       },
-      {
-        path : '/login',
-        element : 
-        <Suspense fallback={()=><div>Loading...</div>}>
-          <Login />
-        </Suspense>  
-      }
+      // {
+      //   path : '/login',
+      //   element : 
+      //   <Suspense fallback={()=><div>Loading...</div>}>
+      //     <Login />
+      //   </Suspense>  
+      // }
     ],
   },
 ]);
