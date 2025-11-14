@@ -13,3 +13,4 @@ yarn-error.log*
 # OS / IDE junk
 .DS_Store
 Thumbs.db
+*.github
