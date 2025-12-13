@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const authMiddleware = require("../middleware/auth");
 const router = express.Router();
 
 const signToken = (userId) =>
@@ -60,5 +60,20 @@ router.post(
     res.json({ token, user: user.toJSON() });
   })
 );
+
+router.get('/me', authMiddleware, async (req, res) => {
+    try {
+        // req.user comes from authenticate middleware
+        const user = await User.findById(req.user._id).select('-passwordHash');
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = router;
