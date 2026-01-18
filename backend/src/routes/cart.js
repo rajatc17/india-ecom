@@ -110,7 +110,7 @@ router.post('/add', authMiddleware, async (req, res) => {
         product: product._id,
         name: product.name,
         slug: product.slug,
-        image: product.images && product.images.length > 0 ? product.images[0] : null,
+        image: product.images && product.images.length > 0 ? product.images[0].url : null,
         price: product.price,
         discountedPrice: product.discountedPrice,
         quantity: quantity,

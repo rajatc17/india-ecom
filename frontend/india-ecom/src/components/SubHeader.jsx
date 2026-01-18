@@ -78,7 +78,7 @@ const SubHeader = () => {
       
     </div>
 
-    <div className='hidden lg:block sticky top-0 bg-white shadow-sm px-4 text-xs z-50' onMouseLeave={handleSHMouseLeave}>
+    <div className='hidden lg:block sticky top-0 bg-white shadow-sm px-4 text-xs z-40' onMouseLeave={handleSHMouseLeave}>
       <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
         {categoryTree && categoryTree.map((cat) =>
           <Link to={'/category/' + cat.slug}>

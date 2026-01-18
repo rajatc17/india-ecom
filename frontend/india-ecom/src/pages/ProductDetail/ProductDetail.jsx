@@ -5,11 +5,13 @@ import { fetchProductBySlug } from '../../store/product/productSlice';
 import Loader from '../../components/common/Loader';
 import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
 import { ShoppingCart, Heart, Star, MapPin, Award, Package, Truck } from 'lucide-react';
+import { addToCart } from '../../store/cart/cartSlice';
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { currentProduct, loading, error } = useSelector((state) => state.products);
+  const {cart , cartLoading, cartError} = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -23,6 +25,15 @@ const ProductDetail = () => {
   const { name, description, price, images, category, region, giTag, stock, rating, reviews } = currentProduct;
   const primaryImage = images?.find((img) => img.isPrimary) || images?.[0];
   const inStock = stock > 0;
+
+  const handleAddToCart = () => {
+    if(!inStock) return;
+    if (cart && cart.items.includes(item => item.product !== productId)){
+      alert("Product already in cart");
+      return;
+    }
+    dispatch(addToCart({ product: currentProduct, quantity }))
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -98,7 +109,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Quantity Selector */}
-            {inStock && (
+            {/* {inStock && (
               <div className="flex items-center gap-4">
                 <span className="font-medium text-gray-700">Quantity:</span>
                 <div className="flex items-center border border-gray-300 rounded-lg">
@@ -117,13 +128,14 @@ const ProductDetail = () => {
                   </button>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Action Buttons */}
             <div className="flex gap-4">
               <button
                 disabled={!inStock}
-                className="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                className="flex-1 cursor-pointer bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                onClick={handleAddToCart}
               >
                 <ShoppingCart size={20} />
                 Add to Cart
