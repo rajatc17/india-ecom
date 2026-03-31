@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { api } from "../../api/client";
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchAll',
@@ -6,14 +7,12 @@ export const fetchProducts = createAsyncThunk(
         try {
 
             const query = new URLSearchParams(params).toString();
-            const req = await fetch(`http://localhost:5000/api/products?${query}`)
-
-            const data = await req.json();
+            const data = await api(`/api/products${query ? `?${query}` : ''}`);
 
             return data;
         }
         catch(error){
-            return rejectWithValue(error.response)
+            return rejectWithValue(error.message || 'Failed to fetch products')
         }
     }
 )
@@ -23,11 +22,10 @@ export const fetchFeaturedProducts = createAsyncThunk(
     async ({ page = 1, limit = 8, sort = "-createdAt" } = {}, { rejectWithValue }) => {
         try {
             const query = new URLSearchParams({ featured: true, page, limit, sort }).toString();
-            const req = await fetch(`http://localhost:5000/api/products?${query}`);
-            const data = await req.json();
+            const data = await api(`/api/products?${query}`);
             return data;
         } catch (error) {
-            return rejectWithValue(error.response);
+            return rejectWithValue(error.message || 'Failed to fetch featured products');
         }
     }
 );
@@ -37,11 +35,10 @@ export const fetchSearchProducts = createAsyncThunk(
     async ({ q, page = 1, limit = 20, sort = "-createdAt" } = {}, { rejectWithValue }) => {
         try {
             const query = new URLSearchParams({ q, page, limit, sort }).toString();
-            const req = await fetch(`http://localhost:5000/api/products?${query}`);
-            const data = await req.json();
+            const data = await api(`/api/products?${query}`);
             return { ...data, q };
         } catch (error) {
-            return rejectWithValue(error.response);
+            return rejectWithValue(error.message || 'Failed to search products');
         }
     }
 );
@@ -50,13 +47,11 @@ export const fetchProductBySlug = createAsyncThunk(
   'products/fetchBySlug',
   async (slug, { rejectWithValue }) => {
     try {
-            const req = await fetch(`http://localhost:5000/api/products/slug/${slug}`)
-
-            const data = await req.json();
+                        const data = await api(`/api/products/slug/${slug}`);
 
             return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+            return rejectWithValue(error.message || 'Failed to fetch product by slug');
     }
   }
 );

@@ -1,4 +1,5 @@
 import { createAsyncThunk , createSlice } from "@reduxjs/toolkit";
+import { api } from "../../api/client";
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchAll',
@@ -6,14 +7,12 @@ export const fetchCategories = createAsyncThunk(
         try {
 
             const query = new URLSearchParams(params).toString();
-            const req = await fetch(`http://localhost:5000/api/categories?${query}`)
-
-            const data = await req.json();
+            const data = await api(`/api/categories${query ? `?${query}` : ''}`);
 
             return data;
         }
         catch(error){
-            return rejectWithValue(error.response)
+            return rejectWithValue(error.message || 'Failed to fetch categories')
         }
     }
 
@@ -25,16 +24,12 @@ export const fetchCategoryTree = createAsyncThunk(
         try {
 
             const query = new URLSearchParams(params).toString();
-                        const req = await fetch(
-                            `http://localhost:5000/api/categories/tree${query ? `?${query}` : ''}`
-                        )
-
-            const data = await req.json();
+            const data = await api(`/api/categories/tree${query ? `?${query}` : ''}`);
 
             return data;
         }
         catch(error){
-            return rejectWithValue(error.response)
+            return rejectWithValue(error.message || 'Failed to fetch category tree')
         }
     }
 
@@ -46,14 +41,12 @@ export const fetchCategorySlug = createAsyncThunk(
         try {
 
             const query = new URLSearchParams(params).toString();
-            const req = await fetch(`http://localhost:5000/api/categories/?${query}`)
-
-            const data = await req.json();
+            const data = await api(`/api/categories${query ? `?${query}` : ''}`);
 
             return data;
         }
         catch(error){
-            return rejectWithValue(error.response)
+            return rejectWithValue(error.message || 'Failed to fetch category by slug')
         }
     }
 
