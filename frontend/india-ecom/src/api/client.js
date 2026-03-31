@@ -1,4 +1,8 @@
-const BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+const BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? "http://localhost:5000" : "");
+
+if (!BASE && import.meta.env.PROD) {
+  throw new Error('VITE_API_BASE is not configured for production build');
+}
 
 let token = localStorage.getItem("token") || null;
 export const setToken = (t) => {

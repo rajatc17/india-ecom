@@ -6,15 +6,17 @@ const connectDB = require('./db')
 const app = express();
 
 // CORS should be before other middleware
+const normalizeOrigin = (value = '') => value.trim().replace(/\/$/, '').toLowerCase();
+
 const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .split(',')
-  .map((origin) => origin.trim())
+  .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow non-browser requests and configured browser origins.
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'));
