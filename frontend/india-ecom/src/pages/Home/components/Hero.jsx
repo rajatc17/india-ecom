@@ -1,11 +1,11 @@
-import { useMemo, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
 const imageFiles = import.meta.glob(
   "../../../assets/hero/*.{jpg,jpeg,png,webp,avif}"
 );
 
-const HeroImage = ({ image, ref, timerRef }) => {
+const HeroImage = ({ image, ref }) => {
   return (
     <div
       className="grid grid-cols-4 w-screen shrink-0 items-center justify-center"
@@ -36,6 +36,9 @@ const Hero = () => {
 
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [isTabVisible, setIsTabVisible] = useState(!document.hidden);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const loadImages = async () => {
@@ -48,12 +51,43 @@ const Hero = () => {
     loadImages();
   }, []);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabVisible(!document.hidden);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!sectionRef.current) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.4,
+      }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroCarouselRefs = useRef([]);
   const heroImageContainerRef = useRef(null);
   const timerRef = useRef(null);
 
-  const scrollToSlide = (index) => {
+  const scrollToSlide = useCallback((index) => {
   const container = heroImageContainerRef.current;
   if (container && container.children[index]) {
     const slide = container.children[index];
@@ -63,12 +97,12 @@ const Hero = () => {
     });
     setCurrentSlide(index);
   }
-};
+}, []);
 
-  const scrollNext = () => {
+  const scrollNext = useCallback(() => {
     const next = (currentSlide + 1) % heroImageContainerRef.current.children.length;
     scrollToSlide(next);
-  };
+  }, [currentSlide, scrollToSlide]);
 
   const scrollPrev = () => {
     const prev = (currentSlide - 1 + heroImageContainerRef.current.children.length) % heroImageContainerRef.current.children.length;
@@ -88,19 +122,23 @@ const Hero = () => {
   }, [currentSlide, heroCarouselRefs]);
 
   useEffect(() => {
+    if (!isHeroVisible || !isTabVisible) {
+      return;
+    }
+
     timerRef.current = setTimeout(() => scrollNext(), 2000);
 
     return () => {
       clearTimeout(timerRef.current)
     };
-  }, [currentSlide]);
+  }, [currentSlide, isHeroVisible, isTabVisible, scrollNext]);
 
   if(loading){
     return <div>Loading images...</div>;
   }
 
   return (
-    <section className="relative h-fit">
+    <section className="relative h-fit" ref={sectionRef}>
       <div className="absolute left-0 top-1/2 z-10">
         <button
           className="bg-black/55 p-2 rounded-4xl text-white cursor-pointer"
@@ -116,7 +154,6 @@ const Hero = () => {
               image={image}
               key={i}
               ref={(e) => (heroCarouselRefs.current[i] = e)}
-              timerRef={timerRef.current}
             />
           ))}
       </div>
