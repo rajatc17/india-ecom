@@ -30,6 +30,9 @@ const ImageCarousel = ({ images = [], productName }) => {
           src={currentImage.url}
           alt={currentImage.alt || productName}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
 
         <button
@@ -80,6 +83,8 @@ const ImageCarousel = ({ images = [], productName }) => {
                 src={image.url}
                 alt={image.alt || `${productName} ${index + 1}`}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </button>
           ))}

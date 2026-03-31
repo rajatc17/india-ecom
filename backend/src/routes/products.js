@@ -6,6 +6,22 @@ const { getAllCategoryIds } = require('../utils/categoryHelper');
 const Fuse = require('fuse.js');
 const router = express.Router();
 
+const PRODUCT_LIST_SELECT = 'name slug price discountedPrice discount brand images category region giTagged isFeatured stock averageRating reviewCount createdAt';
+const PRODUCT_DETAIL_SELECT = 'name slug description price discountedPrice discount images category region giTagged stock averageRating reviewCount brand material tags freeShipping';
+
+function toProductDetailPayload(product) {
+  if (!product) return product;
+  return {
+    ...product,
+    // Keep frontend compatibility while model uses giTagged and flat rating fields.
+    giTag: Boolean(product.giTagged),
+    rating: {
+      average: Number(product.averageRating || 0),
+      count: Number(product.reviewCount || 0)
+    }
+  };
+}
+
 // ============================================
 // PUBLIC ROUTES
 // ============================================
@@ -18,48 +34,34 @@ router.get('/', async (req, res) => {
       inStock, featured, sort = '-createdAt', page = 1, limit = 20
     } = req.query;
 
-    console.log('📥 Request query params:', req.query);
-    console.log('🔍 Category param:', category);
-
     // Build filter object
     const filter = { isActive: true };
 
     // Category filter - support both ID and slug (with hierarchical filtering)
     if (category) {
-      console.log('🏷️  Processing category filter...');
       const Category = require('../models/Category');
       
       // Check if it's a valid MongoDB ObjectId
       const isValidObjectId = mongoose.Types.ObjectId.isValid(category) && 
                               /^[0-9a-fA-F]{24}$/.test(category);
       
-      console.log('   Is valid ObjectId?', isValidObjectId);
-      
       let categoryDoc = null;
       
       if (isValidObjectId) {
         // Try to find by ID
         categoryDoc = await Category.findById(category);
-        console.log('   Found by ID?', categoryDoc ? 'YES' : 'NO');
       }
       
       // If not found by ID, try slug
       if (!categoryDoc) {
-        console.log('   Trying to find by slug:', category);
         categoryDoc = await Category.findOne({ slug: category });
-        console.log('   Found by slug?', categoryDoc ? 'YES' : 'NO');
-        if (categoryDoc) {
-          console.log('   Category found:', { id: categoryDoc._id, name: categoryDoc.name, slug: categoryDoc.slug });
-        }
       }
       
       if (categoryDoc) {
         // Get all descendant category IDs (includes subcategories)
         const allCategoryIds = await getAllCategoryIds(categoryDoc._id);
-        console.log('   ✅ Category filter applied with', allCategoryIds.length, 'categories (including descendants)');
         filter.category = { $in: allCategoryIds };
       } else {
-        console.log('   ❌ Category not found, returning empty results');
         return res.json({
           products: [],
           pagination: {
@@ -101,8 +103,6 @@ router.get('/', async (req, res) => {
       filter.isFeatured = true;
     }
 
-    console.log('🔎 Final filter object:', JSON.stringify(filter, null, 2));
-
     // Pagination
     const skip = (Number(page) - 1) * Number(limit);
     const limitNum = Math.min(Number(limit), 100);
@@ -118,6 +118,8 @@ router.get('/', async (req, res) => {
       // Primary: strict name match (partial)
       const [regexProducts, regexTotal] = await Promise.all([
         Product.find(regexFilter)
+          .select(PRODUCT_LIST_SELECT)
+          .slice('images', 1)
           .populate('category', 'name slug')
           .sort(sort)
           .skip(skip)
@@ -133,6 +135,8 @@ router.get('/', async (req, res) => {
         // Fallback: fuzzy search for typos
         const candidateLimit = Math.min(Math.max(limitNum * 15, 200), 600);
         const candidates = await Product.find(baseFilter)
+          .select(PRODUCT_LIST_SELECT)
+          .slice('images', 1)
           .populate('category', 'name slug')
           .limit(candidateLimit)
           .lean();
@@ -154,6 +158,8 @@ router.get('/', async (req, res) => {
       // Execute query (non-search)
       const [list, count] = await Promise.all([
         Product.find(filter)
+          .select(PRODUCT_LIST_SELECT)
+          .slice('images', 1)
           .populate('category', 'name slug')
           .sort(sort)
           .skip(skip)
@@ -165,9 +171,6 @@ router.get('/', async (req, res) => {
       products = list;
       total = count;
     }
-
-    console.log('📦 Products found:', products.length);
-    console.log('📊 Total count:', total);
 
     res.json({
       products,
@@ -197,6 +200,8 @@ router.get('/featured', async (req, res) => {
       isActive: true,
       isAvailable: true 
     })
+      .select(PRODUCT_LIST_SELECT)
+      .slice('images', 1)
       .populate('category', 'name slug')
       .limit(limit)
       .lean();
@@ -218,13 +223,15 @@ router.get('/slug/:slug', async (req, res) => {
       slug: req.params.slug,
       isActive: true 
     })
-      .populate('category');
+      .select(PRODUCT_DETAIL_SELECT)
+      .populate('category', 'name slug')
+      .lean();
 
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    res.json(product);
+    res.json(toProductDetailPayload(product));
   } catch (error) {
     console.error('Get product by slug error:', error);
     res.status(500).json({ 
