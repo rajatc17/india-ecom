@@ -1,0 +1,20 @@
+.home-page-fade {
+	animation: homePageFadeIn 320ms ease-out;
+}
+
+@keyframes homePageFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.home-page-fade {
+		animation: none;
+	}
+}
