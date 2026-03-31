@@ -1,11 +1,26 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require('cors');
 const connectDB = require('./db')
 
 const app = express();
 
 // CORS should be before other middleware
-app.use(require('cors')({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow non-browser requests and configured browser origins.
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
