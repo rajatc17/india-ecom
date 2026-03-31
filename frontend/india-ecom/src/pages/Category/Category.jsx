@@ -24,13 +24,13 @@ const Category = () => {
     }, [dispatch, slug]);
 
     return (
-        <div className='w-full relative'>
+        <div className='w-full relative shilpika-bg'>
             <div className='bg-amber-200 h-[200px] flex items-center justify-center'>
                 <h1 className='text-4xl md:text-5xl font-bold text-gray-800'>
                     {categoryName}
                 </h1>
             </div>
-            <div className='size-full bg-black/5'>
+            <div className='size-full'>
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-5 my-10 px-4
                 max-w-[clamp(20rem,90vw,100rem)]
                 '>

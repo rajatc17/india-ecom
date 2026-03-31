@@ -1,10 +1,11 @@
 import logoNew from '../assets/logoNew.png';
 import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom'
+import { createPortal } from 'react-dom';
 import { IoSearch } from "react-icons/io5";
 import { FaUserLarge } from "react-icons/fa6";
 import { MdFavoriteBorder } from "react-icons/md";
 import { PiHandbagBold } from "react-icons/pi";
+import { HiBars3, HiXMark } from 'react-icons/hi2';
 import { Link, useNavigate } from 'react-router';
 import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,14 +13,26 @@ import { openLoginModal } from '../store/modal/modalSlice';
 import FloatingCart from './FloatingCart';
 import { api } from '../api/client';
 
-const Header = () => {
+const flattenCategories = (nodes = []) => {
+  const result = [];
+  nodes.forEach((node) => {
+    result.push(node);
+    if (Array.isArray(node.children) && node.children.length > 0) {
+      result.push(...flattenCategories(node.children));
+    }
+  });
+  return result;
+};
+
+const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} }) => {
+  const headerRef = useRef(null);
   const [searchText, setSearchText] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState(null);
   const [productMatches, setProductMatches] = useState([]);
   const [categoryMatches, setCategoryMatches] = useState([]);
-  const [categoryCache, setCategoryCache] = useState(null);
+  const categoryCacheRef = useRef(null);
   const blurTimeoutRef = useRef(null);
   const [isCartHovered, setIsCartHovered] = useState(false);
   const navigate = useNavigate()
@@ -35,17 +48,6 @@ const Header = () => {
     
     dispatch(openLoginModal());
   }
-
-  const flattenCategories = (nodes = []) => {
-    const result = [];
-    nodes.forEach((node) => {
-      result.push(node);
-      if (Array.isArray(node.children) && node.children.length > 0) {
-        result.push(...flattenCategories(node.children));
-      }
-    });
-    return result;
-  };
 
   useEffect(() => {
     const query = searchText.trim();
@@ -69,14 +71,15 @@ const Header = () => {
           { signal: controller.signal }
         );
 
-        let categories = categoryCache;
-        if (!categories) {
-          const tree = await api('/api/categories/tree?onlyWithProducts=true', { signal: controller.signal });
-          categories = flattenCategories(tree || []);
-          if (isActive) setCategoryCache(categories);
-        }
+        const categoriesPromise = categoryCacheRef.current
+          ? Promise.resolve(categoryCacheRef.current)
+          : api('/api/categories/tree?onlyWithProducts=true', { signal: controller.signal }).then((tree) => {
+              const flattenedCategories = flattenCategories(tree || []);
+              categoryCacheRef.current = flattenedCategories;
+              return flattenedCategories;
+            });
 
-        const [productsResponse] = await Promise.all([productsPromise]);
+        const [productsResponse, categories] = await Promise.all([productsPromise, categoriesPromise]);
 
         if (!isActive) return;
 
@@ -100,113 +103,218 @@ const Header = () => {
       controller.abort();
       clearTimeout(timer);
     };
-  }, [searchText, categoryCache]);
+  }, [searchText]);
+
+  useEffect(() => {
+    return () => {
+      if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const updateHeaderHeightVar = () => {
+      const measuredHeight = Math.ceil(headerRef.current?.getBoundingClientRect().height || 0);
+      if (measuredHeight > 0) {
+        document.documentElement.style.setProperty('--mobile-header-height', `${measuredHeight}px`);
+      }
+    };
+
+    updateHeaderHeightVar();
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(updateHeaderHeightVar);
+      resizeObserver.observe(headerRef.current);
+    }
+
+    window.addEventListener('resize', updateHeaderHeightVar);
+
+    return () => {
+      window.removeEventListener('resize', updateHeaderHeightVar);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, []);
+
+  const renderSearchBox = (wrapperClass = '') => (
+    <div className={`relative ${wrapperClass}`}>
+      <form
+        className='flex items-center gap-0.5 border border-gray-400 focus-within:border-black hover:border-amber-400 px-3 py-2 rounded-3xl transition-colors w-full bg-white'
+        onSubmit={(e) => {
+          e.preventDefault();
+          const query = searchText.trim();
+          if (!query) return;
+          setIsSearchOpen(false);
+          navigate(`/search?q=${encodeURIComponent(query)}`);
+        }}
+      >
+        <IoSearch className='text-zinc-950 flex-shrink-0' size={18} />
+        <input
+          className='w-full rounded-2xl px-2 focus:outline-none bg-transparent'
+          type='text'
+          placeholder='Search'
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setIsSearchOpen(false);
+            }
+          }}
+          onFocus={() => {
+            if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
+            setIsSearchOpen(true);
+          }}
+          onBlur={() => {
+            blurTimeoutRef.current = setTimeout(() => setIsSearchOpen(false), 150);
+          }}
+          aria-label="Search products"
+        />
+      </form>
+
+      {isSearchOpen && searchText.trim().length >= 2 && (
+        <div className="absolute left-0 right-0 mt-2 rounded-xl border border-amber-200 bg-white shadow-lg z-50 overflow-hidden">
+          {searchLoading && (
+            <div className="px-4 py-3 text-sm text-gray-500">Searching...</div>
+          )}
+
+          {!searchLoading && searchError && (
+            <div className="px-4 py-3 text-sm text-red-600">{searchError}</div>
+          )}
+
+          {!searchLoading && !searchError && categoryMatches.length > 0 && (
+            <div className="px-4 pt-3">
+              <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Categories</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {categoryMatches.slice(0, 6).map((cat) => (
+                  <button
+                    key={cat._id || cat.slug}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      navigate(`/category/${cat.slug}`);
+                    }}
+                    className="text-xs px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition"
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!searchLoading && !searchError && productMatches.length > 0 && (
+            <div className="px-4 pb-3 pt-3">
+              <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Products</div>
+              <div className="mt-2 space-y-2">
+                {productMatches.slice(0, 6).map((product) => (
+                  <button
+                    key={product._id}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      navigate(`/product/${product.slug}`);
+                    }}
+                    className="w-full flex items-center gap-3 rounded-lg border border-transparent hover:border-amber-200 hover:bg-amber-50 p-2 text-left transition"
+                  >
+                    <img
+                      src={product?.images?.[0]?.url}
+                      alt={product?.name}
+                      className="w-10 h-10 rounded-md object-cover bg-gray-100"
+                    />
+                    <div className="min-w-0">
+                      <div className="text-sm font-medium text-gray-900 truncate">{product?.name}</div>
+                      <div className="text-xs text-gray-500">₹{Number(product?.price || 0).toLocaleString('en-IN')}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!searchLoading && !searchError && categoryMatches.length === 0 && productMatches.length === 0 && (
+            <div className="px-4 py-3 text-sm text-gray-500">No matches found.</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <>
-    <header className="relative bg-white px-1 py-2 z-50">
+    <header ref={headerRef} className="relative bg-white px-1 py-2 z-50">
       
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-10">
-        <nav className="grid grid-cols-3 items-center gap-4 py-2">
-          
-          <div className="flex justify-start">
-            <div className="relative w-full max-w-xs">
-            <form
-              className='flex items-center gap-0.5 border border-gray-400 focus-within:border-black hover:border-amber-400 px-3 py-2 rounded-3xl transition-colors w-full'
-              onSubmit={(e) => {
-                e.preventDefault();
-                const query = searchText.trim();
-                if (!query) return;
-                navigate(`/search?q=${encodeURIComponent(query)}`);
-              }}
-            >
-              <IoSearch className='text-zinc-950 flex-shrink-0' size={18} />
-              <input 
-                className='w-full rounded-2xl px-2 focus:outline-none bg-transparent' 
-                type='text' 
-                placeholder='Search' 
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                onFocus={() => {
-                  if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
-                  setIsSearchOpen(true);
-                }}
-                onBlur={() => {
-                  blurTimeoutRef.current = setTimeout(() => setIsSearchOpen(false), 150);
-                }}
-                aria-label="Search products"
-              />
-            </form>
+        <nav className="py-2">
+          <div className="md:hidden grid grid-cols-[auto_1fr_auto] items-center gap-2">
+            <div className="flex justify-start">
+              <button
+                type="button"
+                className='p-2 rounded-lg border border-gray-200 text-gray-900 hover:bg-gray-50 transition-colors'
+                onClick={onToggleCategoryMenu}
+                aria-expanded={isCategoryMenuOpen}
+                aria-label='Toggle categories menu'
+              >
+                {isCategoryMenuOpen ? <HiXMark size={20} /> : <HiBars3 size={20} />}
+              </button>
+            </div>
 
-            {isSearchOpen && searchText.trim().length >= 2 && (
-              <div className="absolute left-0 right-0 mt-2 rounded-xl border border-amber-200 bg-white shadow-lg z-50 overflow-hidden">
-                {searchLoading && (
-                  <div className="px-4 py-3 text-sm text-gray-500">Searching…</div>
-                )}
+            <div className="flex justify-center">
+              <Link to={'/'}>
+                <img
+                  className='w-auto h-[56px] object-cover'
+                  src={logoNew}
+                  alt='Shilpika'
+                />
+              </Link>
+            </div>
 
-                {!searchLoading && searchError && (
-                  <div className="px-4 py-3 text-sm text-red-600">{searchError}</div>
-                )}
-
-                {!searchLoading && !searchError && categoryMatches.length > 0 && (
-                  <div className="px-4 pt-3">
-                    <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Categories</div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {categoryMatches.slice(0, 6).map((cat) => (
-                        <button
-                          key={cat._id || cat.slug}
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => {
-                            setIsSearchOpen(false);
-                            navigate(`/category/${cat.slug}`);
-                          }}
-                          className="text-xs px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition"
-                        >
-                          {cat.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {!searchLoading && !searchError && productMatches.length > 0 && (
-                  <div className="px-4 pb-3 pt-3">
-                    <div className="text-[11px] uppercase tracking-wide text-amber-800/70">Products</div>
-                    <div className="mt-2 space-y-2">
-                      {productMatches.slice(0, 6).map((product) => (
-                        <button
-                          key={product._id}
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => {
-                            setIsSearchOpen(false);
-                            navigate(`/product/${product.slug}`);
-                          }}
-                          className="w-full flex items-center gap-3 rounded-lg border border-transparent hover:border-amber-200 hover:bg-amber-50 p-2 text-left transition"
-                        >
-                          <img
-                            src={product?.images?.[0]?.url}
-                            alt={product?.name}
-                            className="w-10 h-10 rounded-md object-cover bg-gray-100"
-                          />
-                          <div className="min-w-0">
-                            <div className="text-sm font-medium text-gray-900 truncate">{product?.name}</div>
-                            <div className="text-xs text-gray-500">₹{Number(product?.price || 0).toLocaleString('en-IN')}</div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {!searchLoading && !searchError && categoryMatches.length === 0 && productMatches.length === 0 && (
-                  <div className="px-4 py-3 text-sm text-gray-500">No matches found.</div>
-                )}
-              </div>
-            )}
+            <div className="flex justify-end">
+              <ul className="flex gap-3 items-center">
+                <li>
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                    onClick={handleUserLogo}
+                    aria-label="User account"
+                  >
+                    <FaUserLarge size={20}/>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                    aria-label="Wishlist"
+                  >
+                    <MdFavoriteBorder size={24}/>
+                  </button>
+                </li>
+                <li
+                  className="relative"
+                  onMouseEnter={() => setIsCartHovered(true)}
+                  onMouseLeave={() => setIsCartHovered(false)}
+                >
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors py-2'
+                    aria-label="Shopping cart"
+                  >
+                    <PiHandbagBold size={23}/>
+                  </button>
+                  {isCartHovered && <FloatingCart />}
+                </li>
+              </ul>
             </div>
           </div>
-          
-          <div className="flex justify-center">
+
+          <div className="md:hidden mt-3">
+            {renderSearchBox('w-full')}
+          </div>
+
+          <div className="hidden md:grid grid-cols-3 items-center gap-4">
+            <div className="flex justify-start">
+              {renderSearchBox('w-full max-w-xs')}
+            </div>
+
+            <div className="flex justify-center">
             <Link to={'/'}>
               <img 
                 className='w-auto h-[60px] sm:h-[70px] lg:h-[80px] object-cover' 
@@ -216,39 +324,40 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex justify-end">
-            <ul className="flex gap-3 sm:gap-4 items-center">
-              <li>
-                <button 
-                  className='cursor-pointer hover:text-amber-600 transition-colors' 
-                  onClick={handleUserLogo}
-                  aria-label="User account"
+            <div className="flex justify-end">
+              <ul className="flex gap-3 sm:gap-4 items-center">
+                <li>
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                    onClick={handleUserLogo}
+                    aria-label="User account"
+                  >
+                    <FaUserLarge size={20}/>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                    aria-label="Wishlist"
+                  >
+                    <MdFavoriteBorder size={25}/>
+                  </button>
+                </li>
+                <li
+                  className="relative"
+                  onMouseEnter={() => setIsCartHovered(true)}
+                  onMouseLeave={() => setIsCartHovered(false)}
                 >
-                  <FaUserLarge size={20}/>
-                </button>
-              </li>
-              <li>
-                <button 
-                  className='cursor-pointer hover:text-amber-600 transition-colors'
-                  aria-label="Wishlist"
-                >
-                  <MdFavoriteBorder size={25}/>
-                </button>
-              </li>
-              <li 
-                className="relative"
-                onMouseEnter={() => setIsCartHovered(true)}
-                onMouseLeave={() => setIsCartHovered(false)}
-              >
-                <button 
-                  className='cursor-pointer hover:text-amber-600 transition-colors py-2'
-                  aria-label="Shopping cart"
-                >
-                  <PiHandbagBold size={24}/>
-                </button>
-                {isCartHovered && <FloatingCart />}
-              </li>
-            </ul>
+                  <button
+                    className='cursor-pointer hover:text-amber-600 transition-colors py-2'
+                    aria-label="Shopping cart"
+                  >
+                    <PiHandbagBold size={24}/>
+                  </button>
+                  {isCartHovered && <FloatingCart />}
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
       </div>

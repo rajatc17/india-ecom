@@ -1,5 +1,5 @@
 import "./App.css";
-import { lazy , Suspense, useEffect } from "react";
+import { lazy , Suspense, useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -29,6 +29,7 @@ const RouteFallback = ({ message = "Loading page..." }) => (
 const Root = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const { isAuthenticated, initialized } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -57,9 +58,15 @@ const Root = () => {
 
   return (
     <div className="root" >
-      <Header />
+      <Header
+        isCategoryMenuOpen={isCategoryMenuOpen}
+        onToggleCategoryMenu={() => setIsCategoryMenuOpen((open) => !open)}
+      />
       
-      <SubHeader />
+      <SubHeader
+        isCategoryMenuOpen={isCategoryMenuOpen}
+        onCloseCategoryMenu={() => setIsCategoryMenuOpen(false)}
+      />
 
       <div className={`main-content ${location.pathname === "/" ? "home-page-fade" : ""}`}>
         <Outlet />

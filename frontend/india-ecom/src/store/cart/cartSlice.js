@@ -1,15 +1,21 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { api } from '../../api/client';
 
-export const selectCartItemsNewestFirst = (state) =>
-  [...(state?.cart?.items || [])].reverse();
+const EMPTY_CART_ITEMS = [];
+
+const selectCartItems = (state) => state?.cart?.items ?? EMPTY_CART_ITEMS;
+
+export const selectCartItemsNewestFirst = createSelector(
+  [selectCartItems],
+  (items) => [...items].reverse()
+);
 
 // Helper to get local cart
 const getLocalCart = () => {
   try {
     const cart = localStorage.getItem('guest_cart');
     return cart ? JSON.parse(cart) : { items: [] };
-  } catch (e) {
+  } catch {
     return { items: [] };
   }
 };
@@ -178,7 +184,7 @@ export const removeFromCart = createAsyncThunk(
 
 export const syncCart = createAsyncThunk(
   'cart/sync',
-  async (_, { getState, dispatch }) => {
+  async (_, { dispatch }) => {
     const localCart = getLocalCart();
     if (localCart.items.length === 0) return;
 

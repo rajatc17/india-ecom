@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategoryTree } from "../store/category/categorySlice";
 import { Link } from 'react-router';
+import { HiChevronDown } from 'react-icons/hi2';
 
 const SHCatNavMenu = ({ isHovered, category }) => {
   if (!category) return null;
@@ -36,17 +37,31 @@ const SHCatNavMenu = ({ isHovered, category }) => {
   )
 }
 
-const SubHeader = () => {
+const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} }) => {
   const dispatch = useDispatch();
   const categoryTree = useSelector((state) => state.categories.items);
   const [category, setCategory] = useState(null);
   const [displayCategory, setDisplayCategory] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [expandedCategoryId, setExpandedCategoryId] = useState(null);
   const hideTimer = useRef(null);
 
   useEffect(() => {
     dispatch(fetchCategoryTree({ onlyWithProducts: true }));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isCategoryMenuOpen) {
+      setExpandedCategoryId(null);
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isCategoryMenuOpen]);
 
 
   useEffect(() => {
@@ -71,17 +86,98 @@ const SubHeader = () => {
     setCategory(cat);
   };
 
+  const handleMobileCategoryToggle = (catId) => {
+    setExpandedCategoryId((current) => (current === catId ? null : catId));
+  };
+
   return (
     <>
 
-    <div className='hidden md:block lg:hidden'>
-      
-    </div>
+    {isCategoryMenuOpen && (
+      <div className='fixed inset-0 z-[70] block lg:hidden'>
+        <button
+          type='button'
+          className='mobile-menu-backdrop absolute inset-0 bg-black/20 backdrop-blur-sm'
+          onClick={onCloseCategoryMenu}
+          aria-label='Close categories menu'
+        />
+
+        <div className='mobile-menu-panel absolute left-4 right-4 top-[calc(var(--mobile-header-height,108px)+8px)] rounded-xl border border-gray-200 bg-white shadow-xl overflow-hidden'>
+          <ul className='max-h-[70vh] overflow-y-auto divide-y divide-gray-100'>
+            {(categoryTree || []).map((cat) => {
+              const isExpanded = expandedCategoryId === cat.id;
+
+              return (
+                <li key={cat.id} className='px-3 py-2'>
+                  <div className='flex items-center gap-2'>
+                    <Link
+                      to={'/category/' + cat.slug}
+                      className='min-w-0 flex-1 text-sm font-medium text-gray-900 truncate'
+                      title={cat.name}
+                      onClick={onCloseCategoryMenu}
+                    >
+                      {cat.name}
+                    </Link>
+
+                    {cat.children?.length > 0 && (
+                      <button
+                        type='button'
+                        onClick={() => handleMobileCategoryToggle(cat.id)}
+                        className='p-1 rounded-md text-gray-600 hover:bg-gray-100'
+                        aria-label={isExpanded ? 'Collapse category' : 'Expand category'}
+                      >
+                        <HiChevronDown
+                          size={18}
+                          className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {isExpanded && cat.children?.length > 0 && (
+                    <ul className='mt-2 ml-2 space-y-2 border-l border-gray-200 pl-3'>
+                      {cat.children.map((cat_lvl1) => (
+                        <li key={cat_lvl1.id}>
+                          <Link
+                            to={'/category/' + cat_lvl1.slug}
+                            className='block text-sm text-gray-700 truncate hover:text-orange-500'
+                            title={cat_lvl1.name}
+                            onClick={onCloseCategoryMenu}
+                          >
+                            {cat_lvl1.name}
+                          </Link>
+
+                          {cat_lvl1.children?.length > 0 && (
+                            <ul className='mt-1 ml-2 space-y-1'>
+                              {cat_lvl1.children.map((cat_lvl2) => (
+                                <li key={cat_lvl2.id}>
+                                  <Link
+                                    to={'/category/' + cat_lvl2.slug}
+                                    className='block text-xs text-gray-500 truncate hover:text-orange-500'
+                                    title={cat_lvl2.name}
+                                    onClick={onCloseCategoryMenu}
+                                  >
+                                    {cat_lvl2.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+      )}
 
     <div className='hidden lg:block sticky top-0 bg-white shadow-sm px-4 text-xs z-40' onMouseLeave={handleSHMouseLeave}>
       <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
-        {categoryTree && categoryTree.map((cat) =>
-          <Link to={'/category/' + cat.slug}>
+        {categoryTree && categoryTree.map((cat) => (
           <li
             key={cat.id}
             className={
@@ -90,10 +186,11 @@ const SubHeader = () => {
             }
             onMouseOver={() => handleCategoryHover(cat)}
           >
+            <Link to={'/category/' + cat.slug}>
               <span className='text-center'>{cat.name.toUpperCase()}</span>
+            </Link>
           </li>
-          </Link>
-        )}
+        ))}
         <SHCatNavMenu isHovered={isHovered} category={displayCategory} />
       </ul>
     </div>

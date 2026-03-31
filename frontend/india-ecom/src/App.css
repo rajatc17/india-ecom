@@ -42,3 +42,39 @@
 		animation: none;
 	}
 }
+
+.mobile-menu-backdrop {
+	animation: mobileMenuBackdropIn 180ms ease-out;
+}
+
+.mobile-menu-panel {
+	animation: mobileMenuPanelIn 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	transform-origin: top center;
+}
+
+@keyframes mobileMenuBackdropIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes mobileMenuPanelIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mobile-menu-backdrop,
+	.mobile-menu-panel {
+		animation: none;
+	}
+}

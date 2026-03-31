@@ -27,7 +27,7 @@ const Search = () => {
   }, [dispatch, query]);
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full shilpika-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
