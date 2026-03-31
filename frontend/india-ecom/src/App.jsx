@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "./api/client";
-import { fetchCurrentUser } from "./store/auth/authSlice";
+import { fetchCurrentUser, setAuthInitialized } from "./store/auth/authSlice";
 import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Category from "./pages/Category/Category";
@@ -23,7 +23,7 @@ const Search = lazy(()=>import('./pages/Search/Search'))
 
 const Root = () => {
   const dispatch = useDispatch();
-  const { token , isAuthenticated, loading, initialized } = useSelector((state) => state.auth);
+  const { token , isAuthenticated, initialized } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -31,6 +31,8 @@ const Root = () => {
     if (storedToken && !isAuthenticated) {
       setToken(storedToken);
       dispatch(fetchCurrentUser());
+    } else if (!storedToken) {
+      dispatch(setAuthInitialized());
     }
     
   

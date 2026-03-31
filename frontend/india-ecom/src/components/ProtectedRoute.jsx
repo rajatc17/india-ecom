@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, requireAuth = true, requireAdmin = false }) 
     }
   }, [requireAuth, isAuthenticated, initialized, loading, dispatch]);
 
-  if (!initialized || loading) {
+  if (requireAuth && (!initialized || loading)) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-lg">Loading...</div>
