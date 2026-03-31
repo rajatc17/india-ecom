@@ -1,8 +1,9 @@
 import "./App.css";
 import { lazy , Suspense, useEffect } from "react";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import Loader from "./components/common/Loader";
 import Header from "./components/Header";
 import SubHeader from "./components/SubHeader";
 import Footer from "./components/Footer";
@@ -21,9 +22,14 @@ const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
 const Search = lazy(()=>import('./pages/Search/Search'))
 
+const RouteFallback = ({ message = "Loading page..." }) => (
+  <Loader fullScreen message={message} />
+);
+
 const Root = () => {
   const dispatch = useDispatch();
-  const { token , isAuthenticated, initialized } = useSelector((state) => state.auth);
+  const location = useLocation();
+  const { isAuthenticated, initialized } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -45,16 +51,17 @@ const Root = () => {
     }
   }, [isAuthenticated, dispatch]);
 
-  if(!initialized && token){
-    return <div>Loading...</div>
+  if (!initialized) {
+    return <RouteFallback message="Preparing your storefront..." />;
   }
+
   return (
     <div className="root" >
       <Header />
       
       <SubHeader />
 
-      <div className="main-content">
+      <div className={`main-content ${location.pathname === "/" ? "home-page-fade" : ""}`}>
         <Outlet />
       </div>
 
@@ -75,14 +82,14 @@ const appRouter = createBrowserRouter([
       {
         path : '/category/:slug',        
         element : 
-        <Suspense fallback={()=><div>Loading...</div>}>
+        <Suspense fallback={<RouteFallback message="Loading category..." />}>
           <Category />
         </Suspense>
       },
       {
         path : '/account',
         element : 
-        <Suspense fallback={()=><div>Loading...</div>}>
+        <Suspense fallback={<RouteFallback message="Loading account..." />}>
           <ProtectedRoute requireAuth={true} >
             <Account />
           </ProtectedRoute>
@@ -91,7 +98,7 @@ const appRouter = createBrowserRouter([
       {
         path : '/product/:slug',
         element : 
-        <Suspense fallback={()=><div>Loading...</div>}>
+        <Suspense fallback={<RouteFallback message="Loading product..." />}>
           <ProtectedRoute requireAuth={false} >
             <ProductDetail />
           </ProtectedRoute>
@@ -100,7 +107,7 @@ const appRouter = createBrowserRouter([
       {
         path: '/cart',
         element: (
-          <Suspense fallback={() => <div>Loading...</div>}>
+          <Suspense fallback={<RouteFallback message="Loading cart..." />}>
             <Cart />
           </Suspense>
         )
@@ -108,7 +115,7 @@ const appRouter = createBrowserRouter([
       {
         path: '/search',
         element: (
-          <Suspense fallback={() => <div>Loading...</div>}>
+          <Suspense fallback={<RouteFallback message="Loading search..." />}>
             <Search />
           </Suspense>
         )
@@ -119,7 +126,12 @@ const appRouter = createBrowserRouter([
 
 function App() {
 
-  return <RouterProvider router={appRouter} />;
+  return (
+    <RouterProvider
+      router={appRouter}
+      fallbackElement={<RouteFallback message="Starting app..." />}
+    />
+  );
 }
 
 export default App;
