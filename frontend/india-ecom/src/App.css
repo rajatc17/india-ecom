@@ -18,3 +18,27 @@
 		animation: none;
 	}
 }
+
+.category-card-shimmer {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(90deg, #f2f4f7 0%, #e4e7ec 50%, #f2f4f7 100%);
+	background-size: 240% 100%;
+	animation: categoryShimmerSweep 1.25s linear infinite;
+	animation-delay: var(--shimmer-delay, 0ms);
+}
+
+@keyframes categoryShimmerSweep {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.category-card-shimmer {
+		animation: none;
+	}
+}
