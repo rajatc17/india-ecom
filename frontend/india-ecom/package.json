@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
     "@tailwindcss/vite": "^4.1.14",
+    "@vercel/speed-insights": "^2.0.0",
     "formik": "^2.4.6",
     "lucide-react": "^0.560.0",
     "react": "^19.1.1",

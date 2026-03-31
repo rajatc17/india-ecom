@@ -13,6 +13,7 @@ import { fetchCurrentUser, setAuthInitialized } from "./store/auth/authSlice";
 import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Category from "./pages/Category/Category";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 //const Login = lazy(()=>import('./pages/Login/Login'))
 //const Category = lazy(()=>import('./pages/Category/Category'))
@@ -119,7 +120,12 @@ const appRouter = createBrowserRouter([
 
 function App() {
 
-  return <RouterProvider router={appRouter} />;
+  return (
+    <>
+      <RouterProvider router={appRouter} />
+      <SpeedInsights />
+    </>
+  );
 }
 
 export default App;
