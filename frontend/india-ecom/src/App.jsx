@@ -1,5 +1,5 @@
 import "./App.css";
-import { lazy , Suspense, useEffect, useState } from "react";
+import { lazy , Suspense, useEffect, useRef, useState } from "react";
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -9,7 +9,7 @@ import SubHeader from "./components/SubHeader";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "./api/client";
+import { BACKEND_WARMUP_EVENT, setToken, warmupBackend } from "./api/client";
 import { fetchCurrentUser, setAuthInitialized } from "./store/auth/authSlice";
 import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -30,34 +30,128 @@ const Root = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+  const [bootstrapComplete, setBootstrapComplete] = useState(false);
+  const [bootstrapMessage, setBootstrapMessage] = useState("Preparing your storefront...");
+  const [showWarmupBanner, setShowWarmupBanner] = useState(false);
+  const previousAuthStateRef = useRef(null);
+  const warmupBannerTimeoutRef = useRef(null);
   const { isAuthenticated, initialized } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    
-    if (storedToken && !isAuthenticated) {
-      setToken(storedToken);
-      dispatch(fetchCurrentUser());
-    } else if (!storedToken) {
-      dispatch(setAuthInitialized());
+  const hasGuestCartItems = () => {
+    try {
+      const parsedGuestCart = JSON.parse(localStorage.getItem('guest_cart') || '{"items":[]}');
+      return Array.isArray(parsedGuestCart?.items) && parsedGuestCart.items.length > 0;
+    } catch {
+      return false;
     }
-    
-  
-    dispatch(fetchCart());
-  }, [isAuthenticated, dispatch]);
+  };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(syncCart());
-    }
-  }, [isAuthenticated, dispatch]);
+    let isMounted = true;
 
-  if (!initialized) {
-    return <RouteFallback message="Preparing your storefront..." />;
+    const bootstrapApp = async () => {
+      const storedToken = localStorage.getItem('token');
+
+      setBootstrapMessage("Waking up server, this can take a few seconds...");
+      await warmupBackend();
+      setBootstrapMessage("Preparing your storefront...");
+
+      if (storedToken) {
+        setToken(storedToken);
+        await dispatch(fetchCurrentUser());
+      } else {
+        dispatch(setAuthInitialized());
+      }
+
+      const authStateAfterBootstrap = store.getState().auth?.isAuthenticated;
+      if (authStateAfterBootstrap && hasGuestCartItems()) {
+        await dispatch(syncCart());
+      } else {
+        await dispatch(fetchCart());
+      }
+
+      if (isMounted) {
+        setBootstrapComplete(true);
+      }
+    };
+
+    bootstrapApp();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!bootstrapComplete) {
+      return;
+    }
+
+    const previousAuthState = previousAuthStateRef.current;
+    if (previousAuthState === null) {
+      previousAuthStateRef.current = isAuthenticated;
+      return;
+    }
+
+    if (!previousAuthState && isAuthenticated) {
+      if (hasGuestCartItems()) {
+        dispatch(syncCart());
+      } else {
+        dispatch(fetchCart());
+      }
+    }
+
+    if (previousAuthState && !isAuthenticated) {
+      dispatch(fetchCart());
+    }
+
+    previousAuthStateRef.current = isAuthenticated;
+  }, [bootstrapComplete, dispatch, isAuthenticated]);
+
+  useEffect(() => {
+    const handleWarmupStatus = (event) => {
+      const status = event?.detail?.status;
+
+      if (status === 'started') {
+        if (warmupBannerTimeoutRef.current) {
+          clearTimeout(warmupBannerTimeoutRef.current);
+        }
+        setShowWarmupBanner(true);
+      }
+
+      if (status === 'completed') {
+        if (warmupBannerTimeoutRef.current) {
+          clearTimeout(warmupBannerTimeoutRef.current);
+        }
+
+        warmupBannerTimeoutRef.current = setTimeout(() => {
+          setShowWarmupBanner(false);
+        }, 1200);
+      }
+    };
+
+    window.addEventListener(BACKEND_WARMUP_EVENT, handleWarmupStatus);
+
+    return () => {
+      window.removeEventListener(BACKEND_WARMUP_EVENT, handleWarmupStatus);
+      if (warmupBannerTimeoutRef.current) {
+        clearTimeout(warmupBannerTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  if (!initialized || !bootstrapComplete) {
+    return <RouteFallback message={bootstrapMessage} />;
   }
 
   return (
     <div className="root" >
+      {showWarmupBanner && (
+        <div className="warmup-banner" role="status" aria-live="polite">
+          Server is waking up, requests may take a few seconds.
+        </div>
+      )}
+
       <Header
         isCategoryMenuOpen={isCategoryMenuOpen}
         onToggleCategoryMenu={() => setIsCategoryMenuOpen((open) => !open)}

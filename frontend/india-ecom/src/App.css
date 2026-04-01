@@ -2,6 +2,32 @@
 	animation: homePageFadeIn 320ms ease-out;
 }
 
+.warmup-banner {
+	position: sticky;
+	top: 0;
+	z-index: 60;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	color: #7c2d12;
+	background: linear-gradient(90deg, #ffedd5 0%, #fde68a 50%, #ffedd5 100%);
+	border-bottom: 1px solid rgba(194, 65, 12, 0.2);
+	animation: warmupBannerIn 220ms ease-out;
+}
+
+@keyframes warmupBannerIn {
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @keyframes homePageFadeIn {
 	from {
 		opacity: 0;
@@ -15,6 +41,10 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.home-page-fade {
+		animation: none;
+	}
+
+	.warmup-banner {
 		animation: none;
 	}
 }
