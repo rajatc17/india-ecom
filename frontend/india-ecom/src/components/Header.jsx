@@ -6,7 +6,7 @@ import { FaUserLarge } from "react-icons/fa6";
 import { MdFavoriteBorder } from "react-icons/md";
 import { PiHandbagBold } from "react-icons/pi";
 import { HiBars3, HiXMark } from 'react-icons/hi2';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { openLoginModal } from '../store/modal/modalSlice';
@@ -26,6 +26,7 @@ const flattenCategories = (nodes = []) => {
 
 const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} }) => {
   const headerRef = useRef(null);
+  const location = useLocation();
   const [searchText, setSearchText] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -39,6 +40,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   const dispatch = useDispatch();
   const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const isCheckoutRoute = location.pathname.startsWith('/checkout');
 
   const handleUserLogo = ()=>{
     if(isAuthenticated){
@@ -243,7 +245,42 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   return (
     <>
     <header ref={headerRef} className="relative bg-white px-1 py-2 z-50">
-      
+      {isCheckoutRoute ? (
+        <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-10">
+          <nav className="py-2">
+            <div className="flex items-center justify-between">
+              <div className="flex-shrink-0">
+                <Link to={'/'} aria-label="Go to homepage">
+                  <img
+                    className='w-auto h-[48px] sm:h-[56px] object-cover'
+                    src={logoNew}
+                    alt='Shilpika'
+                  />
+                </Link>
+              </div>
+
+              <div className="flex-1 flex justify-center px-3">
+                <div className="inline-flex items-center rounded-full border border-amber-100 bg-amber-50 px-2 py-1">
+                  {['Cart', 'Address', 'Payment'].map((step, index) => (
+                    <div key={step} className="flex items-center">
+                      <span
+                        className={`px-3 py-1 text-xs sm:text-sm font-semibold rounded-full ${
+                          index === 0 ? 'bg-white text-amber-700 shadow-sm' : 'text-gray-500'
+                        }`}
+                      >
+                        {step}
+                      </span>
+                      {index < 2 && <span className="mx-1 text-gray-400">/</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="w-[48px] sm:w-[56px]" aria-hidden="true" />
+            </div>
+          </nav>
+        </div>
+      ) : (
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-10">
         <nav className="py-2">
           <div className="md:hidden grid grid-cols-[auto_1fr_auto] items-center gap-2">
@@ -361,6 +398,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
           </div>
         </nav>
       </div>
+      )}
     </header>
     {
       isLoginModalOpen && !isAuthenticated &&

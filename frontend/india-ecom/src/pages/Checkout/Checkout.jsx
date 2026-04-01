@@ -1,35 +1,45 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
 
+const GST_RATE = 0.18;
+const INR_FORMATTER = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+});
+
+const formatINR = (value) => INR_FORMATTER.format(Number(value || 0));
+
 const getProductId = (item) => item?.product?._id || item?.product;
 
-const getProductSlug = (item) =>
-  item?.slug || item?.product?.slug || item?.productDetails?.slug;
+const getProductSlug = (item) => item?.slug || item?.product?.slug || item?.productDetails?.slug;
 
 const getImageUrl = (item) => {
   const direct = typeof item?.image === 'string' ? item.image : item?.image?.url;
-  return (
-    direct ||
-    item?.product?.images?.[0]?.url ||
-    item?.productDetails?.images?.[0]?.url ||
-    null
-  );
+  return direct || item?.product?.images?.[0]?.url || item?.productDetails?.images?.[0]?.url || null;
 };
 
 const getUnitPrice = (item) => item?.discountedPrice || item?.price || 0;
 
-const getMaxStock = (item) =>
-  item?.availableStock ?? item?.product?.stock ?? item?.productDetails?.stock ?? 99;
+const getMaxStock = (item) => item?.availableStock ?? item?.product?.stock ?? item?.productDetails?.stock ?? 99;
 
-const Cart = () => {
+const getDefaultAddress = (addresses = []) => {
+  if (!Array.isArray(addresses) || addresses.length === 0) {
+    return null;
+  }
+
+  return addresses.find((addr) => addr?.isDefault) || addresses[0];
+};
+
+const Checkout = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { totalItems, subtotal, total, loading, error } = useSelector(
-    (state) => state.cart
-  );
+  const { totalItems, subtotal, loading, error } = useSelector((state) => state.cart);
+  const { currentUser } = useSelector((state) => state.auth);
   const items = useSelector(selectCartItemsNewestFirst);
+  const defaultAddress = getDefaultAddress(currentUser?.addresses);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -64,18 +74,19 @@ const Cart = () => {
     dispatch(updateCartItem({ productId, quantity: nextQty }));
   };
 
+  const normalizedSubtotal = Number(subtotal || 0);
+  const tax = normalizedSubtotal * GST_RATE;
+  const grandTotal = normalizedSubtotal + tax;
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Your Cart</h1>
-          <p className="text-sm text-gray-500 mt-1">Review items and update quantities.</p>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Checkout</h1>
+          <p className="text-sm text-gray-500 mt-1">Step 1 of 3: Review your cart items</p>
         </div>
-        <Link
-          to="/"
-          className="text-sm font-medium text-amber-700 hover:text-amber-800 transition-colors"
-        >
-          Continue shopping
+        <Link to="/cart" className="text-sm font-medium text-amber-700 hover:text-amber-800 transition-colors">
+          Back to cart page
         </Link>
       </div>
 
@@ -85,16 +96,44 @@ const Cart = () => {
         </div>
       )}
 
+      <div className="mt-6 shilpika-bg rounded-xl border border-amber-200/80 p-4 sm:p-5">
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Default Delivery Address</p>
+            {defaultAddress ? (
+              <div className="mt-2 text-sm text-gray-800 leading-6">
+                <p className="font-semibold">{defaultAddress?.fullName || currentUser?.name}</p>
+                <p>{defaultAddress?.line1}</p>
+                {defaultAddress?.line2 ? <p>{defaultAddress.line2}</p> : null}
+                <p>
+                  {[defaultAddress?.city, defaultAddress?.state, defaultAddress?.pincode].filter(Boolean).join(', ')}
+                </p>
+                <p className="mt-1">Phone: {defaultAddress?.phone || currentUser?.phone || '-'}</p>
+              </div>
+            ) : (
+              <p className="mt-2 text-sm text-gray-700">
+                No default address found. Add one in your account before continuing.
+              </p>
+            )}
+          </div>
+
+          <Link
+            to="/account"
+            className="text-sm font-semibold px-4 py-2 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
+          >
+            Manage Address
+          </Link>
+        </div>
+      </div>
+
       <div className="mt-6 grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
         <div className="md:col-span-7">
           <div className="rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden">
             <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between">
               <div className="text-sm font-medium text-gray-900">
-                Items <span className="text-gray-500">({totalItems || items?.length || 0})</span>
+                Cart Items <span className="text-gray-500">({totalItems || items?.length || 0})</span>
               </div>
-              {loading && (
-                <div className="text-xs text-gray-500">Updating…</div>
-              )}
+              {loading && <div className="text-xs text-gray-500">Updating…</div>}
             </div>
 
             {!items || items.length === 0 ? (
@@ -119,24 +158,17 @@ const Cart = () => {
                   const maxStock = getMaxStock(item);
 
                   return (
-                    <div
-                      key={item?._id || productId}
-                      className="p-4 sm:p-6 flex gap-4"
-                    >
+                    <div key={item?._id || productId} className="p-4 sm:p-6 flex gap-4 sm:gap-5">
                       <div className="w-20 h-20 rounded-lg bg-gray-50 border border-gray-100 overflow-hidden flex-shrink-0">
                         {img ? (
-                          <img
-                            src={img}
-                            alt={item?.name || 'Product'}
-                            className="w-full h-full object-cover"
-                          />
+                          <img src={img} alt={item?.name || 'Product'} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full" />
                         )}
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start justify-between gap-3 sm:gap-4">
                           <div className="min-w-0">
                             {slug ? (
                               <Link
@@ -146,26 +178,14 @@ const Cart = () => {
                                 {item?.name}
                               </Link>
                             ) : (
-                              <div className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2">
-                                {item?.name}
-                              </div>
+                              <div className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2">{item?.name}</div>
                             )}
 
-                            <div className="mt-1 text-xs text-gray-500">
-                              Unit price: ₹{unitPrice.toLocaleString()}
-                            </div>
-
-                            {item?.inStock === false && (
-                              <div className="mt-2 text-xs font-medium text-red-600">
-                                Out of stock
-                              </div>
-                            )}
+                            <div className="mt-1 text-xs text-gray-500">Unit price: {formatINR(unitPrice)}</div>
                           </div>
 
                           <div className="text-right flex-shrink-0">
-                            <div className="text-sm font-semibold text-gray-900">
-                              ₹{Number(lineTotal).toLocaleString()}
-                            </div>
+                            <div className="text-sm font-semibold text-gray-900">{formatINR(lineTotal)}</div>
                             <button
                               type="button"
                               onClick={() => handleRemove(item)}
@@ -187,9 +207,7 @@ const Cart = () => {
                             >
                               -
                             </button>
-                            <div className="px-4 py-2 text-sm font-medium text-gray-900">
-                              {qty}
-                            </div>
+                            <div className="px-4 py-2 text-sm font-medium text-gray-900">{qty}</div>
                             <button
                               type="button"
                               onClick={() => handleIncrease(item)}
@@ -201,9 +219,7 @@ const Cart = () => {
                             </button>
                           </div>
 
-                          <div className="text-xs text-gray-500">
-                            {Number.isFinite(maxStock) ? `Max: ${maxStock}` : null}
-                          </div>
+                          <div className="text-xs text-gray-500">{Number.isFinite(maxStock) ? `Max: ${maxStock}` : null}</div>
                         </div>
                       </div>
                     </div>
@@ -215,8 +231,8 @@ const Cart = () => {
         </div>
 
         <div className="md:col-span-3">
-          <div className="rounded-xl border border-gray-100 bg-white shadow-sm p-4 sm:p-6">
-            <h2 className="text-base font-semibold text-gray-900">Order Summary</h2>
+          <div className="rounded-xl border border-gray-100 bg-white shadow-sm p-4 sm:p-6 md:sticky md:top-6">
+            <h2 className="text-base font-semibold text-gray-900">Billing Details</h2>
 
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex items-center justify-between">
@@ -225,26 +241,25 @@ const Cart = () => {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium text-gray-900">₹{Number(subtotal || 0).toLocaleString()}</span>
+                <span className="font-medium text-gray-900">{formatINR(normalizedSubtotal)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-600">Total</span>
-                <span className="text-lg font-semibold text-gray-900">₹{Number(total || subtotal || 0).toLocaleString()}</span>
+                <span className="text-gray-600">Tax (18% GST)</span>
+                <span className="font-medium text-gray-900">{formatINR(tax)}</span>
+              </div>
+              <div className="border-t border-gray-100 pt-3 flex items-center justify-between">
+                <span className="text-gray-700 font-semibold">Total Payable</span>
+                <span className="text-lg font-semibold text-gray-900">{formatINR(grandTotal)}</span>
               </div>
             </div>
 
             <button
               type="button"
-              onClick={() => navigate('/checkout')}
               className="mt-6 w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
               disabled={!items || items.length === 0}
             >
-              Proceed to Checkout
+              Continue to Address
             </button>
-
-            <div className="mt-3 text-xs text-gray-500">
-              Taxes and shipping are calculated at checkout.
-            </div>
           </div>
         </div>
       </div>
@@ -252,4 +267,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Checkout;

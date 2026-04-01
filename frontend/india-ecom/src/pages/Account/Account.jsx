@@ -1,8 +1,96 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { logout } from '../../store/auth/authSlice';
-import { User, Mail, Phone, MapPin, Package, Heart, LogOut, Award } from 'lucide-react';
+import { logout, updateUserProfile } from '../../store/auth/authSlice';
+import { User, Mail, Phone, MapPin, Package, Heart, LogOut, Award, X } from 'lucide-react';
+
+const ADDRESS_STATES = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar',
+    'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh',
+    'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra',
+    'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+    'Andaman and Nicobar Islands', 'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu', 'Delhi',
+    'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'
+];
+
+const initialAddressForm = {
+    label: 'Home',
+    fullName: '',
+    phone: '',
+    line1: '',
+    line2: '',
+    landmark: '',
+    city: '',
+    state: '',
+    pincode: '',
+    country: 'India',
+    isDefault: true,
+    type: 'both',
+};
+
+const sanitizeAddressPayload = (formValues) => ({
+    label: formValues.label,
+    fullName: formValues.fullName.trim(),
+    phone: formValues.phone.trim(),
+    line1: formValues.line1.trim(),
+    line2: formValues.line2.trim(),
+    landmark: formValues.landmark.trim(),
+    city: formValues.city.trim(),
+    state: formValues.state,
+    pincode: formValues.pincode.trim(),
+    country: 'India',
+    isDefault: Boolean(formValues.isDefault),
+    type: formValues.type,
+});
+
+const validateAddress = (formValues) => {
+    const errors = {};
+    const phoneRegex = /^[6-9]\d{9}$/;
+    const pincodeRegex = /^[1-9][0-9]{5}$/;
+
+    if (!formValues.fullName.trim()) {
+        errors.fullName = 'Full name is required';
+    }
+
+    if (!phoneRegex.test(formValues.phone.trim())) {
+        errors.phone = 'Enter a valid 10-digit Indian mobile number';
+    }
+
+    if (!formValues.line1.trim()) {
+        errors.line1 = 'Address line 1 is required';
+    } else if (formValues.line1.trim().length > 200) {
+        errors.line1 = 'Address line 1 must be at most 200 characters';
+    }
+
+    if (formValues.line2.trim().length > 200) {
+        errors.line2 = 'Address line 2 must be at most 200 characters';
+    }
+
+    if (!formValues.city.trim()) {
+        errors.city = 'City is required';
+    }
+
+    if (!ADDRESS_STATES.includes(formValues.state)) {
+        errors.state = 'Please select a valid state/UT';
+    }
+
+    if (!pincodeRegex.test(formValues.pincode.trim())) {
+        errors.pincode = 'Enter a valid 6-digit pincode';
+    }
+
+    if (!['Home', 'Work', 'Other'].includes(formValues.label)) {
+        errors.label = 'Invalid label selected';
+    }
+
+    if (!['billing', 'shipping', 'both'].includes(formValues.type)) {
+        errors.type = 'Invalid address type selected';
+    }
+
+    return errors;
+};
 
 const QUICK_ACTIONS = [
     { key: 'profile', label: 'Profile', icon: User },
@@ -37,8 +125,81 @@ const Account = () => {
     const navigate = useNavigate();
     const { loading, currentUser } = useSelector((state) => state.auth);
     const [activePanel, setActivePanel] = useState('profile');
+    const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+    const [addressForm, setAddressForm] = useState(initialAddressForm);
+    const [addressErrors, setAddressErrors] = useState({});
+    const [addressSubmitError, setAddressSubmitError] = useState('');
+    const [isSavingAddress, setIsSavingAddress] = useState(false);
 
     const fallbackInitial = currentUser?.name?.trim()?.charAt(0)?.toUpperCase() || 'U';
+    const savedAddresses = Array.isArray(currentUser?.addresses) ? currentUser.addresses : [];
+    const defaultAddress = savedAddresses.find((address) => address?.isDefault) || savedAddresses[0] || null;
+
+    const handleAddressFormChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setAddressForm((prev) => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+
+        setAddressErrors((prev) => ({
+            ...prev,
+            [name]: '',
+        }));
+        setAddressSubmitError('');
+    };
+
+    const openAddressModal = () => {
+        setAddressForm({
+            ...initialAddressForm,
+            fullName: currentUser?.name || '',
+            phone: currentUser?.phone || '',
+            isDefault: savedAddresses.length === 0,
+        });
+        setAddressErrors({});
+        setAddressSubmitError('');
+        setIsAddressModalOpen(true);
+    };
+
+    const closeAddressModal = () => {
+        if (isSavingAddress) return;
+        setIsAddressModalOpen(false);
+    };
+
+    const handleAddAddress = async (event) => {
+        event.preventDefault();
+
+        const validationErrors = validateAddress(addressForm);
+        setAddressErrors(validationErrors);
+        if (Object.keys(validationErrors).length > 0) {
+            return;
+        }
+
+        try {
+            setIsSavingAddress(true);
+            setAddressSubmitError('');
+
+            const nextAddress = sanitizeAddressPayload(addressForm);
+            const currentAddresses = savedAddresses.map((address) => ({
+                ...address,
+                _id: address?._id,
+            }));
+
+            const updatedAddresses = nextAddress.isDefault
+                ? [
+                    ...currentAddresses.map((address) => ({ ...address, isDefault: false })),
+                    nextAddress,
+                ]
+                : [...currentAddresses, nextAddress];
+
+            await dispatch(updateUserProfile({ addresses: updatedAddresses })).unwrap();
+            setIsAddressModalOpen(false);
+        } catch (error) {
+            setAddressSubmitError(error || 'Failed to save address. Please try again.');
+        } finally {
+            setIsSavingAddress(false);
+        }
+    };
 
     const panelContent = useMemo(() => {
         switch (activePanel) {
@@ -100,15 +261,39 @@ const Account = () => {
                                     </h3>
                                     <button
                                         type="button"
+                                        onClick={openAddressModal}
                                         className="px-4 py-2 rounded-lg border border-orange-200 text-orange-700 text-sm font-semibold hover:bg-orange-50 transition"
                                     >
-                                        Edit Address
+                                        Add Address
                                     </button>
                                 </div>
 
                                 <div className="rounded-xl border border-orange-100 bg-orange-50 p-4">
-                                    <p className="text-sm font-medium text-gray-800">No saved address.</p>
-                                    <p className="mt-1 text-sm text-gray-600">Add an address during checkout and it will show here.</p>
+                                    {defaultAddress ? (
+                                        <>
+                                            <p className="text-sm font-semibold text-gray-900">
+                                                {defaultAddress?.fullName || currentUser?.name}
+                                                {defaultAddress?.isDefault ? (
+                                                    <span className="ml-2 text-xs font-semibold text-orange-700">Default</span>
+                                                ) : null}
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-700">{defaultAddress?.line1}</p>
+                                            {defaultAddress?.line2 ? (
+                                                <p className="text-sm text-gray-700">{defaultAddress.line2}</p>
+                                            ) : null}
+                                            <p className="text-sm text-gray-700">
+                                                {[defaultAddress?.city, defaultAddress?.state, defaultAddress?.pincode].filter(Boolean).join(', ')}
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-700">
+                                                Phone: {defaultAddress?.phone || currentUser?.phone || '-'}
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className="text-sm font-medium text-gray-800">No saved address.</p>
+                                            <p className="mt-1 text-sm text-gray-600">Add an address for faster checkout.</p>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </>
@@ -237,6 +422,214 @@ const Account = () => {
                     </div>
                 </div>
             </div>
+
+            {isAddressModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <button
+                        type="button"
+                        className="absolute inset-0 bg-black/40"
+                        aria-label="Close add address modal"
+                        onClick={closeAddressModal}
+                    />
+
+                    <div className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-amber-300 bg-white shadow-2xl">
+                        <div className="shilpika-bg px-5 py-4 border-b border-amber-200 flex items-center justify-between">
+                            <div>
+                                <h3 className="text-lg font-bold text-gray-900">Add New Address</h3>
+                                <p className="text-xs text-gray-700 mt-1">Enter delivery details exactly as per your location.</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={closeAddressModal}
+                                className="p-2 rounded-full hover:bg-white/70 transition"
+                                aria-label="Close modal"
+                            >
+                                <X size={18} className="text-gray-700" />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleAddAddress} className="p-5 sm:p-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Label</label>
+                                    <select
+                                        name="label"
+                                        value={addressForm.label}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    >
+                                        <option value="Home">Home</option>
+                                        <option value="Work">Work</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    {addressErrors.label ? <p className="mt-1 text-xs text-red-600">{addressErrors.label}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Address Type</label>
+                                    <select
+                                        name="type"
+                                        value={addressForm.type}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    >
+                                        <option value="both">Billing + Shipping</option>
+                                        <option value="billing">Billing only</option>
+                                        <option value="shipping">Shipping only</option>
+                                    </select>
+                                    {addressErrors.type ? <p className="mt-1 text-xs text-red-600">{addressErrors.type}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        value={addressForm.fullName}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.fullName ? <p className="mt-1 text-xs text-red-600">{addressErrors.fullName}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Phone</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={addressForm.phone}
+                                        onChange={handleAddressFormChange}
+                                        maxLength={10}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.phone ? <p className="mt-1 text-xs text-red-600">{addressErrors.phone}</p> : null}
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    <label className="text-sm font-semibold text-gray-800">Address Line 1</label>
+                                    <input
+                                        type="text"
+                                        name="line1"
+                                        value={addressForm.line1}
+                                        onChange={handleAddressFormChange}
+                                        maxLength={200}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.line1 ? <p className="mt-1 text-xs text-red-600">{addressErrors.line1}</p> : null}
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    <label className="text-sm font-semibold text-gray-800">Address Line 2 (Optional)</label>
+                                    <input
+                                        type="text"
+                                        name="line2"
+                                        value={addressForm.line2}
+                                        onChange={handleAddressFormChange}
+                                        maxLength={200}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.line2 ? <p className="mt-1 text-xs text-red-600">{addressErrors.line2}</p> : null}
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    <label className="text-sm font-semibold text-gray-800">Landmark (Optional)</label>
+                                    <input
+                                        type="text"
+                                        name="landmark"
+                                        value={addressForm.landmark}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">City</label>
+                                    <input
+                                        type="text"
+                                        name="city"
+                                        value={addressForm.city}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.city ? <p className="mt-1 text-xs text-red-600">{addressErrors.city}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Pincode</label>
+                                    <input
+                                        type="text"
+                                        name="pincode"
+                                        value={addressForm.pincode}
+                                        onChange={handleAddressFormChange}
+                                        maxLength={6}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    />
+                                    {addressErrors.pincode ? <p className="mt-1 text-xs text-red-600">{addressErrors.pincode}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">State / UT</label>
+                                    <select
+                                        name="state"
+                                        value={addressForm.state}
+                                        onChange={handleAddressFormChange}
+                                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                    >
+                                        <option value="">Select state</option>
+                                        {ADDRESS_STATES.map((stateName) => (
+                                            <option key={stateName} value={stateName}>{stateName}</option>
+                                        ))}
+                                    </select>
+                                    {addressErrors.state ? <p className="mt-1 text-xs text-red-600">{addressErrors.state}</p> : null}
+                                </div>
+
+                                <div>
+                                    <label className="text-sm font-semibold text-gray-800">Country</label>
+                                    <input
+                                        type="text"
+                                        name="country"
+                                        value="India"
+                                        disabled
+                                        className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-600"
+                                    />
+                                </div>
+                            </div>
+
+                            <label className="mt-4 flex items-center gap-2 text-sm text-gray-700">
+                                <input
+                                    type="checkbox"
+                                    name="isDefault"
+                                    checked={addressForm.isDefault}
+                                    onChange={handleAddressFormChange}
+                                    className="accent-amber-600"
+                                />
+                                Set as default address
+                            </label>
+
+                            {addressSubmitError ? (
+                                <p className="mt-3 text-sm text-red-600">{addressSubmitError}</p>
+                            ) : null}
+
+                            <div className="mt-6 flex items-center justify-end gap-3">
+                                <button
+                                    type="button"
+                                    onClick={closeAddressModal}
+                                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 transition"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSavingAddress}
+                                    className="px-5 py-2 rounded-lg bg-gradient-to-r from-orange-600 to-amber-500 text-white text-sm font-semibold hover:shadow-md disabled:opacity-70 transition"
+                                >
+                                    {isSavingAddress ? 'Saving...' : 'Save Address'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

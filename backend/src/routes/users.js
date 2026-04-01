@@ -10,4 +10,34 @@ router.get('/me', auth, async (req, res) => {
   res.json(user); // toJSON already strips passwordHash
 });
 
+router.put('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const allowedFields = ['name', 'phone', 'gender', 'dateOfBirth', 'addresses'];
+    const updates = Object.fromEntries(
+      Object.entries(req.body || {}).filter(([key]) => allowedFields.includes(key))
+    );
+
+    if (updates.addresses !== undefined && !Array.isArray(updates.addresses)) {
+      return res.status(400).json({ error: 'addresses must be an array' });
+    }
+
+    Object.assign(user, updates);
+    await user.save();
+
+    return res.json(user);
+  } catch (error) {
+    if (error?.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation failed',
+        details: Object.values(error.errors || {}).map((entry) => entry.message),
+      });
+    }
+
+    return res.status(500).json({ error: 'Failed to update user profile' });
+  }
+});
+
 module.exports = router;

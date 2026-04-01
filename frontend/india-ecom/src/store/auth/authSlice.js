@@ -133,6 +133,19 @@ const authSlice = createSlice({
                 state.currentUser = null;
                 localStorage.removeItem('token');
                 setToken(null);
+            })
+            .addCase(updateUserProfile.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateUserProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.currentUser = action.payload;
+                state.error = null;
+            })
+            .addCase(updateUserProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     }
 });

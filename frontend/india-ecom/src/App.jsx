@@ -21,6 +21,7 @@ const Account = lazy(()=>import('./pages/Account/Account'))
 const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
 const Search = lazy(()=>import('./pages/Search/Search'))
+const Checkout = lazy(()=>import('./pages/Checkout/Checkout'))
 
 const RouteFallback = ({ message = "Loading page..." }) => (
   <Loader fullScreen message={message} />
@@ -36,6 +37,7 @@ const Root = () => {
   const previousAuthStateRef = useRef(null);
   const warmupBannerTimeoutRef = useRef(null);
   const { isAuthenticated, initialized } = useSelector((state) => state.auth);
+  const isCheckoutRoute = location.pathname.startsWith('/checkout');
 
   const hasGuestCartItems = () => {
     try {
@@ -157,10 +159,12 @@ const Root = () => {
         onToggleCategoryMenu={() => setIsCategoryMenuOpen((open) => !open)}
       />
       
-      <SubHeader
-        isCategoryMenuOpen={isCategoryMenuOpen}
-        onCloseCategoryMenu={() => setIsCategoryMenuOpen(false)}
-      />
+      {!isCheckoutRoute && (
+        <SubHeader
+          isCategoryMenuOpen={isCategoryMenuOpen}
+          onCloseCategoryMenu={() => setIsCategoryMenuOpen(false)}
+        />
+      )}
 
       <div className={`main-content ${location.pathname === "/" ? "home-page-fade" : ""}`}>
         <Outlet />
@@ -218,6 +222,14 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<RouteFallback message="Loading search..." />}>
             <Search />
+          </Suspense>
+        )
+      },
+      {
+        path: '/checkout',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading checkout..." />}>
+            <Checkout />
           </Suspense>
         )
       }
