@@ -10,7 +10,7 @@ router.get('/', authMiddleware, async (req, res) => {
     let cart = await Cart.findOne({ user: req.userId })
       .populate({
         path: 'items.product',
-        select: 'name slug images price discountedPrice stock brand'
+        select: 'name slug images price discountedPrice stock brand region giTagged'
       });
     
     if (!cart) {
@@ -123,7 +123,7 @@ router.post('/add', authMiddleware, async (req, res) => {
     // Populate and return
     cart = await Cart.findById(cart._id).populate({
       path: 'items.product',
-      select: 'name slug images price discountedPrice stock brand'
+      select: 'name slug images price discountedPrice stock brand region giTagged'
     });
     
     res.json({
@@ -203,7 +203,7 @@ router.put('/update/:productId', authMiddleware, async (req, res) => {
     // Populate and return
     const updatedCart = await Cart.findById(cart._id).populate({
       path: 'items.product',
-      select: 'name slug images price discountedPrice stock brand'
+      select: 'name slug images price discountedPrice stock brand region giTagged'
     });
     
     res.json({
@@ -252,7 +252,7 @@ router.delete('/remove/:productId', authMiddleware, async (req, res) => {
     // Populate and return
     const updatedCart = await Cart.findById(cart._id).populate({
       path: 'items.product',
-      select: 'name slug images price discountedPrice stock brand'
+      select: 'name slug images price discountedPrice stock brand region giTagged'
     });
     
     res.json({

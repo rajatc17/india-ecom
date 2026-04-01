@@ -232,6 +232,14 @@ const appRouter = createBrowserRouter([
             <Checkout />
           </Suspense>
         )
+      },
+      {
+        path: '/checkout/payment',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading checkout..." />}>
+            <Checkout />
+          </Suspense>
+        )
       }
     ],
   },

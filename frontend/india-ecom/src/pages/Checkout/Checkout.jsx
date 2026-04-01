@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
 import { getAddressDisplayLines } from '../../api/util';
+import CartLineItem from '../../components/cart/CartLineItem';
 
 const GST_RATE = 0.18;
 const INR_FORMATTER = new Intl.NumberFormat('en-IN', {
@@ -16,15 +17,6 @@ const formatINR = (value) => INR_FORMATTER.format(Number(value || 0));
 
 const getProductId = (item) => item?.product?._id || item?.product;
 
-const getProductSlug = (item) => item?.slug || item?.product?.slug || item?.productDetails?.slug;
-
-const getImageUrl = (item) => {
-  const direct = typeof item?.image === 'string' ? item.image : item?.image?.url;
-  return direct || item?.product?.images?.[0]?.url || item?.productDetails?.images?.[0]?.url || null;
-};
-
-const getUnitPrice = (item) => item?.discountedPrice || item?.price || 0;
-
 const getMaxStock = (item) => item?.availableStock ?? item?.product?.stock ?? item?.productDetails?.stock ?? 99;
 
 const getDefaultAddress = (addresses = []) => {
@@ -35,13 +27,51 @@ const getDefaultAddress = (addresses = []) => {
   return addresses.find((addr) => addr?.isDefault) || addresses[0];
 };
 
+const getAddressId = (address, index) => String(address?._id || `addr-${index}`);
+
 const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { totalItems, subtotal, loading, error } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.auth);
   const items = useSelector(selectCartItemsNewestFirst);
-  const defaultAddress = getDefaultAddress(currentUser?.addresses);
-  const addressLines = getAddressDisplayLines(defaultAddress);
+  const isPaymentStep = location.pathname.startsWith('/checkout/payment');
+  const allAddresses = useMemo(
+    () => (Array.isArray(currentUser?.addresses) ? currentUser.addresses : []),
+    [currentUser?.addresses]
+  );
+  const defaultAddress = getDefaultAddress(allAddresses);
+  const [confirmedAddressId, setConfirmedAddressId] = useState('');
+  const [pendingAddressId, setPendingAddressId] = useState('');
+  const [isAddressPickerOpen, setIsAddressPickerOpen] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('upi');
+  const [upiId, setUpiId] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
+  const [selectedBank, setSelectedBank] = useState('');
+
+  useEffect(() => {
+    if (!defaultAddress || confirmedAddressId) return;
+
+    const fallbackId = getAddressId(defaultAddress, 0);
+    setConfirmedAddressId(fallbackId);
+    setPendingAddressId(fallbackId);
+  }, [defaultAddress, confirmedAddressId]);
+
+  const confirmedAddress = useMemo(() => {
+    if (!allAddresses.length) return null;
+
+    if (!confirmedAddressId) {
+      return defaultAddress;
+    }
+
+    return allAddresses.find((address, index) => getAddressId(address, index) === confirmedAddressId) || defaultAddress;
+  }, [allAddresses, confirmedAddressId, defaultAddress]);
+
+  const addressLines = getAddressDisplayLines(confirmedAddress);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -79,17 +109,85 @@ const Checkout = () => {
   const normalizedSubtotal = Number(subtotal || 0);
   const tax = normalizedSubtotal * GST_RATE;
   const grandTotal = normalizedSubtotal + tax;
+  const isSelectingAddress = isAddressPickerOpen;
+  const isBillingButtonBlocked = isSelectingAddress || !confirmedAddress || !items || items.length === 0;
+
+  const handleStartAddressChange = () => {
+    if (!allAddresses.length) return;
+    setPendingAddressId(confirmedAddressId || getAddressId(allAddresses[0], 0));
+    setIsAddressPickerOpen(true);
+  };
+
+  const handleConfirmAddressSelection = () => {
+    if (!pendingAddressId) return;
+    setConfirmedAddressId(pendingAddressId);
+    setIsAddressPickerOpen(false);
+  };
+
+  const isPaymentMethodReady = useMemo(() => {
+    if (selectedPaymentMethod === 'upi') {
+      return /^[^\s@]+@[a-zA-Z]{2,}$/.test(upiId.trim());
+    }
+
+    if (selectedPaymentMethod === 'card') {
+      return (
+        cardName.trim().length >= 3
+        && cardNumber.replace(/\s/g, '').length === 16
+        && /^\d{2}\/\d{2}$/.test(cardExpiry)
+        && cardCvv.length === 3
+      );
+    }
+
+    if (selectedPaymentMethod === 'netbanking') {
+      return Boolean(selectedBank);
+    }
+
+    return true;
+  }, [cardCvv, cardExpiry, cardName, cardNumber, selectedBank, selectedPaymentMethod, upiId]);
+
+  const paymentOptions = [
+    {
+      id: 'upi',
+      title: 'UPI (Recommended)',
+      subtitle: 'Pay instantly using any UPI app',
+    },
+    {
+      id: 'card',
+      title: 'Credit / Debit Card',
+      subtitle: 'Visa, Mastercard, RuPay accepted',
+    },
+    {
+      id: 'netbanking',
+      title: 'Net Banking',
+      subtitle: 'All major Indian banks supported',
+    },
+    {
+      id: 'cod',
+      title: 'Cash on Delivery',
+      subtitle: 'Pay when your order arrives',
+    },
+  ];
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
-      <div className="flex items-start justify-between gap-4 flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-3 items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Checkout</h1>
-          <p className="text-sm text-gray-500 mt-1">Step 1 of 3: Review your cart items</p>
+          <p className="text-sm text-gray-500 mt-1">{isPaymentStep ? 'Step 2 of 2: Payment' : 'Step 1 of 2: Review'}</p>
         </div>
-        <Link to="/cart" className="text-sm font-medium text-amber-700 hover:text-amber-800 transition-colors">
-          Back to cart page
-        </Link>
+
+        {/* <div className="md:justify-self-center">
+          <div className="inline-flex items-center rounded-full border border-amber-200 bg-white/90 p-1 shadow-sm">
+            <div className="px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-semibold">Review</div>
+            <div className="px-3 py-1 text-xs font-semibold text-amber-800">Payment</div>
+          </div>
+        </div> */}
+
+        <div className="md:justify-self-end">
+          <Link to="/cart" className="text-sm font-medium text-amber-700 hover:text-amber-800 transition-colors">
+            Back to cart page
+          </Link>
+        </div>
       </div>
 
       {error && (
@@ -98,32 +196,300 @@ const Checkout = () => {
         </div>
       )}
 
-      <div className="mt-6 shilpika-bg rounded-xl border border-amber-200/80 p-4 sm:p-5">
-        <div className="flex items-start justify-between gap-3 flex-wrap">
+      {!isPaymentStep ? (
+      <div className="mt-6 shilpika-bg rounded-xl border border-amber-200/80 p-3 sm:p-4">
+        <div className="flex items-start justify-between gap-2 flex-wrap">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Default Delivery Address</p>
-            {defaultAddress ? (
-              <div className="mt-2 text-sm text-gray-800 leading-6">
-                <p className="font-semibold">{defaultAddress?.fullName || currentUser?.name}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800">Address</p>
+            {confirmedAddress ? (
+              <div className="mt-1.5 text-xs text-gray-700 leading-5">
+                <p className="font-semibold text-gray-800">
+                  Delivering to {confirmedAddress?.label || confirmedAddress?.fullName || 'Selected Address'}
+                </p>
                 {addressLines.map((line) => <p key={line}>{line}</p>)}
-                <p className="mt-1">Phone: {defaultAddress?.phone || currentUser?.phone || '-'}</p>
+                <p>Phone: {confirmedAddress?.phone || currentUser?.phone || '-'}</p>
               </div>
             ) : (
-              <p className="mt-2 text-sm text-gray-700">
-                No default address found. Add one in your account before continuing.
+              <p className="mt-1 text-xs text-gray-700">
+                No saved address found. Add one in your account before continuing.
               </p>
             )}
           </div>
 
-          <Link
-            to="/account"
-            className="text-sm font-semibold px-4 py-2 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
-          >
-            Manage Address
-          </Link>
+          {allAddresses.length > 0 ? (
+            <button
+              type="button"
+              onClick={handleStartAddressChange}
+              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
+            >
+              Change
+            </button>
+          ) : (
+            <Link
+              to="/account"
+              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
+            >
+              Add Address
+            </Link>
+          )}
+        </div>
+
+        {isAddressPickerOpen ? (
+          <div className="mt-3 rounded-lg border border-amber-200 bg-white/85 p-3">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800 mb-2">Select delivery address</p>
+
+            <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+              {allAddresses.map((address, index) => {
+                const optionId = getAddressId(address, index);
+                const optionLines = getAddressDisplayLines(address);
+
+                return (
+                  <label
+                    key={optionId}
+                    className={`flex gap-2 rounded-md border p-2 cursor-pointer transition ${
+                      pendingAddressId === optionId
+                        ? 'border-amber-300 bg-amber-50/80'
+                        : 'border-gray-200 bg-white hover:border-amber-200'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="checkout-address"
+                      value={optionId}
+                      checked={pendingAddressId === optionId}
+                      onChange={(event) => setPendingAddressId(event.target.value)}
+                      className="mt-0.5 accent-amber-600"
+                    />
+                    <div className="text-[11px] text-gray-700 leading-4">
+                      <p className="font-semibold text-gray-800">{address?.label || address?.fullName || 'Address'}</p>
+                      <p>{address?.fullName || currentUser?.name || '-'}</p>
+                      {optionLines.map((line) => <p key={`${optionId}-${line}`}>{line}</p>)}
+                      <p>Phone: {address?.phone || currentUser?.phone || '-'}</p>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <button
+                type="button"
+                onClick={handleConfirmAddressSelection}
+                disabled={!pendingAddressId}
+                className="px-3 py-2 rounded-md bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 disabled:opacity-60 transition"
+              >
+                Deliver to this address
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
+      ) : null}
+
+      {isPaymentStep ? (
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
+        <div className="md:col-span-6">
+          <div className="shilpika-bg rounded-2xl border border-amber-200/80 p-5 sm:p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Payment Options</h2>
+              <Link
+                to="/checkout"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/90 hover:bg-white transition"
+              >
+                Back to Review
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              {paymentOptions.map((option) => (
+                <label
+                  key={option.id}
+                  className={`flex items-start gap-3 rounded-xl border p-3 cursor-pointer transition ${
+                    selectedPaymentMethod === option.id
+                      ? 'border-amber-300 bg-amber-50/80'
+                      : 'border-gray-200 bg-white/90 hover:border-amber-200'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value={option.id}
+                    checked={selectedPaymentMethod === option.id}
+                    onChange={(event) => setSelectedPaymentMethod(event.target.value)}
+                    className="mt-1 accent-amber-600"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">{option.title}</p>
+                    <p className="text-xs text-gray-600 mt-0.5">{option.subtitle}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-4 rounded-xl border border-amber-200/80 bg-white/90 p-3 sm:p-4">
+              {selectedPaymentMethod === 'upi' ? (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">UPI Details (Demo)</p>
+                  <input
+                    type="text"
+                    placeholder="name@bank"
+                    value={upiId}
+                    onChange={(event) => setUpiId(event.target.value.toLowerCase())}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  />
+                  <p className="mt-1 text-[11px] text-gray-500">Example: shilpika@okicici</p>
+                </div>
+              ) : null}
+
+              {selectedPaymentMethod === 'card' ? (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">Card Details (Demo)</p>
+                  <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <input
+                      type="text"
+                      placeholder="Name on card"
+                      value={cardName}
+                      onChange={(event) => setCardName(event.target.value)}
+                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300 sm:col-span-2"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Card number"
+                      value={cardNumber}
+                      onChange={(event) => {
+                        const digitsOnly = event.target.value.replace(/\D/g, '').slice(0, 16);
+                        const grouped = digitsOnly.replace(/(.{4})/g, '$1 ').trim();
+                        setCardNumber(grouped);
+                      }}
+                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300 sm:col-span-2"
+                    />
+                    <input
+                      type="text"
+                      placeholder="MM/YY"
+                      value={cardExpiry}
+                      onChange={(event) => {
+                        const digitsOnly = event.target.value.replace(/\D/g, '').slice(0, 4);
+                        const formatted = digitsOnly.length > 2 ? `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2)}` : digitsOnly;
+                        setCardExpiry(formatted);
+                      }}
+                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                    />
+                    <input
+                      type="password"
+                      placeholder="CVV"
+                      value={cardCvv}
+                      onChange={(event) => setCardCvv(event.target.value.replace(/\D/g, '').slice(0, 3))}
+                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {selectedPaymentMethod === 'netbanking' ? (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">Select Bank (Demo)</p>
+                  <select
+                    value={selectedBank}
+                    onChange={(event) => setSelectedBank(event.target.value)}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  >
+                    <option value="">Choose your bank</option>
+                    <option value="sbi">State Bank of India</option>
+                    <option value="hdfc">HDFC Bank</option>
+                    <option value="icici">ICICI Bank</option>
+                    <option value="axis">Axis Bank</option>
+                  </select>
+                </div>
+              ) : null}
+
+              {selectedPaymentMethod === 'cod' ? (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">Cash on Delivery</p>
+                  <p className="mt-1 text-xs text-gray-600">This is a demo flow. COD confirmation happens on order review screen.</p>
+                </div>
+              ) : null}
+            </div>
+
+            <button
+              type="button"
+              className="mt-5 w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
+              disabled={!confirmedAddress || !items || items.length === 0 || !isPaymentMethodReady}
+            >
+              Pay Securely (Demo)
+            </button>
+          </div>
+        </div>
+
+        <div className="md:col-span-4 space-y-4">
+          <div className="rounded-xl border border-amber-200 bg-amber-50/40 p-3 sm:p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800">Delivery Address</p>
+            {confirmedAddress ? (
+              <div className="mt-1.5 text-xs text-gray-700 leading-5">
+                <p className="font-semibold text-gray-800">Delivering to {confirmedAddress?.label || confirmedAddress?.fullName || 'Selected Address'}</p>
+                {addressLines.map((line) => <p key={`payment-${line}`}>{line}</p>)}
+                <p>Phone: {confirmedAddress?.phone || currentUser?.phone || '-'}</p>
+              </div>
+            ) : (
+              <p className="mt-1 text-xs text-gray-700">No confirmed address. Go back to review to select one.</p>
+            )}
+          </div>
+
+          <div className="rounded-xl border border-gray-100 bg-white shadow-sm p-3 sm:p-4">
+            <h3 className="text-sm font-semibold text-gray-900">Billing Details</h3>
+            <div className="mt-3 space-y-2.5 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Items</span>
+                <span className="font-medium text-gray-900">{totalItems || items?.length || 0}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Subtotal</span>
+                <span className="font-medium text-gray-900">{formatINR(normalizedSubtotal)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Tax (18% GST)</span>
+                <span className="font-medium text-gray-900">{formatINR(tax)}</span>
+              </div>
+              <div className="border-t border-gray-100 pt-2.5 flex items-center justify-between">
+                <span className="text-gray-700 font-semibold">Total Payable</span>
+                <span className="text-sm font-semibold text-gray-900">{formatINR(grandTotal)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-gray-100 bg-white shadow-sm p-3 sm:p-4">
+            <h3 className="text-sm font-semibold text-gray-900">Cart Items</h3>
+            {!items || items.length === 0 ? (
+              <p className="mt-2 text-xs text-gray-500">No items in cart.</p>
+            ) : (
+              <div className="mt-3 space-y-2.5">
+                {items.map((item) => {
+                  const unitPrice = Number(item?.discountedPrice || item?.price || 0);
+                  const qty = Number(item?.quantity || 1);
+                  const lineTotal = Number(item?.subtotal || unitPrice * qty);
+                  const imageUrl = (typeof item?.image === 'string' ? item.image : item?.image?.url)
+                    || item?.product?.images?.[0]?.url
+                    || item?.productDetails?.images?.[0]?.url
+                    || null;
+
+                  return (
+                    <div key={item?._id || item?.product?._id || item?.product} className="flex gap-2.5 border border-gray-100 rounded-lg p-2.5">
+                      <div className="w-12 h-12 rounded-md bg-gray-50 border border-gray-100 overflow-hidden flex-shrink-0">
+                        {imageUrl ? <img src={imageUrl} alt={item?.name || 'Product'} className="w-full h-full object-cover" /> : null}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-medium text-gray-800 truncate">{item?.name}</p>
+                        <p className="text-[11px] text-gray-500 mt-0.5">{qty} x {formatINR(unitPrice)}</p>
+                      </div>
+                      <div className="text-[11px] font-semibold text-gray-800 flex-shrink-0">{formatINR(lineTotal)}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-
+      ) : (
       <div className="mt-6 grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
         <div className="md:col-span-7">
           <div className="rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden">
@@ -144,83 +510,25 @@ const Checkout = () => {
                   Browse products
                 </Link>
               </div>
+            ) : isSelectingAddress ? (
+              <div className="p-8 text-center bg-amber-50/30">
+                <p className="text-sm font-medium text-amber-800">Cart review is temporarily collapsed</p>
+                <p className="mt-1 text-xs text-gray-600">Confirm delivery address to continue reviewing items.</p>
+              </div>
             ) : (
               <div className="divide-y divide-gray-100">
                 {items.map((item) => {
                   const productId = getProductId(item);
-                  const slug = getProductSlug(item);
-                  const img = getImageUrl(item);
-                  const unitPrice = getUnitPrice(item);
-                  const qty = item?.quantity || 1;
-                  const lineTotal = item?.subtotal ?? unitPrice * qty;
-                  const maxStock = getMaxStock(item);
 
                   return (
-                    <div key={item?._id || productId} className="p-4 sm:p-6 flex gap-4 sm:gap-5">
-                      <div className="w-20 h-20 rounded-lg bg-gray-50 border border-gray-100 overflow-hidden flex-shrink-0">
-                        {img ? (
-                          <img src={img} alt={item?.name || 'Product'} className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full" />
-                        )}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-3 sm:gap-4">
-                          <div className="min-w-0">
-                            {slug ? (
-                              <Link
-                                to={`/product/${slug}`}
-                                className="text-sm sm:text-base font-semibold text-gray-900 hover:text-amber-700 transition-colors line-clamp-2"
-                              >
-                                {item?.name}
-                              </Link>
-                            ) : (
-                              <div className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2">{item?.name}</div>
-                            )}
-
-                            <div className="mt-1 text-xs text-gray-500">Unit price: {formatINR(unitPrice)}</div>
-                          </div>
-
-                          <div className="text-right flex-shrink-0">
-                            <div className="text-sm font-semibold text-gray-900">{formatINR(lineTotal)}</div>
-                            <button
-                              type="button"
-                              onClick={() => handleRemove(item)}
-                              className="mt-2 text-xs font-medium text-gray-500 hover:text-red-600 transition-colors"
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 flex items-center justify-between gap-4 flex-wrap">
-                          <div className="inline-flex items-center rounded-lg border border-gray-200 bg-white overflow-hidden">
-                            <button
-                              type="button"
-                              onClick={() => handleDecrease(item)}
-                              className="px-3 py-2 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
-                              disabled={loading || qty <= 1}
-                              aria-label="Decrease quantity"
-                            >
-                              -
-                            </button>
-                            <div className="px-4 py-2 text-sm font-medium text-gray-900">{qty}</div>
-                            <button
-                              type="button"
-                              onClick={() => handleIncrease(item)}
-                              className="px-3 py-2 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
-                              disabled={loading || qty >= maxStock}
-                              aria-label="Increase quantity"
-                            >
-                              +
-                            </button>
-                          </div>
-
-                          <div className="text-xs text-gray-500">{Number.isFinite(maxStock) ? `Max: ${maxStock}` : null}</div>
-                        </div>
-                      </div>
-                    </div>
+                    <CartLineItem
+                      key={item?._id || productId}
+                      item={item}
+                      loading={loading}
+                      onRemove={handleRemove}
+                      onDecrease={handleDecrease}
+                      onIncrease={handleIncrease}
+                    />
                   );
                 })}
               </div>
@@ -251,16 +559,20 @@ const Checkout = () => {
               </div>
             </div>
 
-            <button
-              type="button"
-              className="mt-6 w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
-              disabled={!items || items.length === 0}
-            >
-              Continue to Address
-            </button>
+            <div className={isSelectingAddress ? 'mt-6 blur-[1.5px] pointer-events-none select-none' : 'mt-6'}>
+              <button
+                type="button"
+                className="w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
+                disabled={isBillingButtonBlocked}
+                onClick={() => navigate('/checkout/payment')}
+              >
+                {isSelectingAddress ? 'selecting address...' : 'Continue to Payment'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      )}
     </section>
   );
 };

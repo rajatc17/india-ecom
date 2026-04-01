@@ -95,7 +95,10 @@ export const addToCart = createAsyncThunk(
             images: product.images,
             price: product.price,
             discountedPrice: product.discountedPrice,
-            stock: product.stock
+            stock: product.stock,
+            brand: product.brand,
+            region: product.region,
+            giTagged: product.giTagged
           }
         });
       }

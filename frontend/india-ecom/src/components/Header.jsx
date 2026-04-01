@@ -41,6 +41,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const isCheckoutRoute = location.pathname.startsWith('/checkout');
+  const isPaymentStep = /\/checkout\/payment/.test(location.pathname);
 
   const handleUserLogo = ()=>{
     if(isAuthenticated){
@@ -261,16 +262,18 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
 
               <div className="flex-1 flex justify-center px-3">
                 <div className="inline-flex items-center rounded-full border border-amber-100 bg-amber-50 px-2 py-1">
-                  {['Cart', 'Address', 'Payment'].map((step, index) => (
+                  {['Review', 'Payment'].map((step, index) => (
                     <div key={step} className="flex items-center">
                       <span
                         className={`px-3 py-1 text-xs sm:text-sm font-semibold rounded-full ${
-                          index === 0 ? 'bg-white text-amber-700 shadow-sm' : 'text-gray-500'
+                          (step === 'Review' && !isPaymentStep) || (step === 'Payment' && isPaymentStep)
+                            ? 'bg-white text-amber-700 shadow-sm'
+                            : 'text-gray-500'
                         }`}
                       >
                         {step}
                       </span>
-                      {index < 2 && <span className="mx-1 text-gray-400">/</span>}
+                      {index < 1 && <span className="mx-1 text-gray-400">/</span>}
                     </div>
                   ))}
                 </div>
