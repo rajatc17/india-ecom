@@ -94,7 +94,7 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
     <>
 
     {isCategoryMenuOpen && (
-      <div className='fixed inset-0 z-[70] block lg:hidden'>
+      <div className='fixed inset-0 z-[70] block lg:hidden' aria-modal="true" role="dialog">
         <button
           type='button'
           className='mobile-menu-backdrop absolute inset-0 bg-black/20 backdrop-blur-sm'
@@ -175,7 +175,7 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
       </div>
       )}
 
-    <div className='hidden lg:block sticky top-0 bg-white shadow-sm px-4 text-xs z-40' onMouseLeave={handleSHMouseLeave}>
+    <div className='hidden lg:block sticky top-0 shilpika-bg shadow-sm px-4 text-xs z-40' onMouseLeave={handleSHMouseLeave}>
       <ul className='relative flex gap-1 justify-between max-w-7xl mx-auto list-none'>
         {categoryTree && categoryTree.map((cat) => (
           <li

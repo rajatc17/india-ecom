@@ -1,172 +1,244 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchCurrentUser } from '../../store/auth/authSlice';
-import { useEffect } from 'react';
-import Loader from '../../components/common/Loader';
-import { User, Mail, Phone, MapPin, Calendar, Package, Heart, Settings, LogOut, Award } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { logout } from '../../store/auth/authSlice';
+import { User, Mail, Phone, MapPin, Package, Heart, LogOut, Award } from 'lucide-react';
+
+const QUICK_ACTIONS = [
+    { key: 'profile', label: 'Profile', icon: User },
+    { key: 'orders', label: 'Orders', icon: Package },
+    { key: 'wishlist', label: 'Wishlist', icon: Heart },
+];
+
+const AccountShimmer = () => (
+    <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="rounded-2xl border border-orange-100 bg-white p-5 space-y-4">
+                <div className="account-shimmer h-16 w-16 rounded-full" />
+                <div className="account-shimmer h-5 w-2/3 rounded-md" />
+                <div className="account-shimmer h-4 w-4/5 rounded-md" />
+                <div className="account-shimmer h-10 w-full rounded-xl" />
+            </div>
+            <div className="lg:col-span-2 rounded-2xl border border-orange-100 bg-white p-5 space-y-4">
+                <div className="account-shimmer h-6 w-1/3 rounded-md" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="account-shimmer h-24 rounded-xl" />
+                    <div className="account-shimmer h-24 rounded-xl" />
+                    <div className="account-shimmer h-24 rounded-xl" />
+                    <div className="account-shimmer h-24 rounded-xl" />
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 const Account = () => {
     const dispatch = useDispatch();
-    const { token, isAuthenticated, loading, initialized, currentUser } = useSelector((state) => state.auth);
-    
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50">
-            {loading && <Loader />}
-            
-            {/* Hero Banner with Indian Pattern */}
-            <div className="relative bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 h-48 overflow-hidden">
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.1) 10px, rgba(255,255,255,.1) 20px)`,
-                    }}></div>
-                </div>
-                <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-                    <div className="text-white">
-                        <h1 className="text-4xl font-bold mb-2">Namaste, {currentUser?.name}</h1>
-                        <p className="text-orange-100">Welcome to your account dashboard</p>
-                    </div>
-                </div>
-            </div>
+    const navigate = useNavigate();
+    const { loading, currentUser } = useSelector((state) => state.auth);
+    const [activePanel, setActivePanel] = useState('profile');
 
-            <div className="max-w-7xl mx-auto px-4 mt-12 pb-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Profile Card */}
-                    <div className="lg:col-span-1">
-                        <div className="bg-white rounded-2xl shadow-xl border-2 border-orange-200 overflow-hidden">
-                            <div className="bg-gradient-to-br from-orange-500 to-red-500 h-24"></div>
-                            <div className="px-6 pb-6">
-                                <div className="-mt-12 mb-4">
-                                    <div className="w-24 h-24 bg-white rounded-full border-4 border-white shadow-lg flex items-center justify-center">
-                                        <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
-                                            {currentUser?.name?.charAt(0).toUpperCase()}
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <h2 className="text-2xl font-bold text-gray-800 mb-1">{currentUser?.name}</h2>
-                                <p className="text-gray-500 mb-4">{currentUser?.email}</p>
-                                
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3 text-gray-600">
-                                        <Mail size={18} className="text-orange-600" />
-                                        <span className="text-sm">{currentUser?.email}</span>
-                                    </div>
-                                    {currentUser?.phone && (
-                                        <div className="flex items-center gap-3 text-gray-600">
-                                            <Phone size={18} className="text-orange-600" />
-                                            <span className="text-sm">{currentUser.phone}</span>
-                                        </div>
-                                    )}
-                                    <div className="flex items-center gap-3 text-gray-600">
-                                        <Calendar size={18} className="text-orange-600" />
-                                        <span className="text-sm">Joined {new Date(currentUser?.createdAt).toLocaleDateString('en-IN')}</span>
-                                    </div>
-                                </div>
+    const fallbackInitial = currentUser?.name?.trim()?.charAt(0)?.toUpperCase() || 'U';
 
-                                <button className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg transition flex items-center justify-center gap-2">
-                                    <Settings size={18} />
-                                    Edit Profile
+    const panelContent = useMemo(() => {
+        switch (activePanel) {
+            case 'orders':
+                return {
+                    title: 'My Orders',
+                    content: (
+                        <div className="rounded-xl border border-orange-100 bg-orange-50 p-5">
+                            <p className="text-sm font-medium text-gray-800">No orders yet.</p>
+                            <p className="mt-1 text-sm text-gray-600">Your placed orders will appear here.</p>
+                        </div>
+                    ),
+                };
+            case 'wishlist':
+                return {
+                    title: 'Wishlist',
+                    content: (
+                        <div className="rounded-xl border border-orange-100 bg-orange-50 p-5">
+                            <p className="text-sm font-medium text-gray-800">Wishlist is empty.</p>
+                            <p className="mt-1 text-sm text-gray-600">Save products to access them quickly later.</p>
+                        </div>
+                    ),
+                };
+            case 'profile':
+            default:
+                return {
+                    title: 'Account Information',
+                    content: (
+                        <>
+                            <div className="flex items-center justify-end mb-4">
+                                <button
+                                    type="button"
+                                    className="px-4 py-2 rounded-lg border border-orange-200 text-orange-700 text-sm font-semibold hover:bg-orange-50 transition"
+                                >
+                                    Edit Info
                                 </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="rounded-xl border border-orange-100 bg-orange-50 p-4">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-orange-700">Name</p>
+                                    <p className="mt-1 text-gray-900 font-medium">{currentUser?.name || '-'}</p>
+                                </div>
+                                <div className="rounded-xl border border-orange-100 bg-orange-50 p-4">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-orange-700">Email</p>
+                                    <p className="mt-1 text-gray-900 font-medium">{currentUser?.email || '-'}</p>
+                                </div>
+                                <div className="rounded-xl border border-orange-100 bg-orange-50 p-4 md:col-span-2">
+                                    <p className="text-xs font-semibold uppercase tracking-wide text-orange-700">Phone</p>
+                                    <p className="mt-1 text-gray-900 font-medium">{currentUser?.phone || '-'}</p>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 border-t border-orange-100 pt-6">
+                                <div className="flex items-center justify-between gap-3 mb-4">
+                                    <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                                        <MapPin size={18} className="text-orange-600" />
+                                        Saved Address
+                                    </h3>
+                                    <button
+                                        type="button"
+                                        className="px-4 py-2 rounded-lg border border-orange-200 text-orange-700 text-sm font-semibold hover:bg-orange-50 transition"
+                                    >
+                                        Edit Address
+                                    </button>
+                                </div>
+
+                                <div className="rounded-xl border border-orange-100 bg-orange-50 p-4">
+                                    <p className="text-sm font-medium text-gray-800">No saved address.</p>
+                                    <p className="mt-1 text-sm text-gray-600">Add an address during checkout and it will show here.</p>
+                                </div>
+                            </div>
+                        </>
+                    ),
+                };
+        }
+    }, [activePanel, currentUser]);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/');
+    };
+
+    if (loading || !currentUser) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 py-8">
+                <AccountShimmer />
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 py-8">
+            <div className="max-w-6xl mx-auto px-4">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">My Account</h1>
+                <p className="mt-1 text-sm text-gray-600">Manage profile and account actions</p>
+
+                <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="space-y-6">
+                        <div className="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+                            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white flex items-center justify-center text-2xl font-bold">
+                                {fallbackInitial}
+                            </div>
+                            <h2 className="mt-4 text-xl font-semibold text-gray-900">{currentUser?.name}</h2>
+                            <div className="mt-3 space-y-2 text-sm text-gray-700">
+                                <div className="flex items-center gap-2">
+                                    <Mail size={16} className="text-orange-600" />
+                                    <span>{currentUser?.email || '-'}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Phone size={16} className="text-orange-600" />
+                                    <span>{currentUser?.phone || '-'}</span>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Quick Actions */}
-                        <div className="mt-6 bg-white rounded-2xl shadow-lg border-2 border-orange-100 p-6">
-                            <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                                <Award className="text-orange-600" size={20} />
+                        <div className="hidden lg:block bg-white rounded-2xl border border-orange-100 shadow-sm p-5">
+                            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                                <Award size={18} className="text-orange-600" />
                                 Quick Actions
                             </h3>
-                            <div className="space-y-2">
-                                <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-orange-50 transition flex items-center gap-3 text-gray-700">
-                                    <Package size={18} className="text-orange-600" />
-                                    My Orders
-                                </button>
-                                <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-orange-50 transition flex items-center gap-3 text-gray-700">
-                                    <Heart size={18} className="text-red-500" />
-                                    Wishlist
-                                </button>
-                                <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-orange-50 transition flex items-center gap-3 text-gray-700">
-                                    <MapPin size={18} className="text-orange-600" />
-                                    Addresses
-                                </button>
-                                <button className="w-full text-left px-4 py-3 rounded-lg hover:bg-red-50 transition flex items-center gap-3 text-red-600">
-                                    <LogOut size={18} />
-                                    Logout
+                            <div className="mt-3 space-y-2">
+                                {QUICK_ACTIONS.map(({ key, label, icon: Icon }) => {
+                                    const isActive = activePanel === key;
+
+                                    return (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            onClick={() => setActivePanel(key)}
+                                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-lg border transition ${
+                                                isActive
+                                                    ? 'bg-orange-50 text-orange-700 border-orange-200'
+                                                    : 'bg-white text-gray-700 border-transparent hover:bg-orange-50'
+                                            }`}
+                                        >
+                                            <Icon size={17} className={isActive ? 'text-orange-700' : 'text-orange-600'} />
+                                            <span className="text-sm font-medium">{label}</span>
+                                        </button>
+                                    );
+                                })}
+
+                                <button
+                                    type="button"
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center gap-3 text-left px-4 py-3 rounded-lg border border-transparent hover:bg-red-50 text-red-600 transition"
+                                >
+                                    <LogOut size={17} />
+                                    <span className="text-sm font-medium">Logout</span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-6">
-                        {/* Account Details Card */}
-                        <div className="bg-white rounded-2xl shadow-lg border-2 border-orange-100 p-6">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center">
-                                    <User className="text-white" size={20} />
-                                </div>
-                                <h2 className="text-2xl font-bold text-gray-800">Account Information</h2>
+                    <div className="lg:col-span-2">
+                        <div className="lg:hidden bg-white rounded-2xl border border-orange-100 shadow-sm p-3 mb-4">
+                            <div className="flex items-center gap-2 mb-3 px-1">
+                                <Award size={16} className="text-orange-600" />
+                                <p className="text-sm font-semibold text-gray-900">Quick Actions</p>
                             </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {Object.entries(currentUser || {}).map(([key, value]) => {
-                                    if (key === '__v' || key === 'password') return null;
-                                    
+
+                            <div className="rounded-xl border border-orange-100 bg-orange-50/60 p-1 flex gap-1 overflow-x-auto">
+                                {QUICK_ACTIONS.map(({ key, label }) => {
+                                    const isActive = activePanel === key;
+
                                     return (
-                                        <div key={key} className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4 border border-orange-200">
-                                            <label className="text-xs font-semibold text-orange-700 uppercase tracking-wide mb-1 block">
-                                                {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </label>
-                                            <p className="text-gray-800 font-medium">
-                                                {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                                            </p>
-                                        </div>
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            onClick={() => setActivePanel(key)}
+                                            className={`flex-1 min-w-[110px] px-3 py-2 rounded-lg text-xs font-semibold border transition ${
+                                                isActive
+                                                    ? 'bg-white text-orange-700 border-orange-300 shadow-sm'
+                                                    : 'bg-transparent text-gray-700 border-transparent'
+                                            }`}
+                                        >
+                                            {label}
+                                        </button>
                                     );
                                 })}
                             </div>
+
+                            <button
+                                type="button"
+                                onClick={handleLogout}
+                                className="w-full mt-3 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
+                            >
+                                Logout
+                            </button>
                         </div>
 
-                        {/* Statistics Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white shadow-lg">
-                                <Package size={32} className="mb-3 opacity-80" />
-                                <p className="text-3xl font-bold mb-1">0</p>
-                                <p className="text-orange-100">Total Orders</p>
-                            </div>
-                            
-                            <div className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-lg">
-                                <Heart size={32} className="mb-3 opacity-80" />
-                                <p className="text-3xl font-bold mb-1">0</p>
-                                <p className="text-amber-100">Wishlist Items</p>
-                            </div>
-                            
-                        </div>
-
-                        {/* Recent Activity */}
-                        <div className="bg-white rounded-2xl shadow-lg border-2 border-orange-100 p-6">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                                <Package className="text-orange-600" size={24} />
-                                Recent Orders
-                            </h2>
-                            <div className="text-center py-12">
-                                <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Package className="text-orange-600" size={32} />
-                                </div>
-                                <p className="text-gray-500 mb-4">No orders yet</p>
-                                <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition">
-                                    Start Shopping
-                                </button>
-                            </div>
+                        <div className="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-5">{panelContent.title}</h2>
+                        {panelContent.content}
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Decorative Elements */}
-            <div className="fixed bottom-0 right-0 w-64 h-64 bg-gradient-to-tl from-orange-200 to-transparent rounded-full blur-3xl opacity-30 pointer-events-none"></div>
-            <div className="fixed top-1/2 left-0 w-64 h-64 bg-gradient-to-br from-red-200 to-transparent rounded-full blur-3xl opacity-30 pointer-events-none"></div>
         </div>
-    )
-}
+    );
+};
 
 export default Account
