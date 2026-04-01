@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
+import { getAddressDisplayLines } from '../../api/util';
 
 const GST_RATE = 0.18;
 const INR_FORMATTER = new Intl.NumberFormat('en-IN', {
@@ -40,6 +41,7 @@ const Checkout = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const items = useSelector(selectCartItemsNewestFirst);
   const defaultAddress = getDefaultAddress(currentUser?.addresses);
+  const addressLines = getAddressDisplayLines(defaultAddress);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -103,11 +105,7 @@ const Checkout = () => {
             {defaultAddress ? (
               <div className="mt-2 text-sm text-gray-800 leading-6">
                 <p className="font-semibold">{defaultAddress?.fullName || currentUser?.name}</p>
-                <p>{defaultAddress?.line1}</p>
-                {defaultAddress?.line2 ? <p>{defaultAddress.line2}</p> : null}
-                <p>
-                  {[defaultAddress?.city, defaultAddress?.state, defaultAddress?.pincode].filter(Boolean).join(', ')}
-                </p>
+                {addressLines.map((line) => <p key={line}>{line}</p>)}
                 <p className="mt-1">Phone: {defaultAddress?.phone || currentUser?.phone || '-'}</p>
               </div>
             ) : (
