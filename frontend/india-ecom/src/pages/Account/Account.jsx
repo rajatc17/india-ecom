@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logout, updateUserProfile } from '../../store/auth/authSlice';
+import { api } from '../../api/client';
 import {
     formatAddressCityStatePincode,
     initialAddressForm,
 } from '../../api/util';
 import { User, Mail, Phone, MapPin, Package, Heart, LogOut, Award } from 'lucide-react';
 import AddressFormModal from '../../components/modal/AddressFormModal';
+import OrderTile from '../../components/orders/OrderTile';
 
 const QUICK_ACTIONS = [
     { key: 'profile', label: 'Profile', icon: User },
@@ -48,9 +50,45 @@ const Account = () => {
     const [addressModalInitialValues, setAddressModalInitialValues] = useState(initialAddressForm);
     const [addressSubmitError, setAddressSubmitError] = useState('');
     const [isSavingAddress, setIsSavingAddress] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [isOrdersLoading, setIsOrdersLoading] = useState(false);
+    const [ordersError, setOrdersError] = useState('');
+    const [hasFetchedOrders, setHasFetchedOrders] = useState(false);
 
     const fallbackInitial = currentUser?.name?.trim()?.charAt(0)?.toUpperCase() || 'U';
     const savedAddresses = Array.isArray(currentUser?.addresses) ? currentUser.addresses : [];
+
+    React.useEffect(() => {
+        if (activePanel !== 'orders' || hasFetchedOrders) {
+            return;
+        }
+
+        let isMounted = true;
+
+        const loadOrders = async () => {
+            try {
+                setIsOrdersLoading(true);
+                setOrdersError('');
+                const data = await api('/api/orders');
+                if (!isMounted) return;
+                setOrders(Array.isArray(data) ? data : []);
+                setHasFetchedOrders(true);
+            } catch (error) {
+                if (!isMounted) return;
+                setOrdersError(error?.error || error?.message || 'Failed to load orders.');
+            } finally {
+                if (isMounted) {
+                    setIsOrdersLoading(false);
+                }
+            }
+        };
+
+        loadOrders();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [activePanel, hasFetchedOrders]);
 
     const openAddressModal = () => {
         setAddressMode('add');
@@ -153,9 +191,49 @@ const Account = () => {
                 return {
                     title: 'My Orders',
                     content: (
-                        <div className="rounded-xl border border-orange-100 bg-orange-50 p-5">
-                            <p className="text-sm font-medium text-gray-800">No orders yet.</p>
-                            <p className="mt-1 text-sm text-gray-600">Your placed orders will appear here.</p>
+                        <div>
+                            {isOrdersLoading ? (
+                                <div className="space-y-3">
+                                    {[0, 1].map((idx) => (
+                                        <div key={idx} className="rounded-xl border border-orange-100 bg-orange-50/70 p-4 space-y-2">
+                                            <div className="account-shimmer h-4 w-1/3 rounded-md" />
+                                            <div className="account-shimmer h-3 w-1/2 rounded-md" />
+                                            <div className="account-shimmer h-3 w-full rounded-md" />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : null}
+
+                            {!isOrdersLoading && ordersError ? (
+                                <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+                                    <p className="text-sm font-medium text-red-700">{ordersError}</p>
+                                </div>
+                            ) : null}
+
+                            {!isOrdersLoading && !ordersError && orders.length === 0 ? (
+                                <div className="rounded-xl border border-orange-100 bg-orange-50 p-5">
+                                    <p className="text-sm font-medium text-gray-800">No orders yet.</p>
+                                    <p className="mt-1 text-sm text-gray-600">Your placed orders will appear here.</p>
+                                </div>
+                            ) : null}
+
+                            {!isOrdersLoading && !ordersError && orders.length > 0 ? (
+                                <div className="space-y-4">
+                                    {orders.slice(0, 2).map((order) => (
+                                        <OrderTile key={order?._id || order?.orderNumber} order={order} compact />
+                                    ))}
+
+                                    <div className="pt-1 flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={() => navigate('/my-orders')}
+                                            className="px-4 py-2 rounded-lg border border-orange-200 text-orange-700 text-sm font-semibold hover:bg-orange-50 transition"
+                                        >
+                                            View All Orders
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : null}
                         </div>
                     ),
                 };

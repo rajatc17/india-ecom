@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
 import { getAddressDisplayLines } from '../../api/util';
+import { api } from '../../api/client';
 import CartLineItem from '../../components/cart/CartLineItem';
 
 const GST_RATE = 0.18;
@@ -45,13 +46,11 @@ const Checkout = () => {
   const [confirmedAddressId, setConfirmedAddressId] = useState('');
   const [pendingAddressId, setPendingAddressId] = useState('');
   const [isAddressPickerOpen, setIsAddressPickerOpen] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('upi');
-  const [upiId, setUpiId] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvv, setCardCvv] = useState('');
-  const [selectedBank, setSelectedBank] = useState('');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cod');
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
+  const [paymentSuccess, setPaymentSuccess] = useState('');
+  const [placedOrderNumber, setPlacedOrderNumber] = useState('');
 
   useEffect(() => {
     if (!defaultAddress || confirmedAddressId) return;
@@ -124,47 +123,85 @@ const Checkout = () => {
     setIsAddressPickerOpen(false);
   };
 
-  const isPaymentMethodReady = useMemo(() => {
-    if (selectedPaymentMethod === 'upi') {
-      return /^[^\s@]+@[a-zA-Z]{2,}$/.test(upiId.trim());
+  const isPaymentMethodReady = selectedPaymentMethod === 'cod';
+
+  const handlePlaceOrder = async () => {
+    if (!confirmedAddress || !items?.length || selectedPaymentMethod !== 'cod' || isPlacingOrder) {
+      return;
     }
 
-    if (selectedPaymentMethod === 'card') {
-      return (
-        cardName.trim().length >= 3
-        && cardNumber.replace(/\s/g, '').length === 16
-        && /^\d{2}\/\d{2}$/.test(cardExpiry)
-        && cardCvv.length === 3
-      );
-    }
+    setPaymentError('');
+    setPaymentSuccess('');
+    setIsPlacingOrder(true);
 
-    if (selectedPaymentMethod === 'netbanking') {
-      return Boolean(selectedBank);
-    }
+    try {
+      const orderPayload = {
+        items: items.map((item) => ({
+          productId: getProductId(item),
+          qty: Number(item?.quantity || 1),
+        })),
+        address: {
+          label: confirmedAddress?.label || 'Home',
+          fullName: confirmedAddress?.fullName || currentUser?.name || '',
+          phone: confirmedAddress?.phone || currentUser?.phone || '',
+          line1: confirmedAddress?.line1 || '',
+          line2: confirmedAddress?.line2 || '',
+          landmark: confirmedAddress?.landmark || '',
+          city: confirmedAddress?.city || '',
+          state: confirmedAddress?.state || '',
+          pincode: confirmedAddress?.pincode || '',
+          country: 'India',
+        },
+        paymentMethod: 'cod',
+      };
 
-    return true;
-  }, [cardCvv, cardExpiry, cardName, cardNumber, selectedBank, selectedPaymentMethod, upiId]);
+      const createdOrder = await api('/api/orders', {
+        method: 'POST',
+        body: JSON.stringify(orderPayload),
+      });
+
+      const nextOrderNumber = createdOrder?.orderNumber || createdOrder?._id || '';
+      setPlacedOrderNumber(nextOrderNumber);
+      setPaymentSuccess('Order placed successfully. Redirecting to your account...');
+
+      await api('/api/cart/clear', { method: 'DELETE' });
+      await dispatch(fetchCart());
+
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      navigate('/account', {
+        state: nextOrderNumber ? { recentOrderNumber: nextOrderNumber } : undefined,
+      });
+    } catch (err) {
+      setPaymentError(err?.error || err?.message || 'Failed to place order. Please try again.');
+    } finally {
+      setIsPlacingOrder(false);
+    }
+  };
 
   const paymentOptions = [
     {
       id: 'upi',
       title: 'UPI (Recommended)',
       subtitle: 'Pay instantly using any UPI app',
+      disabled: true,
     },
     {
       id: 'card',
       title: 'Credit / Debit Card',
       subtitle: 'Visa, Mastercard, RuPay accepted',
+      disabled: true,
     },
     {
       id: 'netbanking',
       title: 'Net Banking',
       subtitle: 'All major Indian banks supported',
+      disabled: true,
     },
     {
       id: 'cod',
       title: 'Cash on Delivery',
       subtitle: 'Pay when your order arrives',
+      disabled: false,
     },
   ];
 
@@ -307,7 +344,9 @@ const Checkout = () => {
                   className={`flex items-start gap-3 rounded-xl border p-3 cursor-pointer transition ${
                     selectedPaymentMethod === option.id
                       ? 'border-amber-300 bg-amber-50/80'
-                      : 'border-gray-200 bg-white/90 hover:border-amber-200'
+                      : option.disabled
+                        ? 'border-gray-200 bg-gray-50/70'
+                        : 'border-gray-200 bg-white/90 hover:border-amber-200'
                   }`}
                 >
                   <input
@@ -316,106 +355,47 @@ const Checkout = () => {
                     value={option.id}
                     checked={selectedPaymentMethod === option.id}
                     onChange={(event) => setSelectedPaymentMethod(event.target.value)}
+                    disabled={option.disabled}
                     className="mt-1 accent-amber-600"
                   />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">{option.title}</p>
-                    <p className="text-xs text-gray-600 mt-0.5">{option.subtitle}</p>
+                    <p className="text-xs text-gray-600 mt-0.5">
+                      {option.subtitle}
+                      {option.disabled ? ' (coming soon)' : ''}
+                    </p>
                   </div>
                 </label>
               ))}
             </div>
 
             <div className="mt-4 rounded-xl border border-amber-200/80 bg-white/90 p-3 sm:p-4">
-              {selectedPaymentMethod === 'upi' ? (
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">UPI Details (Demo)</p>
-                  <input
-                    type="text"
-                    placeholder="name@bank"
-                    value={upiId}
-                    onChange={(event) => setUpiId(event.target.value.toLowerCase())}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  />
-                  <p className="mt-1 text-[11px] text-gray-500">Example: shilpika@okicici</p>
-                </div>
-              ) : null}
-
-              {selectedPaymentMethod === 'card' ? (
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">Card Details (Demo)</p>
-                  <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <input
-                      type="text"
-                      placeholder="Name on card"
-                      value={cardName}
-                      onChange={(event) => setCardName(event.target.value)}
-                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300 sm:col-span-2"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Card number"
-                      value={cardNumber}
-                      onChange={(event) => {
-                        const digitsOnly = event.target.value.replace(/\D/g, '').slice(0, 16);
-                        const grouped = digitsOnly.replace(/(.{4})/g, '$1 ').trim();
-                        setCardNumber(grouped);
-                      }}
-                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300 sm:col-span-2"
-                    />
-                    <input
-                      type="text"
-                      placeholder="MM/YY"
-                      value={cardExpiry}
-                      onChange={(event) => {
-                        const digitsOnly = event.target.value.replace(/\D/g, '').slice(0, 4);
-                        const formatted = digitsOnly.length > 2 ? `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2)}` : digitsOnly;
-                        setCardExpiry(formatted);
-                      }}
-                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                    />
-                    <input
-                      type="password"
-                      placeholder="CVV"
-                      value={cardCvv}
-                      onChange={(event) => setCardCvv(event.target.value.replace(/\D/g, '').slice(0, 3))}
-                      className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                    />
-                  </div>
-                </div>
-              ) : null}
-
-              {selectedPaymentMethod === 'netbanking' ? (
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">Select Bank (Demo)</p>
-                  <select
-                    value={selectedBank}
-                    onChange={(event) => setSelectedBank(event.target.value)}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  >
-                    <option value="">Choose your bank</option>
-                    <option value="sbi">State Bank of India</option>
-                    <option value="hdfc">HDFC Bank</option>
-                    <option value="icici">ICICI Bank</option>
-                    <option value="axis">Axis Bank</option>
-                  </select>
-                </div>
-              ) : null}
-
               {selectedPaymentMethod === 'cod' ? (
                 <div>
                   <p className="text-sm font-semibold text-gray-900">Cash on Delivery</p>
-                  <p className="mt-1 text-xs text-gray-600">This is a demo flow. COD confirmation happens on order review screen.</p>
+                  <p className="mt-1 text-xs text-gray-600">Pay when your order arrives. Our delivery partner will collect the amount at doorstep.</p>
                 </div>
               ) : null}
             </div>
 
+            {paymentError ? (
+              <p className="mt-3 text-xs text-red-600">{paymentError}</p>
+            ) : null}
+
+            {paymentSuccess ? (
+              <p className="mt-3 text-xs text-emerald-700">
+                {paymentSuccess}
+                {placedOrderNumber ? ` Order #${placedOrderNumber}` : ''}
+              </p>
+            ) : null}
+
             <button
               type="button"
               className="mt-5 w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
-              disabled={!confirmedAddress || !items || items.length === 0 || !isPaymentMethodReady}
+              disabled={!confirmedAddress || !items || items.length === 0 || !isPaymentMethodReady || isPlacingOrder || Boolean(paymentSuccess)}
+              onClick={handlePlaceOrder}
             >
-              Pay Securely (Demo)
+              {isPlacingOrder ? 'Placing order...' : 'Place Order (COD)'}
             </button>
           </div>
         </div>

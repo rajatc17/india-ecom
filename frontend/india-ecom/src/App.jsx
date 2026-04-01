@@ -22,6 +22,7 @@ const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
 const Search = lazy(()=>import('./pages/Search/Search'))
 const Checkout = lazy(()=>import('./pages/Checkout/Checkout'))
+const Orders = lazy(()=>import('./pages/Orders/Orders'))
 
 const RouteFallback = ({ message = "Loading page..." }) => (
   <Loader fullScreen message={message} />
@@ -199,6 +200,16 @@ const appRouter = createBrowserRouter([
             <Account />
           </ProtectedRoute>
         </Suspense>
+      },
+      {
+        path: '/my-orders',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading orders..." />}>
+            <ProtectedRoute requireAuth={true}>
+              <Orders />
+            </ProtectedRoute>
+          </Suspense>
+        )
       },
       {
         path : '/product/:slug',
