@@ -67,7 +67,7 @@ const OrderTile = ({ order, compact = false }) => {
 
   return (
     <article className={`rounded-2xl border ${statusMeta.tone} bg-white/90 p-4 sm:p-5 shadow-sm`}>
-      <div className={`grid gap-3 text-xs ${compact ? 'sm:grid-cols-3' : 'sm:grid-cols-4'}`}>
+      <div className={`grid gap-3 text-xs ${compact ? 'sm:grid-cols-4' : 'sm:grid-cols-4'}`}>
         <div>
           <p className="uppercase tracking-wide text-gray-500 font-semibold">Order Placed</p>
           <p className="text-gray-800 mt-0.5 font-medium">{formatDate(order?.createdAt)}</p>
@@ -83,12 +83,21 @@ const OrderTile = ({ order, compact = false }) => {
           <p className="text-amber-800 mt-0.5 font-semibold">{order?.address?.fullName || '-'}</p>
         </div>
 
-        {!compact ? (
-          <div className="sm:text-right">
-            <p className="uppercase tracking-wide text-gray-500 font-semibold">Order #</p>
-            <p className="text-gray-800 mt-0.5 font-medium">{order?.orderNumber || order?._id}</p>
+        <div className="sm:text-right">
+          <p className="uppercase tracking-wide text-gray-500 font-semibold">Order
+            <span className='text-black'>  #{order?.orderNumber || order?._id}</span></p>
+          {/* <p className="text-gray-800 mt-0.5 font-medium">{order?.orderNumber || order?._id}</p> */}
+
+          <div className="mt-1.5 flex items-center gap-2 sm:justify-end">
+            <button type="button" className="text-amber-800 hover:text-amber-900 font-medium transition">
+              View order details
+            </button>
+            <span className="text-gray-300">|</span>
+            <button type="button" className="text-gray-500 hover:text-gray-700 font-medium transition">
+              Invoice
+            </button>
           </div>
-        ) : null}
+        </div>
       </div>
 
       <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
@@ -105,14 +114,6 @@ const OrderTile = ({ order, compact = false }) => {
             >
               {statusMeta.primaryAction}
             </button>
-            <div className="flex items-center gap-3 text-sm">
-              <button type="button" className="text-amber-800 hover:text-amber-900 font-medium transition">
-                View order details
-              </button>
-              <button type="button" className="text-gray-500 hover:text-gray-700 font-medium transition">
-                Invoice
-              </button>
-            </div>
           </div>
         ) : null}
       </div>
