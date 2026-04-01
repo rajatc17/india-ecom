@@ -1,23 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductBySlug } from '../../store/product/productSlice';
 import Loader from '../../components/common/Loader';
 import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
 import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck } from 'lucide-react';
-import { addToCart } from '../../store/cart/cartSlice';
+import { addToCart, fetchCart } from '../../store/cart/cartSlice';
+
+const normalizeId = (value) => {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'object') {
+    if (value.$oid) return String(value.$oid);
+    if (value._id) return String(value._id);
+  }
+  return String(value);
+};
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentProduct, loading, error } = useSelector((state) => state.products);
-  const {cart , cartLoading, cartError} = useSelector((state) => state.cart);
+  const { items: cartItems = [], loading: cartLoading } = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
+  const [addedLocally, setAddedLocally] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductBySlug(slug));
   }, [slug, dispatch]);
+
+  useEffect(() => {
+    setAddedLocally(false);
+  }, [slug]);
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
+  const productId = currentProduct?._id;
+  const isInCart = useMemo(() => {
+    const normalizedProductId = normalizeId(productId);
+    const normalizedSlug = String(slug || '');
+
+    return cartItems.some((item) => {
+      const itemProductId = normalizeId(item?.product?._id || item?.product || item?.productDetails?._id);
+      const itemSlug = String(item?.slug || item?.product?.slug || item?.productDetails?.slug || '');
+
+      const idMatches = normalizedProductId && itemProductId && itemProductId === normalizedProductId;
+      const slugMatches = normalizedSlug && itemSlug && itemSlug === normalizedSlug;
+
+      return Boolean(idMatches || slugMatches);
+    });
+  }, [cartItems, productId, slug]);
+
+  const shouldShowGoToCart = isInCart || addedLocally;
 
   if (loading) return <Loader fullScreen message="Loading product..." />;
   if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
@@ -31,14 +69,16 @@ const ProductDetail = () => {
     : '';
   const reviewList = Array.isArray(reviews) ? reviews : [];
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if(!inStock) return;
-    if (cart && cart.items.includes(item => item.product !== productId)){
-      alert("Product already in cart");
-      return;
+    try {
+      await dispatch(addToCart({ product: currentProduct, quantity })).unwrap();
+      setAddedLocally(true);
+      dispatch(fetchCart());
+    } catch {
+      // Keep existing UI behavior on add failure.
     }
-    dispatch(addToCart({ product: currentProduct, quantity }))
-  }
+  };
 
   return (
     <div className="min-h-screen shilpika-bg shilpika-body text-gray-900">
@@ -148,12 +188,12 @@ const ProductDetail = () => {
             {/* Action Buttons */}
             <div className="space-y-3">
               <button
-                disabled={!inStock}
+                disabled={!inStock || cartLoading}
                 className="w-full cursor-pointer bg-[#C5663E] text-white py-3 rounded-xl text-sm font-semibold hover:bg-[#B35835] transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                onClick={handleAddToCart}
+                onClick={shouldShowGoToCart ? () => navigate('/cart') : handleAddToCart}
               >
                 <ShoppingCart size={18} />
-                ADD TO CART
+                {shouldShowGoToCart ? 'GO TO CART' : 'ADD TO CART'}
               </button>
               <button
                 type="button"
