@@ -58,7 +58,7 @@ export const updateUserProfile = createAsyncThunk(
     async (updates, { rejectWithValue }) => {
         try {
             const data = await api('/api/users/me', {
-                method: 'PUT',
+                method: 'PATCH',
                 body: JSON.stringify(updates)
             });
             return data;
