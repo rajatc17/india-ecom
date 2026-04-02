@@ -196,6 +196,10 @@ const Root = () => {
     }
   }, [location.pathname, location.search, initialized, bootstrapComplete]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname, location.search]);
+
   if (!initialized || !bootstrapComplete) {
     return <RouteFallback message={bootstrapMessage} />;
   }
