@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFeaturedProducts } from "../../store/product/productSlice";
 import { fetchCategoryTree } from "../../store/category/categorySlice";
-import ProductCard from "../../components/ProductCard";
+import ProductCard, { ProductCardSkeleton } from "../../components/ProductCard";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -108,10 +108,7 @@ const Home = () => {
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {productsLoading && (products?.length ?? 0) === 0 &&
               Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-lg shadow-xs h-[320px] animate-pulse"
-                />
+                <ProductCardSkeleton key={i} variant="home" shimmerDelayMs={i * 70} />
               ))}
 
             {(products || []).slice(0, 8).map((product) => (
@@ -120,7 +117,7 @@ const Home = () => {
                 onClick={() => navigate(`/product/${product.slug}`)}
                 className="cursor-pointer"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} variant="home" />
               </div>
             ))}
           </div>

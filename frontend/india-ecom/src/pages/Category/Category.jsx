@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../store/product/productSlice';
-import ProductCard from '../../components/ProductCard';
+import ProductCard, { ProductCardSkeleton } from '../../components/ProductCard';
 
 const SORT_OPTIONS = {
     newest: 'Newest',
@@ -11,6 +11,39 @@ const SORT_OPTIONS = {
     nameAZ: 'Name: A to Z',
     nameZA: 'Name: Z to A'
 };
+
+const HERO_THEMES = [
+    {
+        backgroundImage:
+            'radial-gradient(circle at 14% 20%, rgba(251, 191, 36, 0.22), transparent 38%), radial-gradient(circle at 82% 24%, rgba(217, 119, 6, 0.22), transparent 36%), linear-gradient(130deg, #4a2f13 0%, #6b3f1c 48%, #7c4a1e 100%)',
+        borderColor: 'rgba(251, 191, 36, 0.3)',
+        glow: 'rgba(245, 158, 11, 0.2)',
+    },
+    {
+        backgroundImage:
+            'radial-gradient(circle at 85% 18%, rgba(244, 114, 182, 0.18), transparent 36%), radial-gradient(circle at 14% 72%, rgba(251, 191, 36, 0.16), transparent 40%), linear-gradient(140deg, #3f1f2b 0%, #5a2538 44%, #6b2e45 100%)',
+        borderColor: 'rgba(244, 114, 182, 0.28)',
+        glow: 'rgba(244, 114, 182, 0.2)',
+    },
+    {
+        backgroundImage:
+            'radial-gradient(circle at 24% 18%, rgba(45, 212, 191, 0.18), transparent 36%), radial-gradient(circle at 80% 74%, rgba(20, 184, 166, 0.2), transparent 38%), linear-gradient(145deg, #123534 0%, #0f4b49 46%, #0b5f5a 100%)',
+        borderColor: 'rgba(45, 212, 191, 0.26)',
+        glow: 'rgba(45, 212, 191, 0.18)',
+    },
+    {
+        backgroundImage:
+            'radial-gradient(circle at 18% 22%, rgba(96, 165, 250, 0.2), transparent 34%), radial-gradient(circle at 84% 24%, rgba(129, 140, 248, 0.2), transparent 36%), linear-gradient(140deg, #1e2a4f 0%, #25356b 44%, #2b4281 100%)',
+        borderColor: 'rgba(129, 140, 248, 0.3)',
+        glow: 'rgba(96, 165, 250, 0.2)',
+    },
+    {
+        backgroundImage:
+            'radial-gradient(circle at 80% 20%, rgba(163, 230, 53, 0.18), transparent 35%), radial-gradient(circle at 10% 80%, rgba(234, 179, 8, 0.16), transparent 38%), linear-gradient(145deg, #2a3d16 0%, #3e561d 44%, #4f6a23 100%)',
+        borderColor: 'rgba(163, 230, 53, 0.25)',
+        glow: 'rgba(190, 242, 100, 0.18)',
+    },
+];
 
 const isValidSort = (value) => Object.prototype.hasOwnProperty.call(SORT_OPTIONS, value);
 
@@ -22,6 +55,7 @@ const Category = () => {
     const { loading, items } = useSelector((state) => state.products)
     const initialSort = searchParams.get('sort');
     const [sortBy, setSortBy] = useState(isValidSort(initialSort) ? initialSort : 'newest');
+    const [heroTheme, setHeroTheme] = useState(HERO_THEMES[0]);
 
     const categoryName = slug
         ?.split('-')
@@ -35,6 +69,11 @@ const Category = () => {
             limit: 30
         }))
     }, [dispatch, slug]);
+
+    useEffect(() => {
+        const randomIndex = Math.floor(Math.random() * HERO_THEMES.length);
+        setHeroTheme(HERO_THEMES[randomIndex]);
+    }, [slug]);
 
     useEffect(() => {
         const urlSort = searchParams.get('sort');
@@ -83,8 +122,21 @@ const Category = () => {
 
     return (
         <div className='w-full relative shilpika-bg'>
-            <div className='bg-amber-200 h-[200px] flex items-center justify-center'>
-                <h1 className='text-4xl md:text-5xl font-bold text-gray-800'>
+            <div
+                className='relative h-[210px] md:h-[230px] flex items-center justify-center overflow-hidden border-b'
+                style={{
+                    backgroundImage: heroTheme.backgroundImage,
+                    borderColor: heroTheme.borderColor,
+                }}
+            >
+                <div
+                    className='pointer-events-none absolute -bottom-16 left-1/2 h-44 w-[72%] -translate-x-1/2 rounded-full blur-3xl'
+                    style={{ backgroundColor: heroTheme.glow }}
+                />
+
+                <div className='absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-black/20' />
+
+                <h1 className='relative shilpika-heading text-3xl md:text-5xl font-bold text-amber-50 text-center tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]'>
                     {categoryName}
                 </h1>
             </div>
@@ -109,26 +161,18 @@ const Category = () => {
 
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-5 max-w-[clamp(20rem,90vw,100rem)]'>
                     {loading && Array.from({ length: 4 }).map((_, idx) => (
-                        <div
+                        <ProductCardSkeleton
                             key={`category-shimmer-${idx}`}
-                            className='bg-white rounded-xl shadow-xs overflow-hidden'
-                            style={{ '--shimmer-delay': `${idx * 80}ms` }}
-                        >
-                            <div className='category-card-shimmer h-[220px]' />
-                            <div className='p-4 space-y-3'>
-                                <div className='category-card-shimmer h-4 w-4/5 rounded-md' />
-                                <div className='category-card-shimmer h-4 w-3/5 rounded-md' />
-                                <div className='category-card-shimmer h-8 w-1/2 rounded-lg' />
-                                <div className='category-card-shimmer h-10 w-full rounded-lg' />
-                            </div>
-                        </div>
+                            variant='category'
+                            shimmerDelayMs={idx * 80}
+                        />
                     ))}
 
                     {!loading && items && (items.length===0) ? 
                         <div>No Products Available...</div> :
                         !loading && sortedItems?.map((product) => 
                         <div key={product._id} onClick={() => navigate(`/product/${product.slug}`)}>
-                            <ProductCard product={product}/>
+                            <ProductCard product={product} variant='category' />
                         </div>)
                     }
                 </div>

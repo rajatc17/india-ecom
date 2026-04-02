@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategoryTree } from "../store/category/categorySlice";
 import { Link } from 'react-router';
-import { HiChevronDown } from 'react-icons/hi2';
+import { HiChevronDown, HiXMark } from 'react-icons/hi2';
 
 const SHCatNavMenu = ({ isHovered, category }) => {
   if (!category) return null;
@@ -44,15 +44,45 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
   const [displayCategory, setDisplayCategory] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [expandedCategoryId, setExpandedCategoryId] = useState(null);
+  const [shouldRenderMobileMenu, setShouldRenderMobileMenu] = useState(false);
+  const [isClosingMobileMenu, setIsClosingMobileMenu] = useState(false);
   const hideTimer = useRef(null);
+  const mobileMenuCloseTimer = useRef(null);
 
   useEffect(() => {
     dispatch(fetchCategoryTree({ onlyWithProducts: true }));
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isCategoryMenuOpen) {
+    if (isCategoryMenuOpen) {
+      if (mobileMenuCloseTimer.current) {
+        clearTimeout(mobileMenuCloseTimer.current);
+      }
+      setShouldRenderMobileMenu(true);
+      setIsClosingMobileMenu(false);
+      return;
+    }
+
+    if (!shouldRenderMobileMenu) {
+      return;
+    }
+
+    setIsClosingMobileMenu(true);
+    mobileMenuCloseTimer.current = setTimeout(() => {
+      setShouldRenderMobileMenu(false);
+      setIsClosingMobileMenu(false);
       setExpandedCategoryId(null);
+    }, 240);
+
+    return () => {
+      if (mobileMenuCloseTimer.current) {
+        clearTimeout(mobileMenuCloseTimer.current);
+      }
+    };
+  }, [isCategoryMenuOpen, shouldRenderMobileMenu]);
+
+  useEffect(() => {
+    if (!shouldRenderMobileMenu) {
       document.body.style.overflow = '';
       return;
     }
@@ -61,7 +91,7 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isCategoryMenuOpen]);
+  }, [shouldRenderMobileMenu]);
 
 
   useEffect(() => {
@@ -93,17 +123,29 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
   return (
     <>
 
-    {isCategoryMenuOpen && (
+    {shouldRenderMobileMenu && (
       <div className='fixed inset-0 z-[70] block lg:hidden' aria-modal="true" role="dialog">
         <button
           type='button'
-          className='mobile-menu-backdrop absolute inset-0 bg-black/20 backdrop-blur-sm'
+          className={`absolute inset-0 bg-black/20 backdrop-blur-sm ${isClosingMobileMenu ? 'mobile-menu-backdrop-out' : 'mobile-menu-backdrop'}`}
           onClick={onCloseCategoryMenu}
           aria-label='Close categories menu'
         />
 
-        <div className='mobile-menu-panel absolute left-4 right-4 top-[calc(var(--mobile-header-height,108px)+8px)] rounded-xl border border-gray-200 bg-white shadow-xl overflow-hidden'>
-          <ul className='max-h-[70vh] overflow-y-auto divide-y divide-gray-100'>
+        <aside className={`absolute left-0 top-0 h-full w-[86vw] max-w-[340px] border-r border-gray-200 bg-white shadow-2xl overflow-hidden ${isClosingMobileMenu ? 'mobile-menu-sidebar-out' : 'mobile-menu-sidebar'}`}>
+          <div className='flex items-center justify-between px-4 py-3 border-b border-gray-100 shilpika-bg'>
+            <p className='text-sm font-semibold text-gray-900'>Browse Categories</p>
+            <button
+              type='button'
+              onClick={onCloseCategoryMenu}
+              className='p-1.5 rounded-md text-gray-700 hover:bg-white/80 transition'
+              aria-label='Close categories menu'
+            >
+              <HiXMark size={20} />
+            </button>
+          </div>
+
+          <ul className='h-[calc(100%-52px)] overflow-y-auto divide-y divide-gray-100'>
             {(categoryTree || []).map((cat) => {
               const isExpanded = expandedCategoryId === cat.id;
 
@@ -171,7 +213,7 @@ const SubHeader = ({ isCategoryMenuOpen = false, onCloseCategoryMenu = () => {} 
               );
             })}
           </ul>
-        </div>
+        </aside>
       </div>
       )}
 

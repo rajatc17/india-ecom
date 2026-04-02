@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchProducts } from "../../store/product/productSlice";
-import ProductCard from "../../components/ProductCard";
+import ProductCard, { ProductCardSkeleton } from "../../components/ProductCard";
 import Loader from "../../components/Loader";
 
 const Search = () => {
@@ -14,7 +14,6 @@ const Search = () => {
     searchItems,
     searchLoading,
     searchError,
-    searchQuery,
     searchPagination,
   } = useSelector((state) => state.products);
 
@@ -59,9 +58,21 @@ const Search = () => {
 
         <div className="mt-6">
           {searchLoading && (
-            <div className="flex items-center gap-3 text-sm text-gray-500">
-              <Loader />
-              Searching products...
+            <div>
+              <div className="flex items-center gap-3 text-sm text-gray-500">
+                <Loader />
+                Searching products...
+              </div>
+
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {Array.from({ length: 8 }).map((_, idx) => (
+                  <ProductCardSkeleton
+                    key={`search-skeleton-${idx}`}
+                    variant="search"
+                    shimmerDelayMs={idx * 65}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
@@ -78,7 +89,7 @@ const Search = () => {
                 onClick={() => navigate(`/product/${product.slug}`)}
                 className="cursor-pointer"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} variant="search" />
               </div>
             ))}
           </div>
