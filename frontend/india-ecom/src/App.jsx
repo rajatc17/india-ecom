@@ -9,11 +9,12 @@ import SubHeader from "./components/SubHeader";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
-import { BACKEND_WARMUP_EVENT, setToken, warmupBackend } from "./api/client";
+import { API_ACTIVITY_EVENT, BACKEND_WARMUP_EVENT, setToken, warmupBackend } from "./api/client";
 import { fetchCurrentUser, setAuthInitialized } from "./store/auth/authSlice";
 import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Category from "./pages/Category/Category";
+import ProductDetailShimmer from "./pages/ProductDetail/ProductDetailShimmer";
 
 //const Login = lazy(()=>import('./pages/Login/Login'))
 //const Category = lazy(()=>import('./pages/Category/Category'))
@@ -36,8 +37,11 @@ const Root = () => {
   const [bootstrapComplete, setBootstrapComplete] = useState(false);
   const [bootstrapMessage, setBootstrapMessage] = useState("Preparing your storefront...");
   const [showWarmupBanner, setShowWarmupBanner] = useState(false);
+  const [isPageDataReady, setIsPageDataReady] = useState(true);
   const previousAuthStateRef = useRef(null);
   const warmupBannerTimeoutRef = useRef(null);
+  const pageReadyTimerRef = useRef(null);
+  const pendingApiCountRef = useRef(0);
   const { isAuthenticated, initialized } = useSelector((state) => state.auth);
   const isCheckoutRoute = location.pathname.startsWith('/checkout');
 
@@ -144,6 +148,53 @@ const Root = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleApiActivity = (event) => {
+      const pendingCount = Number(event?.detail?.inFlightRequests || 0);
+      pendingApiCountRef.current = pendingCount;
+
+      if (pendingCount > 0) {
+        setIsPageDataReady(false);
+        return;
+      }
+
+      if (pageReadyTimerRef.current) {
+        clearTimeout(pageReadyTimerRef.current);
+      }
+
+      pageReadyTimerRef.current = setTimeout(() => {
+        setIsPageDataReady(true);
+      }, 80);
+    };
+
+    window.addEventListener(API_ACTIVITY_EVENT, handleApiActivity);
+
+    return () => {
+      window.removeEventListener(API_ACTIVITY_EVENT, handleApiActivity);
+      if (pageReadyTimerRef.current) {
+        clearTimeout(pageReadyTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!initialized || !bootstrapComplete) {
+      return;
+    }
+
+    setIsPageDataReady(false);
+
+    if (pageReadyTimerRef.current) {
+      clearTimeout(pageReadyTimerRef.current);
+    }
+
+    if (pendingApiCountRef.current === 0) {
+      pageReadyTimerRef.current = setTimeout(() => {
+        setIsPageDataReady(true);
+      }, 80);
+    }
+  }, [location.pathname, location.search, initialized, bootstrapComplete]);
+
   if (!initialized || !bootstrapComplete) {
     return <RouteFallback message={bootstrapMessage} />;
   }
@@ -168,7 +219,7 @@ const Root = () => {
         />
       )}
 
-      <div className={`main-content ${location.pathname === "/" ? "home-page-fade" : ""}`}>
+      <div className={`main-content ${location.pathname === "/" ? "home-page-fade" : ""} ${isPageDataReady ? "page-data-ready" : "page-data-pending"}`}>
         <Outlet />
       </div>
 
@@ -225,7 +276,7 @@ const appRouter = createBrowserRouter([
       {
         path : '/product/:slug',
         element : 
-        <Suspense fallback={<RouteFallback message="Loading product..." />}>
+        <Suspense fallback={<ProductDetailShimmer />}>
           <ProtectedRoute requireAuth={false} >
             <ProductDetail />
           </ProtectedRoute>

@@ -2,6 +2,18 @@
 	animation: homePageFadeIn 320ms ease-out;
 }
 
+.main-content {
+	transition: opacity 220ms ease-out;
+}
+
+.main-content.page-data-pending {
+	opacity: 0.88;
+}
+
+.main-content.page-data-ready {
+	opacity: 1;
+}
+
 .warmup-banner {
 	position: sticky;
 	top: 0;
@@ -31,17 +43,19 @@
 @keyframes homePageFadeIn {
 	from {
 		opacity: 0;
-		transform: translateY(8px);
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.home-page-fade {
 		animation: none;
+	}
+
+	.main-content {
+		transition: none;
 	}
 
 	.warmup-banner {

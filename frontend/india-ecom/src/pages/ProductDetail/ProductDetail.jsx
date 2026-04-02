@@ -6,6 +6,7 @@ import Loader from '../../components/common/Loader';
 import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
 import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck } from 'lucide-react';
 import { addToCart, fetchCart } from '../../store/cart/cartSlice';
+import ProductDetailShimmer from './ProductDetailShimmer';
 
 const normalizeId = (value) => {
   if (!value) return '';
@@ -23,7 +24,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { currentProduct, loading, error } = useSelector((state) => state.products);
   const { items: cartItems = [], loading: cartLoading } = useSelector((state) => state.cart);
-  const [quantity, setQuantity] = useState(1);
+  const quantity = 1;
   const [activeTab, setActiveTab] = useState('details');
   const [addedLocally, setAddedLocally] = useState(false);
 
@@ -57,7 +58,7 @@ const ProductDetail = () => {
 
   const shouldShowGoToCart = isInCart || addedLocally;
 
-  if (loading) return <Loader fullScreen message="Loading product..." />;
+  if (loading) return <ProductDetailShimmer />;
   if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
   if (!currentProduct) return <div className="text-center py-20">Product not found</div>;
 

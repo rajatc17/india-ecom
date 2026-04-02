@@ -6,10 +6,12 @@ if (!BASE && import.meta.env.PROD) {
 
 const storedToken = localStorage.getItem("token");
 let token = storedToken && storedToken !== 'null' && storedToken !== 'undefined' ? storedToken : null;
+let inFlightRequests = 0;
 
 const isRemoteApi = Boolean(BASE) && !/localhost|127\.0\.0\.1/i.test(BASE);
 let warmupInFlight = null;
 export const BACKEND_WARMUP_EVENT = 'backend-warmup-status';
+export const API_ACTIVITY_EVENT = 'api-network-activity';
 
 const notifyWarmupStatus = (status, detail = {}) => {
   if (typeof window === 'undefined') {
@@ -20,6 +22,22 @@ const notifyWarmupStatus = (status, detail = {}) => {
     new CustomEvent(BACKEND_WARMUP_EVENT, {
       detail: {
         status,
+        ...detail,
+      },
+    })
+  );
+};
+
+const notifyApiActivity = (status, detail = {}) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.dispatchEvent(
+    new CustomEvent(API_ACTIVITY_EVENT, {
+      detail: {
+        status,
+        inFlightRequests,
         ...detail,
       },
     })
@@ -93,6 +111,9 @@ export async function api(path, opts = {}) {
   const { __coldStartRetried = false, ...fetchOpts } = opts;
   const method = (fetchOpts.method || 'GET').toUpperCase();
 
+  inFlightRequests += 1;
+  notifyApiActivity('started', { path, method });
+
   const headers = { 
     'Content-Type': 'application/json', 
     ...(fetchOpts.headers || {}) 
@@ -131,5 +152,8 @@ export async function api(path, opts = {}) {
       throw { message: 'Network request failed' };
     }
     throw error;
+  } finally {
+    inFlightRequests = Math.max(0, inFlightRequests - 1);
+    notifyApiActivity('completed', { path, method });
   }
 }
