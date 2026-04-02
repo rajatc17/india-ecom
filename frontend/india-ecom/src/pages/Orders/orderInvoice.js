@@ -11,7 +11,8 @@ const COMPANY_INFO = {
 };
 
 const GST_RATE = 0.18;
-const HALF_GST_RATE = GST_RATE / 2;
+const TAX_TYPE = 'IGST';
+const MARKETPLACE_FEE_RATE = 0.001;
 
 const formatCurrency = (value) =>
   Number(value || 0).toLocaleString('en-IN', {
@@ -83,24 +84,23 @@ const getLineItems = (order) => {
 
   return items.map((item, index) => {
     const qty = Number(item?.qty || 1);
-    const unitPrice = Number(item?.unitPrice || item?.subtotal || 0) / qty;
-    const taxableValue = Number(item?.subtotal || 0);
-    const cgstAmount = taxableValue * HALF_GST_RATE;
-    const sgstAmount = taxableValue * HALF_GST_RATE;
-    const lineTotal = taxableValue + cgstAmount + sgstAmount;
+    const totalAmount = Number(item?.subtotal || 0);
+    const grossUnitPrice = qty > 0 ? totalAmount / qty : 0;
+    const unitPrice = grossUnitPrice / (1 + GST_RATE);
+    const netAmount = unitPrice * qty;
+    const taxAmount = totalAmount - netAmount;
 
     return {
       serialNo: index + 1,
       description: item?.name || 'Product',
       hsn: '9997',
       qty,
-      rate: unitPrice,
-      taxableValue,
-      cgstRate: HALF_GST_RATE * 100,
-      cgstAmount,
-      sgstRate: HALF_GST_RATE * 100,
-      sgstAmount,
-      lineTotal,
+      unitPrice,
+      netAmount,
+      taxRate: GST_RATE * 100,
+      taxType: TAX_TYPE,
+      taxAmount,
+      totalAmount,
       productId: getProductId(item),
       slug: item?.slug || '',
     };
@@ -109,11 +109,11 @@ const getLineItems = (order) => {
 
 const getInvoiceData = (order) => {
   const lineItems = getLineItems(order);
-  const taxableTotal = lineItems.reduce((sum, row) => sum + row.taxableValue, 0);
-  const cgstTotal = lineItems.reduce((sum, row) => sum + row.cgstAmount, 0);
-  const sgstTotal = lineItems.reduce((sum, row) => sum + row.sgstAmount, 0);
-  const shipping = Number(order?.shippingFee || 0);
-  const grandTotal = Number(order?.total || taxableTotal + cgstTotal + sgstTotal + shipping);
+  const netTotal = lineItems.reduce((sum, row) => sum + row.netAmount, 0);
+  const taxTotal = lineItems.reduce((sum, row) => sum + row.taxAmount, 0);
+  const itemsTotal = lineItems.reduce((sum, row) => sum + row.totalAmount, 0);
+  const marketplaceFees = Number(order?.shippingFee || Number((itemsTotal * MARKETPLACE_FEE_RATE).toFixed(2)));
+  const grandTotal = Number(order?.total || itemsTotal + marketplaceFees);
 
   return {
     invoiceNumber: `INV-${order?.orderNumber || order?._id || 'NA'}`,
@@ -123,10 +123,10 @@ const getInvoiceData = (order) => {
     placeOfSupply: order?.address?.state || '-',
     paymentMethod: order?.paymentMethod || '-',
     paymentStatus: order?.paymentStatus || '-',
-    shipping,
-    taxableTotal,
-    cgstTotal,
-    sgstTotal,
+    marketplaceFees,
+    netTotal,
+    taxTotal,
+    itemsTotal,
     grandTotal,
     amountInWords: numberToIndianWords(grandTotal),
     billTo: {
@@ -152,13 +152,11 @@ const buildRows = (rows) =>
           <td>${escapeHtml(row.description)}</td>
           <td>${escapeHtml(row.hsn)}</td>
           <td>${row.qty}</td>
-          <td class="num">${formatCurrency(row.rate)}</td>
-          <td class="num">${formatCurrency(row.taxableValue)}</td>
-          <td class="num">${row.cgstRate.toFixed(2)}%</td>
-          <td class="num">${formatCurrency(row.cgstAmount)}</td>
-          <td class="num">${row.sgstRate.toFixed(2)}%</td>
-          <td class="num">${formatCurrency(row.sgstAmount)}</td>
-          <td class="num">${formatCurrency(row.lineTotal)}</td>
+          <td class="num">${formatCurrency(row.unitPrice)}</td>
+          <td class="num">${formatCurrency(row.netAmount)}</td>
+          <td class="num">${row.taxRate.toFixed(2)}% (${escapeHtml(row.taxType)})</td>
+          <td class="num">${formatCurrency(row.taxAmount)}</td>
+          <td class="num">${formatCurrency(row.totalAmount)}</td>
         </tr>
       `
     )
@@ -364,13 +362,11 @@ export const buildInvoiceHtml = (order) => {
           <th>Description of Goods</th>
           <th>HSN/SAC</th>
           <th class="num">Qty</th>
-          <th class="num">Rate</th>
-          <th class="num">Taxable Value</th>
-          <th class="num">CGST %</th>
-          <th class="num">CGST Amt</th>
-          <th class="num">SGST %</th>
-          <th class="num">SGST Amt</th>
-          <th class="num">Total</th>
+          <th class="num">Unit Price</th>
+          <th class="num">Net Amount</th>
+          <th class="num">Tax Rate &amp; Type</th>
+          <th class="num">Tax Amount</th>
+          <th class="num">Total Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -379,10 +375,10 @@ export const buildInvoiceHtml = (order) => {
     </table>
 
     <div class="summary">
-      <div class="summary-row"><span>Taxable Amount</span><strong>INR ${formatCurrency(invoice.taxableTotal)}</strong></div>
-      <div class="summary-row"><span>Total CGST</span><strong>INR ${formatCurrency(invoice.cgstTotal)}</strong></div>
-      <div class="summary-row"><span>Total SGST</span><strong>INR ${formatCurrency(invoice.sgstTotal)}</strong></div>
-      <div class="summary-row"><span>Shipping / Handling</span><strong>INR ${formatCurrency(invoice.shipping)}</strong></div>
+      <div class="summary-row"><span>Net Amount (Excl. IGST)</span><strong>INR ${formatCurrency(invoice.netTotal)}</strong></div>
+      <div class="summary-row"><span>Total IGST (18%)</span><strong>INR ${formatCurrency(invoice.taxTotal)}</strong></div>
+      <div class="summary-row"><span>Items Total (Incl. IGST)</span><strong>INR ${formatCurrency(invoice.itemsTotal)}</strong></div>
+      <div class="summary-row"><span>Marketplace Fees (0.1%)</span><strong>INR ${formatCurrency(invoice.marketplaceFees)}</strong></div>
       <div class="summary-row"><span>Invoice Total</span><strong>INR ${formatCurrency(invoice.grandTotal)}</strong></div>
     </div>
 

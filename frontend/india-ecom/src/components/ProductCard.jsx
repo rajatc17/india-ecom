@@ -1,5 +1,6 @@
 import React from 'react'
 import { Award, MapPin, Star, Truck } from 'lucide-react';
+import { getProductPricing } from '../utils/pricing';
 
 const VARIANT_STYLES = {
   home: {
@@ -39,15 +40,7 @@ const ProductCard = ({ product, variant = 'category' }) => {
     product?.images?.[0]?.url ||
     '';
 
-  const originalPrice = Number(product?.price || 0);
-  const effectivePrice = Number(product?.discountedPrice || originalPrice);
-  const discountPercent = Number(
-    product?.discount ||
-    (product?.discountedPrice && product?.price
-      ? Math.round(((product.price - product.discountedPrice) / product.price) * 100)
-      : 0)
-  );
-  const hasDiscount = discountPercent > 0 && effectivePrice < originalPrice;
+  const { originalPrice, effectivePrice, discountPercent, hasDiscount } = getProductPricing(product);
   const giCertified = Boolean(product?.giTagged);
   const region = product?.region || '';
   const brand = product?.brand || '';

@@ -74,10 +74,10 @@ router.post(
       // Calculate totals
       const subtotal = orderItems.reduce((sum, item) => sum + item.subtotal, 0);
       
-      // Calculate shipping fee (free shipping if total > 1000, else 50)
-      const shippingFee = subtotal > 1000 ? 0 : 50;
+      // Marketplace fees (handling + delivery): 0.1% of cart amount
+      const shippingFee = Number((subtotal * 0.001).toFixed(2));
       
-      // Tax (simplified - could be based on state)
+      // Product prices are tax-inclusive, so do not add tax again.
       const tax = 0;
       
       // Discount (could be from coupon code)

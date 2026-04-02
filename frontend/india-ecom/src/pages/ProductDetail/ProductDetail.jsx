@@ -7,6 +7,7 @@ import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
 import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck } from 'lucide-react';
 import { addToCart, fetchCart } from '../../store/cart/cartSlice';
 import ProductDetailShimmer from './ProductDetailShimmer';
+import { getProductPricing } from '../../utils/pricing';
 
 const normalizeId = (value) => {
   if (!value) return '';
@@ -62,7 +63,8 @@ const ProductDetail = () => {
   if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
   if (!currentProduct) return <div className="text-center py-20">Product not found</div>;
 
-  const { name, description, price, images, category, region, giTag, stock, rating, reviews } = currentProduct;
+  const { name, description, images, category, region, giTag, stock, rating, reviews } = currentProduct;
+  const { originalPrice, effectivePrice, discountPercent, hasDiscount } = getProductPricing(currentProduct);
   const primaryImage = images?.find((img) => img.isPrimary) || images?.[0];
   const inStock = stock > 0;
   const shortDescription = description
@@ -141,9 +143,13 @@ const ProductDetail = () => {
             {/* Price */}
             <div className="rounded-2xl border border-amber-200 bg-white/80 p-5 shadow-sm">
               <div className="flex flex-wrap items-baseline gap-3">
-                <span className="text-3xl sm:text-4xl font-semibold text-emerald-900">₹{price.toLocaleString('en-IN')}</span>
-                <span className="text-sm text-amber-700 line-through">₹{(price * 1.3).toLocaleString('en-IN')}</span>
-                <span className="text-xs font-semibold text-white bg-[#C5663E] px-2.5 py-1 rounded-full">30% OFF</span>
+                <span className="text-3xl sm:text-4xl font-semibold text-emerald-900">₹{effectivePrice.toLocaleString('en-IN')}</span>
+                {hasDiscount ? (
+                  <>
+                    <span className="text-sm text-amber-700 line-through">₹{originalPrice.toLocaleString('en-IN')}</span>
+                    <span className="text-xs font-semibold text-white bg-[#C5663E] px-2.5 py-1 rounded-full">{discountPercent}% OFF</span>
+                  </>
+                ) : null}
               </div>
               <p className="text-xs text-amber-900/70 mt-2">Inclusive of all taxes</p>
             </div>
@@ -279,7 +285,7 @@ const ProductDetail = () => {
                 <li><span className="font-medium">Region:</span> {region || 'N/A'}</li>
                 <li><span className="font-medium">GI Tag:</span> {giTag ? 'Yes' : 'No'}</li>
                 <li><span className="font-medium">Availability:</span> {inStock ? 'In stock' : 'Out of stock'}</li>
-                <li><span className="font-medium">Price:</span> ₹{price.toLocaleString('en-IN')}</li>
+                <li><span className="font-medium">Price:</span> ₹{effectivePrice.toLocaleString('en-IN')}</li>
                 <li><span className="font-medium">Images:</span> {images?.length || 0}</li>
               </ul>
             )}

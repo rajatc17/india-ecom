@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../../api/client';
 import { getAddressDisplayLines } from '../../api/util';
 import { fetchCart } from '../../store/cart/cartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { downloadOrderInvoice } from './orderInvoice';
 
 const ORDER_STATUS_META = {
@@ -66,6 +66,8 @@ const PAYMENT_STATUS_LABELS = {
   refunded: 'Refunded',
 };
 
+const GST_RATE = 0.18;
+
 const formatINR = (value) => `₹${Number(value || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const formatLongDate = (dateValue) => {
@@ -86,6 +88,7 @@ const formatAddress = (address = {}) => {
 const OrderDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector((state) => state?.cart?.items || []);
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -134,16 +137,22 @@ const OrderDetails = () => {
   const addressLines = useMemo(() => formatAddress(order?.address || {}), [order?.address]);
 
   const itemSubtotal = Number(order?.subtotal || items.reduce((sum, item) => sum + Number(item?.subtotal || 0), 0));
-  const shippingFee = Number(order?.shippingFee || 0);
-  const tax = Number(order?.tax || 0);
+  const marketplaceFee = Number(order?.shippingFee || 0);
+  const includedIgst = itemSubtotal * (GST_RATE / (1 + GST_RATE));
   const discount = Number(order?.discount || 0);
-  const total = Number(order?.total || itemSubtotal + shippingFee + tax - discount);
+  const total = Number(order?.total || itemSubtotal + marketplaceFee - discount);
   const refundAmount = order?.status === 'refunded' || order?.paymentStatus === 'refunded' ? total : null;
 
   const getItemProductId = (item) => {
     if (!item?.product) return '';
     if (typeof item.product === 'string') return item.product;
     return item.product._id || '';
+  };
+
+  const getCartItemProductId = (cartItem) => {
+    if (!cartItem?.product) return '';
+    if (typeof cartItem.product === 'string') return cartItem.product;
+    return cartItem.product._id || '';
   };
 
   const handleDownloadInvoice = () => {
@@ -159,6 +168,16 @@ const OrderDetails = () => {
     if (!productId) {
       setActionMessage('');
       setActionError('Unable to add this item to cart. Product reference is missing.');
+      return;
+    }
+
+    const itemAlreadyInCart = cartItems.some(
+      (cartItem) => getCartItemProductId(cartItem) === productId
+    );
+
+    if (itemAlreadyInCart) {
+      setActionError('');
+      setActionMessage(`${item?.name || 'Item'} is already in your cart.`);
       return;
     }
 
@@ -304,19 +323,17 @@ const OrderDetails = () => {
 
               <div className="mt-2 space-y-1.5 text-sm">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-gray-700">Item(s) Subtotal:</span>
+                  <span className="text-gray-700">Item(s) Total (Incl. IGST):</span>
                   <span className="font-medium text-gray-900">{formatINR(itemSubtotal)}</span>
                 </div>
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-gray-700">Shipping:</span>
-                  <span className="font-medium text-gray-900">{formatINR(shippingFee)}</span>
+                  <span className="text-gray-700">IGST Included (18%):</span>
+                  <span className="font-medium text-gray-900">{formatINR(includedIgst)}</span>
                 </div>
-                {tax > 0 ? (
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-gray-700">Tax:</span>
-                    <span className="font-medium text-gray-900">{formatINR(tax)}</span>
-                  </div>
-                ) : null}
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-700">Marketplace Fees (0.1%):</span>
+                  <span className="font-medium text-gray-900">{formatINR(marketplaceFee)}</span>
+                </div>
                 {discount > 0 ? (
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-gray-700">Discount:</span>

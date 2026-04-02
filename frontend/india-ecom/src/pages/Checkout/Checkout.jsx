@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, removeFromCart, updateCartItem, selectCartItemsNewestFirst } from '../../store/cart/cartSlice';
-import { getAddressDisplayLines } from '../../api/util';
+import { getAddressDisplayLines, initialAddressForm } from '../../api/util';
 import { api } from '../../api/client';
 import CartLineItem from '../../components/cart/CartLineItem';
+import AddressFormModal from '../../components/modal/AddressFormModal';
+import { updateUserProfile } from '../../store/auth/authSlice';
 
 const GST_RATE = 0.18;
+const MARKETPLACE_FEE_RATE = 0.001;
 const INR_FORMATTER = new Intl.NumberFormat('en-IN', {
   style: 'currency',
   currency: 'INR',
@@ -51,6 +54,10 @@ const Checkout = () => {
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState('');
   const [placedOrderNumber, setPlacedOrderNumber] = useState('');
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [addressModalInitialValues, setAddressModalInitialValues] = useState(initialAddressForm);
+  const [addressSubmitError, setAddressSubmitError] = useState('');
+  const [isSavingAddress, setIsSavingAddress] = useState(false);
 
   useEffect(() => {
     if (!defaultAddress || confirmedAddressId) return;
@@ -106,8 +113,9 @@ const Checkout = () => {
   };
 
   const normalizedSubtotal = Number(subtotal || 0);
-  const tax = normalizedSubtotal * GST_RATE;
-  const grandTotal = normalizedSubtotal + tax;
+  const includedIgst = normalizedSubtotal * (GST_RATE / (1 + GST_RATE));
+  const marketplaceFee = normalizedSubtotal * MARKETPLACE_FEE_RATE;
+  const grandTotal = normalizedSubtotal + marketplaceFee;
   const isSelectingAddress = isAddressPickerOpen;
   const isBillingButtonBlocked = isSelectingAddress || !confirmedAddress || !items || items.length === 0;
 
@@ -115,6 +123,70 @@ const Checkout = () => {
     if (!allAddresses.length) return;
     setPendingAddressId(confirmedAddressId || getAddressId(allAddresses[0], 0));
     setIsAddressPickerOpen(true);
+  };
+
+  const ensureSingleDefault = (addresses) => {
+    if (!Array.isArray(addresses) || addresses.length === 0) {
+      return [];
+    }
+
+    const hasDefault = addresses.some((address) => address?.isDefault);
+    if (hasDefault) {
+      return addresses;
+    }
+
+    return addresses.map((address, index) => ({
+      ...address,
+      isDefault: index === 0,
+    }));
+  };
+
+  const handleOpenAddAddressModal = () => {
+    setAddressModalInitialValues({
+      ...initialAddressForm,
+      fullName: currentUser?.name || '',
+      phone: currentUser?.phone || '',
+      isDefault: allAddresses.length === 0,
+    });
+    setAddressSubmitError('');
+    setIsAddressModalOpen(true);
+  };
+
+  const handleCloseAddressModal = () => {
+    if (isSavingAddress) return;
+    setIsAddressModalOpen(false);
+  };
+
+  const handleSaveAddress = async (nextAddress) => {
+    if (!nextAddress) return;
+
+    try {
+      setIsSavingAddress(true);
+      setAddressSubmitError('');
+
+      const currentAddresses = allAddresses.map((address) => ({
+        ...address,
+        _id: address?._id,
+      }));
+
+      const updatedAddresses = ensureSingleDefault(
+        nextAddress.isDefault
+          ? [
+            ...currentAddresses.map((address) => ({ ...address, isDefault: false })),
+            nextAddress,
+          ]
+          : [...currentAddresses, nextAddress]
+      );
+
+      await dispatch(updateUserProfile({ addresses: updatedAddresses })).unwrap();
+      setIsAddressModalOpen(false);
+      setIsAddressPickerOpen(false);
+      setAddressSubmitError('');
+    } catch (err) {
+      setAddressSubmitError(err || 'Failed to save address. Please try again.');
+    } finally {
+      setIsSavingAddress(false);
+    }
   };
 
   const handleConfirmAddressSelection = () => {
@@ -248,7 +320,7 @@ const Checkout = () => {
               </div>
             ) : (
               <p className="mt-1 text-xs text-gray-700">
-                No saved address found. Add one in your account before continuing.
+                No saved address found. Add one to continue checkout.
               </p>
             )}
           </div>
@@ -262,12 +334,13 @@ const Checkout = () => {
               Change
             </button>
           ) : (
-            <Link
-              to="/account"
+            <button
+              type="button"
+              onClick={handleOpenAddAddressModal}
               className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
             >
               Add Address
-            </Link>
+            </button>
           )}
         </div>
 
@@ -426,8 +499,12 @@ const Checkout = () => {
                 <span className="font-medium text-gray-900">{formatINR(normalizedSubtotal)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-600">Tax (18% GST)</span>
-                <span className="font-medium text-gray-900">{formatINR(tax)}</span>
+                <span className="text-gray-600">IGST Included (18%)</span>
+                <span className="font-medium text-gray-900">{formatINR(includedIgst)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Marketplace Fees (0.1%)</span>
+                <span className="font-medium text-gray-900">{formatINR(marketplaceFee)}</span>
               </div>
               <div className="border-t border-gray-100 pt-2.5 flex items-center justify-between">
                 <span className="text-gray-700 font-semibold">Total Payable</span>
@@ -530,8 +607,12 @@ const Checkout = () => {
                 <span className="font-medium text-gray-900">{formatINR(normalizedSubtotal)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-600">Tax (18% GST)</span>
-                <span className="font-medium text-gray-900">{formatINR(tax)}</span>
+                <span className="text-gray-600">IGST Included (18%)</span>
+                <span className="font-medium text-gray-900">{formatINR(includedIgst)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Marketplace Fees (0.1%)</span>
+                <span className="font-medium text-gray-900">{formatINR(marketplaceFee)}</span>
               </div>
               <div className="border-t border-gray-100 pt-3 flex items-center justify-between">
                 <span className="text-gray-700 font-semibold">Total Payable</span>
@@ -553,6 +634,16 @@ const Checkout = () => {
         </div>
       </div>
       )}
+
+      <AddressFormModal
+        isOpen={isAddressModalOpen}
+        mode="add"
+        initialValues={addressModalInitialValues}
+        isSaving={isSavingAddress}
+        submitError={addressSubmitError}
+        onClose={handleCloseAddressModal}
+        onSubmit={handleSaveAddress}
+      />
     </section>
   );
 };

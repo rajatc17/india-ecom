@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../api/client';
 import { fetchCart } from '../../store/cart/cartSlice';
 import { downloadOrderInvoice } from '../../pages/Orders/orderInvoice';
@@ -81,6 +81,7 @@ const getAddressLines = (address = {}) => {
 const OrderTile = ({ order, compact = false }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector((state) => state?.cart?.items || []);
   const items = Array.isArray(order?.items) ? order.items : [];
   const statusMeta = ORDER_STATUS_META[order?.status] || ORDER_STATUS_META.created;
   const [isItemsExpanded, setIsItemsExpanded] = useState(false);
@@ -100,6 +101,12 @@ const OrderTile = ({ order, compact = false }) => {
     return item.product._id || '';
   };
 
+  const getCartItemProductId = (cartItem) => {
+    if (!cartItem?.product) return '';
+    if (typeof cartItem.product === 'string') return cartItem.product;
+    return cartItem.product._id || '';
+  };
+
   const handleDownloadInvoice = () => {
     if (!order) return;
     downloadOrderInvoice(order);
@@ -113,6 +120,16 @@ const OrderTile = ({ order, compact = false }) => {
     if (!productId) {
       setActionMessage('');
       setActionError('Unable to add this item to cart. Product reference is missing.');
+      return;
+    }
+
+    const itemAlreadyInCart = cartItems.some(
+      (cartItem) => getCartItemProductId(cartItem) === productId
+    );
+
+    if (itemAlreadyInCart) {
+      setActionError('');
+      setActionMessage(`${item?.name || 'Item'} is already in your cart.`);
       return;
     }
 
