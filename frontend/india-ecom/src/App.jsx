@@ -15,6 +15,7 @@ import { fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Category from "./pages/Category/Category";
 import ProductDetailShimmer from "./pages/ProductDetail/ProductDetailShimmer";
+import AccountShimmer from "./pages/Account/AccountShimmer";
 
 //const Login = lazy(()=>import('./pages/Login/Login'))
 //const Category = lazy(()=>import('./pages/Category/Category'))
@@ -247,7 +248,7 @@ const appRouter = createBrowserRouter([
       {
         path : '/account',
         element : 
-        <Suspense fallback={<RouteFallback message="Loading account..." />}>
+        <Suspense fallback={<AccountShimmer />}>
           <ProtectedRoute requireAuth={true} >
             <Account />
           </ProtectedRoute>
