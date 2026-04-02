@@ -7,6 +7,7 @@ import { api } from '../../api/client';
 import CartLineItem from '../../components/cart/CartLineItem';
 import AddressFormModal from '../../components/modal/AddressFormModal';
 import { updateUserProfile } from '../../store/auth/authSlice';
+import { openLoginModal } from '../../store/modal/modalSlice';
 
 const GST_RATE = 0.18;
 const MARKETPLACE_FEE_RATE = 0.001;
@@ -38,7 +39,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalItems, subtotal, loading, error } = useSelector((state) => state.cart);
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.auth);
   const items = useSelector(selectCartItemsNewestFirst);
   const isPaymentStep = location.pathname.startsWith('/checkout/payment');
   const allAddresses = useMemo(
@@ -59,6 +60,8 @@ const Checkout = () => {
   const [addressSubmitError, setAddressSubmitError] = useState('');
   const [isSavingAddress, setIsSavingAddress] = useState(false);
 
+  const isGuestCheckout = !isAuthenticated;
+
   useEffect(() => {
     if (!defaultAddress || confirmedAddressId) return;
 
@@ -66,6 +69,17 @@ const Checkout = () => {
     setConfirmedAddressId(fallbackId);
     setPendingAddressId(fallbackId);
   }, [defaultAddress, confirmedAddressId]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (allAddresses.length > 0) return;
+
+    const shouldAutoOpen = sessionStorage.getItem('shilpika:autoOpenAddressAfterSignup') === '1';
+    if (!shouldAutoOpen) return;
+
+    handleOpenAddAddressModal();
+    sessionStorage.removeItem('shilpika:autoOpenAddressAfterSignup');
+  }, [isAuthenticated, allAddresses.length]);
 
   const confirmedAddress = useMemo(() => {
     if (!allAddresses.length) return null;
@@ -117,7 +131,7 @@ const Checkout = () => {
   const marketplaceFee = normalizedSubtotal * MARKETPLACE_FEE_RATE;
   const grandTotal = normalizedSubtotal + marketplaceFee;
   const isSelectingAddress = isAddressPickerOpen;
-  const isBillingButtonBlocked = isSelectingAddress || !confirmedAddress || !items || items.length === 0;
+  const isBillingButtonBlocked = isSelectingAddress || !items || items.length === 0 || (!isGuestCheckout && !confirmedAddress);
 
   const handleStartAddressChange = () => {
     if (!allAddresses.length) return;
@@ -178,7 +192,16 @@ const Checkout = () => {
           : [...currentAddresses, nextAddress]
       );
 
-      await dispatch(updateUserProfile({ addresses: updatedAddresses })).unwrap();
+      const updatedUser = await dispatch(updateUserProfile({ addresses: updatedAddresses })).unwrap();
+      const latestAddresses = Array.isArray(updatedUser?.addresses) ? updatedUser.addresses : updatedAddresses;
+      const selectedAddress = latestAddresses.find((address) => address?.isDefault) || latestAddresses[latestAddresses.length - 1] || null;
+
+      if (selectedAddress) {
+        const selectedAddressId = getAddressId(selectedAddress, latestAddresses.length - 1);
+        setConfirmedAddressId(selectedAddressId);
+        setPendingAddressId(selectedAddressId);
+      }
+
       setIsAddressModalOpen(false);
       setIsAddressPickerOpen(false);
       setAddressSubmitError('');
@@ -198,6 +221,12 @@ const Checkout = () => {
   const isPaymentMethodReady = selectedPaymentMethod === 'cod';
 
   const handlePlaceOrder = async () => {
+    if (!isAuthenticated) {
+      dispatch(openLoginModal());
+      setPaymentError('Please login first, then add your address to place the order.');
+      return;
+    }
+
     if (!confirmedAddress || !items?.length || selectedPaymentMethod !== 'cod' || isPlacingOrder) {
       return;
     }
@@ -277,6 +306,15 @@ const Checkout = () => {
     },
   ];
 
+  const handleProceedToPayment = () => {
+    if (!isAuthenticated) {
+      dispatch(openLoginModal());
+      return;
+    }
+
+    navigate('/checkout/payment');
+  };
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
       <div className="grid grid-cols-1 md:grid-cols-3 items-start md:items-center gap-4">
@@ -307,92 +345,111 @@ const Checkout = () => {
 
       {!isPaymentStep ? (
       <div className="mt-6 shilpika-bg rounded-xl border border-amber-200/80 p-3 sm:p-4">
-        <div className="flex items-start justify-between gap-2 flex-wrap">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800">Address</p>
-            {confirmedAddress ? (
-              <div className="mt-1.5 text-xs text-gray-700 leading-5">
-                <p className="font-semibold text-gray-800">
-                  Delivering to {confirmedAddress?.label || confirmedAddress?.fullName || 'Selected Address'}
-                </p>
-                {addressLines.map((line) => <p key={line}>{line}</p>)}
-                <p>Phone: {confirmedAddress?.phone || currentUser?.phone || '-'}</p>
+        {isGuestCheckout ? (
+          <div className="rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50 via-sky-50 to-white p-4 sm:p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-indigo-800">Login Required For Checkout</p>
+            <h3 className="mt-1 text-base sm:text-lg font-semibold text-indigo-950">Please login first, then add your address</h3>
+            <p className="mt-1.5 text-xs sm:text-sm text-indigo-900/80">
+              To continue securely, sign in to your account. After login, add your delivery address and proceed to payment.
+            </p>
+            <button
+              type="button"
+              onClick={() => dispatch(openLoginModal())}
+              className="mt-3 inline-flex rounded-lg bg-indigo-700 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white hover:bg-indigo-800 transition"
+            >
+              Login to Continue
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-start justify-between gap-2 flex-wrap">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800">Address</p>
+                {confirmedAddress ? (
+                  <div className="mt-1.5 text-xs text-gray-700 leading-5">
+                    <p className="font-semibold text-gray-800">
+                      Delivering to {confirmedAddress?.label || confirmedAddress?.fullName || 'Selected Address'}
+                    </p>
+                    {addressLines.map((line) => <p key={line}>{line}</p>)}
+                    <p>Phone: {confirmedAddress?.phone || currentUser?.phone || '-'}</p>
+                  </div>
+                ) : (
+                  <p className="mt-1 text-xs text-gray-700">
+                    No saved address found. Add one to continue checkout.
+                  </p>
+                )}
               </div>
-            ) : (
-              <p className="mt-1 text-xs text-gray-700">
-                No saved address found. Add one to continue checkout.
-              </p>
-            )}
-          </div>
 
-          {allAddresses.length > 0 ? (
-            <button
-              type="button"
-              onClick={handleStartAddressChange}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
-            >
-              Change
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleOpenAddAddressModal}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
-            >
-              Add Address
-            </button>
-          )}
-        </div>
+              {allAddresses.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={handleStartAddressChange}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
+                >
+                  Change
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleOpenAddAddressModal}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 text-amber-800 bg-white/85 hover:bg-white transition"
+                >
+                  Add Address
+                </button>
+              )}
+            </div>
 
-        {isAddressPickerOpen ? (
-          <div className="mt-3 rounded-lg border border-amber-200 bg-white/85 p-3">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800 mb-2">Select delivery address</p>
+            {isAddressPickerOpen ? (
+              <div className="mt-3 rounded-lg border border-amber-200 bg-white/85 p-3">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-800 mb-2">Select delivery address</p>
 
-            <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
-              {allAddresses.map((address, index) => {
-                const optionId = getAddressId(address, index);
-                const optionLines = getAddressDisplayLines(address);
+                <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+                  {allAddresses.map((address, index) => {
+                    const optionId = getAddressId(address, index);
+                    const optionLines = getAddressDisplayLines(address);
 
-                return (
-                  <label
-                    key={optionId}
-                    className={`flex gap-2 rounded-md border p-2 cursor-pointer transition ${
-                      pendingAddressId === optionId
-                        ? 'border-amber-300 bg-amber-50/80'
-                        : 'border-gray-200 bg-white hover:border-amber-200'
-                    }`}
+                    return (
+                      <label
+                        key={optionId}
+                        className={`flex gap-2 rounded-md border p-2 cursor-pointer transition ${
+                          pendingAddressId === optionId
+                            ? 'border-amber-300 bg-amber-50/80'
+                            : 'border-gray-200 bg-white hover:border-amber-200'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="checkout-address"
+                          value={optionId}
+                          checked={pendingAddressId === optionId}
+                          onChange={(event) => setPendingAddressId(event.target.value)}
+                          className="mt-0.5 accent-amber-600"
+                        />
+                        <div className="text-[11px] text-gray-700 leading-4">
+                          <p className="font-semibold text-gray-800">{address?.label || address?.fullName || 'Address'}</p>
+                          <p>{address?.fullName || currentUser?.name || '-'}</p>
+                          {optionLines.map((line) => <p key={`${optionId}-${line}`}>{line}</p>)}
+                          <p>Phone: {address?.phone || currentUser?.phone || '-'}</p>
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-3 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={handleConfirmAddressSelection}
+                    disabled={!pendingAddressId}
+                    className="px-3 py-2 rounded-md bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 disabled:opacity-60 transition"
                   >
-                    <input
-                      type="radio"
-                      name="checkout-address"
-                      value={optionId}
-                      checked={pendingAddressId === optionId}
-                      onChange={(event) => setPendingAddressId(event.target.value)}
-                      className="mt-0.5 accent-amber-600"
-                    />
-                    <div className="text-[11px] text-gray-700 leading-4">
-                      <p className="font-semibold text-gray-800">{address?.label || address?.fullName || 'Address'}</p>
-                      <p>{address?.fullName || currentUser?.name || '-'}</p>
-                      {optionLines.map((line) => <p key={`${optionId}-${line}`}>{line}</p>)}
-                      <p>Phone: {address?.phone || currentUser?.phone || '-'}</p>
-                    </div>
-                  </label>
-                );
-              })}
-            </div>
-
-            <div className="mt-3 flex justify-end">
-              <button
-                type="button"
-                onClick={handleConfirmAddressSelection}
-                disabled={!pendingAddressId}
-                className="px-3 py-2 rounded-md bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 disabled:opacity-60 transition"
-              >
-                Deliver to this address
-              </button>
-            </div>
-          </div>
-        ) : null}
+                    Deliver to this address
+                  </button>
+                </div>
+              </div>
+            ) : null}
+          </>
+        )}
       </div>
       ) : null}
 
@@ -465,10 +522,10 @@ const Checkout = () => {
             <button
               type="button"
               className="mt-5 w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
-              disabled={!confirmedAddress || !items || items.length === 0 || !isPaymentMethodReady || isPlacingOrder || Boolean(paymentSuccess)}
+              disabled={(!isGuestCheckout && !confirmedAddress) || !items || items.length === 0 || !isPaymentMethodReady || isPlacingOrder || Boolean(paymentSuccess)}
               onClick={handlePlaceOrder}
             >
-              {isPlacingOrder ? 'Placing order...' : 'Place Order (COD)'}
+              {isGuestCheckout ? 'Login to place order' : isPlacingOrder ? 'Placing order...' : 'Place Order (COD)'}
             </button>
           </div>
         </div>
@@ -483,7 +540,11 @@ const Checkout = () => {
                 <p>Phone: {confirmedAddress?.phone || currentUser?.phone || '-'}</p>
               </div>
             ) : (
-              <p className="mt-1 text-xs text-gray-700">No confirmed address. Go back to review to select one.</p>
+              <p className="mt-1 text-xs text-gray-700">
+                {isGuestCheckout
+                  ? 'Login first, then add your address from checkout review.'
+                  : 'No confirmed address. Go back to review to select one.'}
+              </p>
             )}
           </div>
 
@@ -625,9 +686,13 @@ const Checkout = () => {
                 type="button"
                 className="w-full px-4 py-3 rounded-md bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors disabled:opacity-50"
                 disabled={isBillingButtonBlocked}
-                onClick={() => navigate('/checkout/payment')}
+                onClick={handleProceedToPayment}
               >
-                {isSelectingAddress ? 'selecting address...' : 'Continue to Payment'}
+                {isGuestCheckout
+                  ? 'Login first, then add address'
+                  : isSelectingAddress
+                    ? 'selecting address...'
+                    : 'Continue to Payment'}
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 import { closeLoginModal } from "../../store/modal/modalSlice";
 import { checkEmailExists } from "../../api/util";
 import { clearError, loginUser, registerUser } from "../../store/auth/authSlice";
@@ -56,6 +57,7 @@ const getPasswordStrength = (password = "") => {
 
 const LoginModal = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [mode, setMode] = useState("init");
   const [resolvedEmail, setResolvedEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -120,6 +122,9 @@ const LoginModal = () => {
         );
 
         if (registerUser.fulfilled.match(result)) {
+          if (location.pathname.startsWith('/checkout')) {
+            sessionStorage.setItem('shilpika:autoOpenAddressAfterSignup', '1');
+          }
           closeLoginModalHandler();
         }
         actions.setSubmitting(false);
