@@ -27,3 +27,24 @@
     radial-gradient(circle at 20px 20px, rgba(160, 120, 60, 0.06) 1px, transparent 0);
   background-size: 28px 28px, 36px 36px;
 }
+
+button,
+a[href],
+[role="button"],
+summary,
+select,
+label[for],
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}

@@ -171,7 +171,7 @@ const Category = () => {
                     {!loading && items && (items.length===0) ? 
                         <div>No Products Available...</div> :
                         !loading && sortedItems?.map((product) => 
-                        <div key={product._id} onClick={() => navigate(`/product/${product.slug}`)}>
+                        <div key={product._id} onClick={() => navigate(`/product/${product.slug}`)} className='cursor-pointer'>
                             <ProductCard product={product} variant='category' />
                         </div>)
                     }

@@ -27,7 +27,10 @@ const flattenCategories = (nodes = []) => {
 
 const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} }) => {
   const headerRef = useRef(null);
-  const userMenuRef = useRef(null);
+  const mobileUserMenuRef = useRef(null);
+  const desktopUserMenuRef = useRef(null);
+  const mobileCartRef = useRef(null);
+  const desktopCartRef = useRef(null);
   const location = useLocation();
   const [searchText, setSearchText] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -37,7 +40,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   const [categoryMatches, setCategoryMatches] = useState([]);
   const categoryCacheRef = useRef(null);
   const blurTimeoutRef = useRef(null);
-  const [isCartHovered, setIsCartHovered] = useState(false);
+  const [isCartMenuOpen, setIsCartMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -48,6 +51,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   const userName = currentUser?.name?.trim() || 'Shilpika Member';
 
   const closeUserMenu = () => setIsUserMenuOpen(false);
+  const closeCartMenu = () => setIsCartMenuOpen(false);
 
   const handleProfileAction = () => {
     closeUserMenu();
@@ -76,19 +80,31 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
 
   useEffect(() => {
     closeUserMenu();
+    closeCartMenu();
   }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!userMenuRef.current?.contains(event.target)) {
+      const clickedInsideMobileMenu = mobileUserMenuRef.current?.contains(event.target);
+      const clickedInsideDesktopMenu = desktopUserMenuRef.current?.contains(event.target);
+      const clickedInsideMobileCart = mobileCartRef.current?.contains(event.target);
+      const clickedInsideDesktopCart = desktopCartRef.current?.contains(event.target);
+
+      if (!clickedInsideMobileMenu && !clickedInsideDesktopMenu) {
         closeUserMenu();
+      }
+
+      if (!clickedInsideMobileCart && !clickedInsideDesktopCart) {
+        closeCartMenu();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, []);
 
@@ -354,7 +370,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                 <li>
                   <div
                     className="relative"
-                    ref={userMenuRef}
+                    ref={mobileUserMenuRef}
                     onMouseEnter={() => isAuthenticated && setIsUserMenuOpen(true)}
                     onMouseLeave={() => isAuthenticated && setIsUserMenuOpen(false)}
                   >
@@ -409,16 +425,16 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                 </li>
                 <li
                   className="relative"
-                  onMouseEnter={() => setIsCartHovered(true)}
-                  onMouseLeave={() => setIsCartHovered(false)}
+                  ref={mobileCartRef}
                 >
                   <button
                     className='cursor-pointer hover:text-amber-600 transition-colors py-2'
                     aria-label="Shopping cart"
+                    onClick={() => setIsCartMenuOpen((prev) => !prev)}
                   >
                     <PiHandbagBold size={23}/>
                   </button>
-                  {isCartHovered && <FloatingCart />}
+                  {isCartMenuOpen && <FloatingCart />}
                 </li>
               </ul>
             </div>
@@ -448,7 +464,7 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                 <li>
                   <div
                     className="relative"
-                    ref={userMenuRef}
+                    ref={desktopUserMenuRef}
                     onMouseEnter={() => isAuthenticated && setIsUserMenuOpen(true)}
                     onMouseLeave={() => isAuthenticated && setIsUserMenuOpen(false)}
                   >
@@ -503,16 +519,18 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                 </li>
                 <li
                   className="relative"
-                  onMouseEnter={() => setIsCartHovered(true)}
-                  onMouseLeave={() => setIsCartHovered(false)}
+                  ref={desktopCartRef}
+                  onMouseEnter={() => setIsCartMenuOpen(true)}
+                  onMouseLeave={() => setIsCartMenuOpen(false)}
                 >
                   <button
                     className='cursor-pointer hover:text-amber-600 transition-colors py-2'
                     aria-label="Shopping cart"
+                    onClick={() => setIsCartMenuOpen((prev) => !prev)}
                   >
                     <PiHandbagBold size={24}/>
                   </button>
-                  {isCartHovered && <FloatingCart />}
+                  {isCartMenuOpen && <FloatingCart />}
                 </li>
               </ul>
             </div>
