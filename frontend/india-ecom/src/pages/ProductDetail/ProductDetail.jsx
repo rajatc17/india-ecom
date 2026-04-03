@@ -27,15 +27,10 @@ const ProductDetail = () => {
   const { items: cartItems = [], loading: cartLoading } = useSelector((state) => state.cart);
   const quantity = 1;
   const [activeTab, setActiveTab] = useState('details');
-  const [addedLocally, setAddedLocally] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductBySlug(slug));
   }, [slug, dispatch]);
-
-  useEffect(() => {
-    setAddedLocally(false);
-  }, [slug]);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -57,7 +52,7 @@ const ProductDetail = () => {
     });
   }, [cartItems, productId, slug]);
 
-  const shouldShowGoToCart = isInCart || addedLocally;
+  const shouldShowGoToCart = isInCart;
 
   if (loading) return <ProductDetailShimmer />;
   if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
@@ -76,7 +71,6 @@ const ProductDetail = () => {
     if(!inStock) return;
     try {
       await dispatch(addToCart({ product: currentProduct, quantity })).unwrap();
-      setAddedLocally(true);
       dispatch(fetchCart());
     } catch {
       // Keep existing UI behavior on add failure.

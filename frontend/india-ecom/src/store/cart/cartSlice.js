@@ -25,6 +25,9 @@ const saveLocalCart = (cart) => {
   localStorage.setItem('guest_cart', JSON.stringify(cart));
 };
 
+const normalizeId = (value) => String(value ?? '');
+const getItemProductId = (item) => item?.product?._id || item?.product;
+
 // Async Thunks
 export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
@@ -161,13 +164,19 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeItem',
   async (productId, { getState, rejectWithValue }) => {
     const { auth } = getState();
+    const existingItems = getState()?.cart?.items || [];
+    const removedItem = existingItems.find((item) => normalizeId(getItemProductId(item)) === normalizeId(productId));
+    const removedItemName = removedItem?.name || 'Item';
     
     if (auth.isAuthenticated) {
       try {
         const response = await api(`/api/cart/remove/${productId}`, {
           method: 'DELETE'
         });
-        return response.cart;
+        return {
+          cart: response.cart,
+          removedItemName,
+        };
       } catch (error) {
         return rejectWithValue(error.message);
       }
@@ -180,7 +189,10 @@ export const removeFromCart = createAsyncThunk(
       cart.total = cart.subtotal;
       
       saveLocalCart(cart);
-      return cart;
+      return {
+        cart,
+        removedItemName,
+      };
     }
   }
 );
@@ -221,6 +233,7 @@ const cartSlice = createSlice({
     totalItems: 0,
     subtotal: 0,
     total: 0,
+    deletedItemMessage: '',
     loading: false,
     error: null,
     lastSynced: null
@@ -232,6 +245,9 @@ const cartSlice = createSlice({
       state.subtotal = 0;
       state.total = 0;
       localStorage.removeItem('guest_cart');
+    },
+    clearDeletedItemMessage: (state) => {
+      state.deletedItemMessage = '';
     }
   },
   extraReducers: (builder) => {
@@ -247,6 +263,7 @@ const cartSlice = createSlice({
         state.totalItems = action.payload.totalItems || 0;
         state.subtotal = action.payload.subtotal || 0;
         state.total = action.payload.total || 0;
+        state.deletedItemMessage = '';
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
@@ -264,6 +281,7 @@ const cartSlice = createSlice({
         state.totalItems = action.payload.totalItems;
         state.subtotal = action.payload.subtotal;
         state.total = action.payload.total;
+        state.deletedItemMessage = '';
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.loading = false;
@@ -276,17 +294,19 @@ const cartSlice = createSlice({
         state.totalItems = action.payload.totalItems;
         state.subtotal = action.payload.subtotal;
         state.total = action.payload.total;
+        state.deletedItemMessage = '';
       })
       
       // Remove Item
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-        state.totalItems = action.payload.totalItems;
-        state.subtotal = action.payload.subtotal;
-        state.total = action.payload.total;
+        state.items = action.payload.cart.items;
+        state.totalItems = action.payload.cart.totalItems;
+        state.subtotal = action.payload.cart.subtotal;
+        state.total = action.payload.cart.total;
+        state.deletedItemMessage = `'${action.payload.removedItemName}' has been deleted.`;
       });
   }
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, clearDeletedItemMessage } = cartSlice.actions;
 export default cartSlice.reducer;

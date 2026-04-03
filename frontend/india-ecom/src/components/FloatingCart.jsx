@@ -6,6 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 
 const FloatingCart = () => {
   const items = useSelector(selectCartItemsNewestFirst);
+  const deletedItemMessage = useSelector((state) => state.cart.deletedItemMessage);
   const dispatch = useDispatch();
 
   const total = items?.reduce((acc, item) => acc + (item.subtotal || (item.price * item.quantity)), 0) || 0;
@@ -17,6 +18,11 @@ const FloatingCart = () => {
   if (!items || items.length === 0) {
     return (
       <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-[150] p-4 text-center">
+        {deletedItemMessage && (
+          <div className="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700 text-left">
+            {deletedItemMessage}
+          </div>
+        )}
         <p className="text-gray-500">Your cart is empty</p>
       </div>
     );
@@ -24,6 +30,11 @@ const FloatingCart = () => {
 
   return (
     <div className="absolute top-full right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-[150] overflow-hidden">
+      {deletedItemMessage && (
+        <div className="mx-3 mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+          {deletedItemMessage}
+        </div>
+      )}
       <div className="max-h-96 overflow-y-auto">
         {items.map((item) => (
           <div key={item._id || item.product._id || item.product} className="flex items-center gap-3 p-3 border-b border-gray-50 hover:bg-gray-50 transition-colors">

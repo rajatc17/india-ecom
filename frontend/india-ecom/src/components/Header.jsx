@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import LoginModal from './modal/LoginModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { openLoginModal } from '../store/modal/modalSlice';
+import { logout } from '../store/auth/authSlice';
 import FloatingCart from './FloatingCart';
 import { api } from '../api/client';
 
@@ -26,6 +27,7 @@ const flattenCategories = (nodes = []) => {
 
 const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} }) => {
   const headerRef = useRef(null);
+  const userMenuRef = useRef(null);
   const location = useLocation();
   const [searchText, setSearchText] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -36,21 +38,59 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
   const categoryCacheRef = useRef(null);
   const blurTimeoutRef = useRef(null);
   const [isCartHovered, setIsCartHovered] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const isLoginModalOpen = useSelector((state) => state.modal.isLoginModalOpen);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, currentUser } = useSelector((state) => state.auth);
   const isCheckoutRoute = location.pathname.startsWith('/checkout');
   const isPaymentStep = /\/checkout\/payment/.test(location.pathname);
+  const userName = currentUser?.name?.trim() || 'Shilpika Member';
+
+  const closeUserMenu = () => setIsUserMenuOpen(false);
+
+  const handleProfileAction = () => {
+    closeUserMenu();
+    navigate('/account');
+  };
+
+  const handleOrdersAction = () => {
+    closeUserMenu();
+    navigate('/my-orders');
+  };
+
+  const handleLogout = () => {
+    closeUserMenu();
+    dispatch(logout());
+    navigate('/');
+  };
 
   const handleUserLogo = ()=>{
     if(isAuthenticated){
-      navigate('/account');
+      setIsUserMenuOpen((prev) => !prev);
       return;
     }
     
     dispatch(openLoginModal());
-  }
+  };
+
+  useEffect(() => {
+    closeUserMenu();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!userMenuRef.current?.contains(event.target)) {
+        closeUserMenu();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const query = searchText.trim();
@@ -312,13 +352,52 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
             <div className="flex justify-end">
               <ul className="flex gap-3 items-center">
                 <li>
-                  <button
-                    className='cursor-pointer hover:text-amber-600 transition-colors'
-                    onClick={handleUserLogo}
-                    aria-label="User account"
+                  <div
+                    className="relative"
+                    ref={userMenuRef}
+                    onMouseEnter={() => isAuthenticated && setIsUserMenuOpen(true)}
+                    onMouseLeave={() => isAuthenticated && setIsUserMenuOpen(false)}
                   >
-                    <FaUserLarge size={20}/>
-                  </button>
+                    <button
+                      className='cursor-pointer hover:text-amber-600 transition-colors'
+                      onClick={handleUserLogo}
+                      aria-label="User account"
+                    >
+                      <FaUserLarge size={20}/>
+                    </button>
+
+                    {isAuthenticated && isUserMenuOpen && (
+                      <div className="absolute right-0 top-full pt-3 z-[60]">
+                        <div className="w-72 rounded-2xl border border-amber-100/80 bg-white/95 backdrop-blur-md shadow-[0_18px_50px_-15px_rgba(120,53,15,0.35)] overflow-hidden">
+                          <div className="h-1.5 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400" />
+                          <div className="px-4 pt-4 pb-3 bg-gradient-to-b from-amber-50/80 to-white">
+                            <p className="text-[11px] uppercase tracking-[0.18em] text-amber-800/70">Welcome</p>
+                            <p className="mt-1 text-base font-semibold text-gray-900 truncate">{userName}</p>
+                          </div>
+                          <div className="p-2">
+                            <button
+                              onClick={handleProfileAction}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-800 transition-colors"
+                            >
+                              Profile
+                            </button>
+                            <button
+                              onClick={handleOrdersAction}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-800 transition-colors"
+                            >
+                              My Orders
+                            </button>
+                            <button
+                              onClick={handleLogout}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+                            >
+                              Logout
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </li>
                 <li>
                   <button
@@ -367,13 +446,52 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
             <div className="flex justify-end">
               <ul className="flex gap-3 sm:gap-4 items-center">
                 <li>
-                  <button
-                    className='cursor-pointer hover:text-amber-600 transition-colors'
-                    onClick={handleUserLogo}
-                    aria-label="User account"
+                  <div
+                    className="relative"
+                    ref={userMenuRef}
+                    onMouseEnter={() => isAuthenticated && setIsUserMenuOpen(true)}
+                    onMouseLeave={() => isAuthenticated && setIsUserMenuOpen(false)}
                   >
-                    <FaUserLarge size={20}/>
-                  </button>
+                    <button
+                      className='cursor-pointer hover:text-amber-600 transition-colors'
+                      onClick={handleUserLogo}
+                      aria-label="User account"
+                    >
+                      <FaUserLarge size={20}/>
+                    </button>
+
+                    {isAuthenticated && isUserMenuOpen && (
+                      <div className="absolute right-0 top-full pt-3 z-[60]">
+                        <div className="w-72 rounded-2xl border border-amber-100/80 bg-white/95 backdrop-blur-md shadow-[0_18px_50px_-15px_rgba(120,53,15,0.35)] overflow-hidden">
+                          <div className="h-1.5 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400" />
+                          <div className="px-4 pt-4 pb-3 bg-gradient-to-b from-amber-50/80 to-white">
+                            <p className="text-[11px] uppercase tracking-[0.18em] text-amber-800/70">Welcome</p>
+                            <p className="mt-1 text-base font-semibold text-gray-900 truncate">{userName}</p>
+                          </div>
+                          <div className="p-2">
+                            <button
+                              onClick={handleProfileAction}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-800 transition-colors"
+                            >
+                              Profile
+                            </button>
+                            <button
+                              onClick={handleOrdersAction}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-800 transition-colors"
+                            >
+                              My Orders
+                            </button>
+                            <button
+                              onClick={handleLogout}
+                              className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+                            >
+                              Logout
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </li>
                 <li>
                   <button

@@ -11,7 +11,7 @@ import Home from "./pages/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { API_ACTIVITY_EVENT, BACKEND_WARMUP_EVENT, setToken, warmupBackend } from "./api/client";
 import { fetchCurrentUser, setAuthInitialized } from "./store/auth/authSlice";
-import { fetchCart, syncCart } from "./store/cart/cartSlice";
+import { clearDeletedItemMessage, fetchCart, syncCart } from "./store/cart/cartSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Category from "./pages/Category/Category";
 import ProductDetailShimmer from "./pages/ProductDetail/ProductDetailShimmer";
@@ -199,6 +199,10 @@ const Root = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    dispatch(clearDeletedItemMessage());
+  }, [dispatch, location.pathname, location.search]);
 
   if (!initialized || !bootstrapComplete) {
     return <RouteFallback message={bootstrapMessage} />;
