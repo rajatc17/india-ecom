@@ -416,12 +416,21 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                   </div>
                 </li>
                 <li>
-                  <button
-                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                  <Link
+                    to={isAuthenticated ? "/wishlist" : "#"}
+                    onClick={(e) => {
+                      if (!isAuthenticated) {
+                        e.preventDefault();
+                        dispatch(openLoginModal());
+                      } else {
+                        setIsUserMenuOpen(false);
+                      }
+                    }}
+                    className='cursor-pointer hover:text-amber-600 transition-colors inline-block'
                     aria-label="Wishlist"
                   >
                     <MdFavoriteBorder size={24}/>
-                  </button>
+                  </Link>
                 </li>
                 <li
                   className="relative"
@@ -510,12 +519,19 @@ const Header = ({ isCategoryMenuOpen = false, onToggleCategoryMenu = () => {} })
                   </div>
                 </li>
                 <li>
-                  <button
-                    className='cursor-pointer hover:text-amber-600 transition-colors'
+                  <Link
+                    to={isAuthenticated ? "/wishlist" : "#"}
+                    onClick={(e) => {
+                      if (!isAuthenticated) {
+                        e.preventDefault();
+                        dispatch(openLoginModal());
+                      }
+                    }}
+                    className='cursor-pointer hover:text-amber-600 transition-colors inline-block'
                     aria-label="Wishlist"
                   >
                     <MdFavoriteBorder size={25}/>
-                  </button>
+                  </Link>
                 </li>
                 <li
                   className="relative"

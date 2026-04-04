@@ -68,6 +68,20 @@ export const updateUserProfile = createAsyncThunk(
     }
 );
 
+export const toggleWishlistItem = createAsyncThunk(
+    'auth/toggleWishlist',
+    async ({ productId, isAdding }, { rejectWithValue }) => {
+        try {
+            const data = await api(`/api/users/wishlist/${productId}`, {
+                method: isAdding ? 'POST' : 'DELETE'
+            });
+            return data; // Returns the updated wishlist array
+        } catch (error) {
+            return rejectWithValue(error.message || 'Failed to update wishlist');
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -162,6 +176,20 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(updateUserProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(toggleWishlistItem.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(toggleWishlistItem.fulfilled, (state, action) => {
+                state.loading = false;
+                if (state.currentUser) {
+                    state.currentUser.wishlist = action.payload;
+                }
+            })
+            .addCase(toggleWishlistItem.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

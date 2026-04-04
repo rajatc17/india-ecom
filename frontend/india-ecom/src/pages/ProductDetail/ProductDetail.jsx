@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductBySlug } from '../../store/product/productSlice';
 import Loader from '../../components/common/Loader';
 import ImageCarousel from '../../components/ProductDetail/ImageCarousel';
-import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck } from 'lucide-react';
+import { ShoppingCart, Heart, Star, MapPin, Award, Package, Hand, BadgeCheck, Truck, CheckCircle2 } from 'lucide-react';
 import { addToCart, fetchCart } from '../../store/cart/cartSlice';
+import { toggleWishlistItem } from '../../store/auth/authSlice';
+import { openLoginModal } from '../../store/modal/modalSlice';
 import ProductDetailShimmer from './ProductDetailShimmer';
 import { getProductPricing } from '../../utils/pricing';
 
@@ -25,8 +27,10 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { currentProduct, loading, error } = useSelector((state) => state.products);
   const { items: cartItems = [], loading: cartLoading } = useSelector((state) => state.cart);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.auth);
   const quantity = 1;
   const [activeTab, setActiveTab] = useState('details');
+  const [wishlistLoading, setWishlistLoading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductBySlug(slug));
@@ -53,6 +57,31 @@ const ProductDetail = () => {
   }, [cartItems, productId, slug]);
 
   const shouldShowGoToCart = isInCart;
+
+  const isWishlisted = useMemo(() => {
+    if (!currentUser?.wishlist || !productId) return false;
+    return currentUser.wishlist.some(item => {
+      const itemProductId = normalizeId(item?.product?._id || item?.product);
+      return itemProductId === normalizeId(productId);
+    });
+  }, [currentUser?.wishlist, productId]);
+
+  const handleWishlist = async () => {
+    if (!isAuthenticated) {
+      dispatch(openLoginModal());
+      return;
+    }
+    if (isWishlisted || wishlistLoading) return;
+    
+    setWishlistLoading(true);
+    try {
+      await dispatch(toggleWishlistItem({ productId: currentProduct._id, isAdding: true })).unwrap();
+    } catch {
+      // failed to wishlist
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
 
   if (loading) return <ProductDetailShimmer />;
   if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
@@ -187,25 +216,41 @@ const ProductDetail = () => {
             )} */}
 
             {/* Action Buttons */}
-            <div className="space-y-3">
-              <button
-                disabled={!inStock || cartLoading}
-                className="w-full cursor-pointer bg-[#C5663E] text-white py-3 rounded-xl text-sm font-semibold hover:bg-[#B35835] transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                onClick={shouldShowGoToCart ? () => navigate('/cart') : handleAddToCart}
-              >
-                <ShoppingCart size={18} />
-                {shouldShowGoToCart ? 'GO TO CART' : 'ADD TO CART'}
-              </button>
-              <button
-                type="button"
-                className="w-full border border-emerald-900/40 text-emerald-900 py-3 rounded-xl text-sm font-semibold hover:bg-emerald-900 hover:text-white transition"
-              >
-                BUY NOW
-              </button>
-              <button className="flex items-center gap-2 text-sm text-amber-900/80 hover:text-amber-900 transition">
-                <Heart size={18} />
-                Add to Wishlist
-              </button>
+            <div className="space-y-4 pt-4 border-t border-amber-200/50">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  disabled={!inStock || cartLoading}
+                  className="w-full cursor-pointer bg-[#C5663E] text-white py-3.5 rounded-xl text-sm font-semibold hover:bg-[#B35835] transition disabled:bg-gray-300 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                  onClick={shouldShowGoToCart ? () => navigate('/cart') : handleAddToCart}
+                >
+                  <ShoppingCart size={18} />
+                  {shouldShowGoToCart ? 'GO TO CART' : 'ADD TO CART'}
+                </button>
+                <button
+                  type="button"
+                  className="w-full border-2 border-emerald-900 text-emerald-900 py-3.5 rounded-xl text-sm font-semibold hover:bg-emerald-900 hover:text-white transition shadow-sm hover:shadow-md"
+                >
+                  BUY NOW
+                </button>
+              </div>
+              
+              <div className="flex justify-center pt-2">
+                {isWishlisted ? (
+                  <div className="flex items-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-100 text-sm font-medium shadow-sm w-full sm:w-auto justify-center">
+                    <CheckCircle2 size={16} className="text-emerald-600" />
+                    <span>Saved to your Wishlist</span>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={handleWishlist}
+                    disabled={wishlistLoading}
+                    className="flex items-center gap-2 px-5 py-2.5 text-amber-900 bg-white border border-amber-300 hover:bg-amber-50 rounded-full text-sm font-medium transition shadow-sm hover:shadow-md w-full sm:w-auto justify-center disabled:opacity-50"
+                  >
+                    <Heart size={16} className={wishlistLoading ? 'animate-pulse' : ''} />
+                    <span>{wishlistLoading ? 'Saving...' : 'Add to Wishlist'}</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Trust Signals */}

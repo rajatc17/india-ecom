@@ -70,9 +70,35 @@ const mergePatchedAddresses = (existingAddresses = [], patchAddresses = []) => {
 
 router.get('/me', auth, async (req, res) => {
   // debug: console.log('req.userId', req.userId);
-  const user = await User.findById(req.userId).populate('wishlist', 'name price images region');
+  const user = await User.findById(req.userId).populate('wishlist.product', 'name slug price discountedPrice discount images region stock giTag');
   if (!user) return res.status(404).json({ error: 'User not found' });
   res.json(user); // toJSON already strips passwordHash
+});
+
+router.post('/wishlist/:productId', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    await user.addToWishlist(req.params.productId);
+    const updatedUser = await User.findById(req.userId).populate('wishlist.product', 'name slug price discountedPrice discount images region stock giTag');
+    res.json(updatedUser.wishlist);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error adding to wishlist' });
+  }
+});
+
+router.delete('/wishlist/:productId', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    await user.removeFromWishlist(req.params.productId);
+    const updatedUser = await User.findById(req.userId).populate('wishlist.product', 'name slug price discountedPrice discount images region stock giTag');
+    res.json(updatedUser.wishlist);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error removing from wishlist' });
+  }
 });
 
 const updateMePutHandler = async (req, res) => {

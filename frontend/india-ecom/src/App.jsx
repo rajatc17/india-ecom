@@ -22,6 +22,7 @@ import AccountShimmer from "./pages/Account/AccountShimmer";
 const Account = lazy(()=>import('./pages/Account/Account'))
 const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
+const Wishlist = lazy(()=>import('./pages/Wishlist/Wishlist'))
 const Search = lazy(()=>import('./pages/Search/Search'))
 const Checkout = lazy(()=>import('./pages/Checkout/Checkout'))
 const Orders = lazy(()=>import('./pages/Orders/Orders'))
@@ -299,8 +300,16 @@ const appRouter = createBrowserRouter([
           </Suspense>
         )
       },
-      {
-        path: '/search',
+      {        path: '/wishlist',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading wishlist..." />}> 
+            <ProtectedRoute requireAuth={true}>
+              <Wishlist />
+            </ProtectedRoute>
+          </Suspense>
+        )
+      },
+      {        path: '/search',
         element: (
           <Suspense fallback={<RouteFallback message="Loading search..." />}>
             <Search />
