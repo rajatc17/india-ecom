@@ -23,6 +23,8 @@ const Account = lazy(()=>import('./pages/Account/Account'))
 const ProductDetail = lazy(()=>import('./pages/ProductDetail/ProductDetail'))
 const Cart = lazy(()=>import('./pages/Cart/Cart'))
 const Wishlist = lazy(()=>import('./pages/Wishlist/Wishlist'))
+const CuratedCollection = lazy(()=>import('./pages/Collections/CuratedCollection'))
+const RegionCollection = lazy(()=>import('./pages/Regions/RegionCollection'))
 const Search = lazy(()=>import('./pages/Search/Search'))
 const Checkout = lazy(()=>import('./pages/Checkout/Checkout'))
 const Orders = lazy(()=>import('./pages/Orders/Orders'))
@@ -297,6 +299,22 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<RouteFallback message="Loading cart..." />}>
             <Cart />
+          </Suspense>
+        )
+      },
+      {
+        path: '/collections/:slug',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading curated collection..." />}>
+            <CuratedCollection />
+          </Suspense>
+        )
+      },
+      {
+        path: '/regions/:regionKey',
+        element: (
+          <Suspense fallback={<RouteFallback message="Loading region collection..." />}>
+            <RegionCollection />
           </Suspense>
         )
       },

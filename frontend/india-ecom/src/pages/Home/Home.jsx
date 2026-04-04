@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Hero from "./components/Hero";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFeaturedProducts } from "../../store/product/productSlice";
 import { fetchCategoryTree } from "../../store/category/categorySlice";
 import ProductCard, { ProductCardSkeleton } from "../../components/ProductCard";
+import { api } from "../../api/client";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ const Home = () => {
     items: categoryTree,
     loading: categoriesLoading,
   } = useSelector((state) => state.categories);
+  const [regions, setRegions] = useState([]);
+  const [regionsLoading, setRegionsLoading] = useState(true);
 
   const topCategories = useMemo(() => {
     if (!Array.isArray(categoryTree)) return [];
@@ -39,9 +42,76 @@ const Home = () => {
     }
   }, [dispatch, products]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadRegions = async () => {
+      setRegionsLoading(true);
+      try {
+        const data = await api('/api/products/regions?limit=8');
+        if (!isMounted) return;
+        setRegions(Array.isArray(data?.regions) ? data.regions : []);
+      } catch {
+        if (!isMounted) return;
+        setRegions([]);
+      } finally {
+        if (isMounted) {
+          setRegionsLoading(false);
+        }
+      }
+    };
+
+    loadRegions();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="w-full">
-      <Hero />
+      <Hero recommendations={topCategories} />
+
+      {/* Region Showcase */}
+      <section className="bg-[#fbf8f1] border-y border-amber-100/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                Shop By Region
+              </h2>
+              <p className="text-sm md:text-base text-gray-600 mt-2">
+                Explore crafts mapped to region clusters, perfect for a demo experience with curated discovery.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            {regionsLoading &&
+              Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={`region-skeleton-${i}`}
+                  className="h-10 w-32 rounded-full bg-black/5 animate-pulse"
+                />
+              ))}
+
+            {!regionsLoading && regions.map((region) => (
+              <Link
+                key={region.key}
+                to={`/regions/${encodeURIComponent(region.key)}`}
+                className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm text-amber-900 hover:bg-amber-50 transition"
+              >
+                <span className="font-medium">{region.label}</span>
+                <span className="text-xs text-amber-700/80">{region.count}</span>
+              </Link>
+            ))}
+
+            {!regionsLoading && regions.length === 0 && (
+              <p className="text-sm text-amber-900/70">Region data is currently unavailable.</p>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Category Showcase */}
       <section className="bg-white">

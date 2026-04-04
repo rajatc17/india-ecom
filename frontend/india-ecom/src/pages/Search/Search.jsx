@@ -19,11 +19,44 @@ const Search = () => {
 
   const params = new URLSearchParams(location.search);
   const query = params.get("q") || "";
+  const region = params.get("region") || "";
+  const giOnly = params.get("gi") === "true";
 
   useEffect(() => {
-    if (!query.trim()) return;
-    dispatch(fetchSearchProducts({ q: query.trim(), page: 1, limit: 20 }));
-  }, [dispatch, query]);
+    const requestParams = {
+      page: 1,
+      limit: 20,
+      sort: "-createdAt",
+    };
+
+    if (query.trim()) {
+      requestParams.q = query.trim();
+    }
+
+    if (region) {
+      requestParams.region = region;
+    }
+
+    if (giOnly) {
+      requestParams.gi = "true";
+    }
+
+    if (!requestParams.q && !requestParams.region && !requestParams.gi) {
+      return;
+    }
+
+    dispatch(fetchSearchProducts(requestParams));
+  }, [dispatch, giOnly, query, region]);
+
+  const hasAnyFilter = Boolean(query.trim() || region || giOnly);
+
+  const filterSummary = [
+    query.trim() ? `query: ${query.trim()}` : null,
+    region ? `region: ${region}` : null,
+    giOnly ? "GI tagged only" : null,
+  ]
+    .filter(Boolean)
+    .join(" | ");
 
   return (
     <div className="w-full shilpika-bg">
@@ -38,12 +71,16 @@ const Search = () => {
                 <>
                   Showing results for "<span className="font-semibold">{query}</span>"
                 </>
+              ) : hasAnyFilter ? (
+                <>
+                  Showing products for <span className="font-semibold">{filterSummary}</span>
+                </>
               ) : (
                 "Enter a search term to discover products."
               )}
             </p>
           </div>
-          {query && (
+          {hasAnyFilter && (
             <div className="text-sm text-gray-500">
               {searchPagination?.total || searchItems?.length || 0} items
             </div>
@@ -76,7 +113,7 @@ const Search = () => {
             </div>
           )}
 
-          {!searchLoading && query && searchItems?.length === 0 && (
+          {!searchLoading && hasAnyFilter && searchItems?.length === 0 && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-sm text-gray-600">
               No products found. Try a different keyword.
             </div>

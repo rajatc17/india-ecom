@@ -32,11 +32,20 @@ export const fetchFeaturedProducts = createAsyncThunk(
 
 export const fetchSearchProducts = createAsyncThunk(
     'products/fetchSearch',
-    async ({ q, page = 1, limit = 20, sort = "-createdAt" } = {}, { rejectWithValue }) => {
+    async (params = {}, { rejectWithValue }) => {
         try {
-            const query = new URLSearchParams({ q, page, limit, sort }).toString();
+            const normalizedParams = {
+                page: 1,
+                limit: 20,
+                sort: "-createdAt",
+                ...params,
+            };
+
+            const query = new URLSearchParams(
+                Object.entries(normalizedParams).filter(([, value]) => value !== undefined && value !== null && value !== '')
+            ).toString();
             const data = await api(`/api/products?${query}`);
-            return { ...data, q };
+            return { ...data, searchParams: normalizedParams };
         } catch (error) {
             return rejectWithValue(error.message || 'Failed to search products');
         }
@@ -121,7 +130,7 @@ const productSlice = createSlice({
                 state.searchLoading = false;
                 state.searchItems = action.payload.products || [];
                 state.searchPagination = action.payload.pagination || state.searchPagination;
-                state.searchQuery = action.payload.q || "";
+                state.searchQuery = action.payload.searchParams?.q || "";
             })
             .addCase(fetchSearchProducts.rejected, (state, action) => {
                 state.searchLoading = false;

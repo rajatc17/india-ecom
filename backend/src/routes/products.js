@@ -9,6 +9,108 @@ const router = express.Router();
 const PRODUCT_LIST_SELECT = 'name slug price discountedPrice discount brand images category region giTagged isFeatured stock averageRating reviewCount createdAt';
 const PRODUCT_DETAIL_SELECT = 'name slug description price discountedPrice discount images category region giTagged stock averageRating reviewCount brand material tags freeShipping';
 
+const REGION_RULES = [
+  {
+    key: 'pan-india',
+    label: 'Pan-India',
+    matchers: [/\bmultiple\b/i, /\bpan[-\s]?india\b/i],
+  },
+  {
+    key: 'rajasthan',
+    label: 'Rajasthan',
+    matchers: [/\brajasthan\b/i, /\bjaipur\b/i, /\bjodhpur\b/i, /\budaipur\b/i],
+  },
+  {
+    key: 'west-bengal',
+    label: 'West Bengal',
+    matchers: [/\bwest\s*bengal\b/i, /\bwb\b/i, /\bshantiniketan\b/i, /\bbengal\b/i],
+  },
+  {
+    key: 'uttar-pradesh',
+    label: 'Uttar Pradesh',
+    matchers: [/\buttar\s*pradesh\b/i, /\bup\b/i, /\bkhurja\b/i, /\bmoradabad\b/i],
+  },
+  {
+    key: 'chhattisgarh',
+    label: 'Chhattisgarh',
+    matchers: [/\bchhattisgarh\b/i, /\bbastar\b/i],
+  },
+  {
+    key: 'kashmir',
+    label: 'Kashmir',
+    matchers: [/\bkashmir\b/i],
+  },
+  {
+    key: 'maharashtra',
+    label: 'Maharashtra',
+    matchers: [/\bmaharashtra\b/i],
+  },
+  {
+    key: 'odisha',
+    label: 'Odisha',
+    matchers: [/\bodisha\b/i, /\borissa\b/i],
+  },
+  {
+    key: 'tripura',
+    label: 'Tripura',
+    matchers: [/\btripura\b/i],
+  },
+];
+
+const toSlug = (value = '') =>
+  String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const escapeRegex = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const findRegionRule = (value = '') => {
+  const normalized = String(value).trim().toLowerCase();
+  const slug = toSlug(normalized);
+  return REGION_RULES.find(
+    (rule) =>
+      rule.key === slug ||
+      rule.label.toLowerCase() === normalized ||
+      rule.matchers.some((matcher) => matcher.test(normalized))
+  );
+};
+
+const buildRegionRegex = (region = '') => {
+  const input = String(region).trim();
+  if (!input) return null;
+
+  const matchedRule = findRegionRule(input);
+  if (matchedRule) {
+    const combinedPattern = matchedRule.matchers
+      .map((matcher) => `(?:${matcher.source})`)
+      .join('|');
+    return new RegExp(combinedPattern, 'i');
+  }
+
+  return new RegExp(`^${escapeRegex(input)}$`, 'i');
+};
+
+const toCanonicalRegion = (region = '') => {
+  const trimmed = String(region).trim();
+  if (!trimmed) return null;
+
+  const matchedRule = findRegionRule(trimmed);
+  if (matchedRule) {
+    return {
+      key: matchedRule.key,
+      label: matchedRule.label,
+    };
+  }
+
+  const normalizedLabel = trimmed.replace(/\s+/g, ' ');
+  return {
+    key: toSlug(normalizedLabel),
+    label: normalizedLabel,
+  };
+};
+
 function toProductDetailPayload(product) {
   if (!product) return product;
   return {
@@ -74,16 +176,17 @@ router.get('/', async (req, res) => {
       }
     }
 
-    const baseFilter = { ...filter };
-
     // Region filter
     if (region) {
-      filter.region = region;
+      const regionRegex = buildRegionRegex(region);
+      if (regionRegex) {
+        filter.region = { $regex: regionRegex };
+      }
     }
 
     // GI-tagged filter
     if (gi === 'true') {
-      filter.isGITagged = true;
+      filter.giTagged = true;
     }
 
     // Price range filter
@@ -102,6 +205,8 @@ router.get('/', async (req, res) => {
     if (featured === 'true') {
       filter.isFeatured = true;
     }
+
+    const baseFilter = { ...filter };
 
     // Pagination
     const skip = (Number(page) - 1) * Number(limit);
@@ -241,6 +346,50 @@ router.get('/slug/:slug', async (req, res) => {
   }
 });
 
+// GET /api/products/regions - Get normalized region buckets for browse experiences
+router.get('/regions', async (req, res) => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 12, 50);
+
+    const products = await Product.find({ isActive: true })
+      .select('region')
+      .lean();
+
+    const regionMap = new Map();
+
+    products.forEach((product) => {
+      const canonical = toCanonicalRegion(product?.region);
+      if (!canonical) return;
+
+      const existing = regionMap.get(canonical.key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        regionMap.set(canonical.key, {
+          key: canonical.key,
+          label: canonical.label,
+          count: 1,
+        });
+      }
+    });
+
+    const regions = Array.from(regionMap.values())
+      .sort((a, b) => b.count - a.count)
+      .slice(0, limit);
+
+    res.json({
+      regions,
+      total: regions.length,
+    });
+  } catch (error) {
+    console.error('Get regions error:', error);
+    res.status(500).json({
+      message: 'Error fetching regions',
+      error: error.message,
+    });
+  }
+});
+
 // GET /api/products/:id - Get single product by ID
 router.get('/:id', async (req, res) => {
   try {
@@ -324,12 +473,15 @@ router.get('/admin/all', isAdmin, async (req, res) => {
 
     // Region filter
     if (region) {
-      filter.region = region;
+      const regionRegex = buildRegionRegex(region);
+      if (regionRegex) {
+        filter.region = { $regex: regionRegex };
+      }
     }
 
     // GI-tagged filter
     if (gi === 'true') {
-      filter.isGITagged = true;
+      filter.giTagged = true;
     }
 
     // Price range filter
